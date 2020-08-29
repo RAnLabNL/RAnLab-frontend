@@ -1,0 +1,19 @@
+{
+  "name": "@ranlab/frontend",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "description": "Web front-end for the RAnLab app",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "printf '%s\\n' 'No test specified'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RAnLabNL/RAnLab-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RAnLabNL/RAnLab-frontend/issues"
+  },
+  "homepage": "https://github.com/RAnLabNL/RAnLab-frontend#readme"
+}
