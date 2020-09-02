@@ -1,12 +1,23 @@
 {
-  "name": "ranlab",
-  "version": "0.1.0",
+  "name": "@ranlab/frontend",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
   "private": true,
+  "main": "pages/index.tsx",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "printf '%s\\n' 'No test specified'"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RAnLabNL/RAnLab-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RAnLabNL/RAnLab-frontend/issues"
+  },
+  "homepage": "https://github.com/RAnLabNL/RAnLab-frontend#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
