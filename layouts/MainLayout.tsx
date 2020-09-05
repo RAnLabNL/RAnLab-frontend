@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import { ReactNode, ReactElement } from 'react';
 import Head from 'next/head';
 
 type Props = {
   children?: ReactNode
   title?: string
-}
+};
 
-const MainLayout = ({ children, title }: Props) => (
+const MainLayout = ({ children, title }: Props): ReactElement => (
   <div>
     <Head>
       <title>
@@ -21,6 +21,6 @@ const MainLayout = ({ children, title }: Props) => (
     </Head>
     {children}
   </div>
-)
+);
 
-export default MainLayout
+export default MainLayout;

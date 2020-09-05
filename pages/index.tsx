@@ -1,13 +1,14 @@
 import Link from 'next/link';
+import { ReactElement } from 'react';
 
-export default function Home() {
-  return (
-    <div>
-      <Link href="/region">
-        <a>
-          Region Dashboard
-        </a>
-      </Link>
-    </div>
-  )
-}
+const Home = (): ReactElement => (
+  <div>
+    <Link href="/region">
+      <a>
+        Region Dashboard
+      </a>
+    </Link>
+  </div>
+);
+
+export default Home;
