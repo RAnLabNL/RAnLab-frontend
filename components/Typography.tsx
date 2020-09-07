@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import {
   Typography as MuiTypography,
   TypographyProps,
@@ -10,13 +11,13 @@ const useStyles = makeStyles(
       color: theme.palette.primary.main,
     },
   })
-)
+);
 
-const Typography = (props: TypographyProps) => {
+const Typography = (props: TypographyProps): ReactElement => {
   const {
     classes,
     ...other
-  } = props
+  } = props;
   const styles = useStyles();
 
   return (
@@ -27,7 +28,7 @@ const Typography = (props: TypographyProps) => {
         ...classes
       }}
     />
-  )
-}
+  );
+};
 
-export default Typography
+export default Typography;

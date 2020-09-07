@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import {
   createMuiTheme,
@@ -12,15 +13,15 @@ const theme = createMuiTheme({
       default: 'rgba(0,0,0,0.05)',
     },
   },
-})
+});
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): ReactNode {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Component {...pageProps} />
     </ThemeProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

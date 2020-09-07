@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode, ReactElement } from 'react';
 
 import MainLayout from './MainLayout';
 
 type Props = {
   children?: ReactNode
   title?: string
-}
+};
 
-const RegionLayout = ({ children, title }: Props) => (
+const RegionLayout = ({ children, title }: Props): ReactElement => (
   <MainLayout title={title}>
     <div>
       Region Nav
@@ -16,6 +16,6 @@ const RegionLayout = ({ children, title }: Props) => (
       {children}
     </div>
   </MainLayout>
-)
+);
 
-export default RegionLayout
+export default RegionLayout;
