@@ -25,7 +25,7 @@ const Typography = (props: TypographyProps): ReactElement => {
       {...other}
       classes={{
         h1: styles.h1,
-        ...classes
+        ...classes,
       }}
     />
   );

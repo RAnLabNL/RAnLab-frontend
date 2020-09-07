@@ -6,6 +6,8 @@ import {
 } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import './_i18n';
+
 // Test Theme
 const theme = createMuiTheme({
   palette: {
