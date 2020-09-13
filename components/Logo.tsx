@@ -1,13 +1,17 @@
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactElement, ElementType } from 'react';
+import {
+  forwardRef,
+  ReactElement,
+  ElementType,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
-  Component: ElementType,
-  className: string,
-  singleColor: boolean,
-  variant: 'tagline' | 'standalone' | 'icon',
+  Component?: ElementType,
+  className?: string,
+  singleColor?: boolean,
+  variant?: 'tagline' | 'standalone' | 'icon',
 };
 
 const useStyles = makeStyles(
@@ -27,9 +31,9 @@ const useStyles = makeStyles(
   })
 );
 
-const Logo = (props: Props): ReactElement => {
+const Logo = forwardRef((props: Props, ref): ReactElement => {
   const {
-    Component,
+    Component = 'a',
     className: classNameProp,
     singleColor,
     variant,
@@ -47,18 +51,14 @@ const Logo = (props: Props): ReactElement => {
         },
         classNameProp,
       )}
+      ref={ref}
       {...other}
     >
       {t('app-name')}
     </Component>
   );
-};
+});
 
-Logo.defaultProps = {
-  Component: 'a',
-  className: null,
-  singleColor: false,
-  variant: 'tagline',
-};
+Logo.displayName = 'Logo';
 
 export default Logo;
