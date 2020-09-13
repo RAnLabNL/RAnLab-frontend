@@ -43,10 +43,17 @@ const UserMenu = (): ReactElement => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
+  /**
+   * Fired on user menu icon button click
+   * @param e Target event
+   */
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   };
 
+  /**
+   * Fired when user menu closes
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };

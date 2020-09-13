@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { ReactElement } from 'react';
 
 import Logo from '../../components/Logo';
+import RegionMenu from '../../components/RegionMenu';
 
 const useStyles = makeStyles(
   (theme) => ({
     root: {
-      padding: `0 ${theme.spacing(2)}px`,
+      padding: `4.5rem ${theme.spacing(2)}px`,
       [theme.breakpoints.up('sm')]: {
         padding: `0 ${theme.spacing(3)}px`,
       },
@@ -33,6 +34,7 @@ const componentName = (): ReactElement => {
       <Link href="/region">
         <Logo className={classes.logo} />
       </Link>
+      <RegionMenu />
     </div>
   );
 };

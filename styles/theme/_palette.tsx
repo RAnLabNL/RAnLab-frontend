@@ -1,13 +1,18 @@
-import { lighten, darken } from '../helpers/color';
+import { 
+  fade,
+  lighten,
+  darken,
+} from '../helpers/color';
 
-const dark = '#202020';
-const light = '#fff';
-const background = '#F4F8FF';
+export const dark = '#202020';
+export const light = '#fff';
+export const background = '#F4F8FF';
 
-const primary = '#0052CC';
-const secondary = '#E63881';
-const highlight = '#47CFDE';
-const lowlight = '#0052CC';
+export const primary = '#0052CC';
+export const primaryDark = darken(primary, 0.15);
+export const secondary = '#E63881';
+export const highlight = '#47CFDE';
+export const lowlight = '#0052CC';
 
 const palette = {
   background: {
@@ -16,7 +21,7 @@ const palette = {
   primary: {
     light: lighten(primary, 0.15),
     main: primary,
-    dark: darken(primary, 0.15),
+    dark: primaryDark,
     contrastText: light,
   },
   secondary: {
@@ -29,7 +34,7 @@ const palette = {
     light: lighten(highlight, 0.15),
     main: highlight,
     dark: darken(highlight, 0.15),
-    contrastText: dark,
+    contrastText: light,
   },
   lowlight: {
     light: lighten(lowlight, 0.15),
@@ -39,6 +44,11 @@ const palette = {
   },
   text: {
     primary: dark,
+  },
+  divider: fade(primaryDark, 0.88),
+  action: {
+    hover: fade(primaryDark, 0.96),
+    selected: fade(primaryDark, 0.92),
   },
 };
 
