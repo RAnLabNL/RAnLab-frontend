@@ -1,17 +1,13 @@
 import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Link from 'next/link';
-import { ReactNode, ReactElement, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import Logo from '../../components/Logo';
+import { ReactNode, ReactElement, useState } from 'react';
+
 import MainLayout from '../MainLayout';
 import RegionSidebar from './RegionSidebar';
+import RegionToolbar from './RegionToolbar';
 
 type Props = {
   children?: ReactNode
@@ -52,12 +48,6 @@ const useStyles = makeStyles(
       [theme.breakpoints.up('md')]: {
         width: `calc(100% - ${drawerWidthMdEm}em)`,
         marginLeft: `${drawerWidthMdEm}em`,
-      },
-    },
-    logoContainer: {
-      width: '5rem',
-      [theme.breakpoints.up('sm')]: {
-        display: 'none',
       },
     },
     drawer: {
@@ -112,7 +102,6 @@ const useStyles = makeStyles(
 );
 
 const RegionLayout = ({ children, title }: Props): ReactElement => {
-  const { t } = useTranslation('layout-region');
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -132,21 +121,9 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
             },
           )}
         >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label={t('navigation-title')}
-              onClick={toggleDrawerOpen}
-              edge="start"
-            >
-              <MenuIcon />
-            </IconButton>
-            <div className={classes.logoContainer}>
-              <Link href="/region">
-                <Logo variant="standalone" />
-              </Link>
-            </div>
-          </Toolbar>
+          <RegionToolbar
+            onMenuButtonClick={toggleDrawerOpen}
+          />
         </AppBar>
         <Drawer
           className={classes.drawer}

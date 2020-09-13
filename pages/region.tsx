@@ -6,14 +6,14 @@ import Button from '../components/Button';
 import Typography from '../components/Typography';
 
 const Dashboard = (): ReactElement => {
-  const { t } = useTranslation('page-region');
+  const { t } = useTranslation('pages');
   return (
     <RegionLayout title="Dashboard">
       <Typography variant="h1">
-        {t('heading')}
+        {t('region-heading')}
       </Typography>
       <Button>
-        {t('test-button')}
+        {t('region-test-button')}
       </Button>
     </RegionLayout>
   );
