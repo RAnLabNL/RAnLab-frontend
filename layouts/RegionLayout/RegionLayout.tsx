@@ -5,43 +5,83 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import Link from 'next/link';
 import { ReactNode, ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import MainLayout from './MainLayout';
+import Logo from '../../components/Logo';
+import MainLayout from '../MainLayout';
+import RegionSidebar from './RegionSidebar';
 
 type Props = {
   children?: ReactNode
   title?: string
 };
 
-const drawerWidthEm = 18;
+const drawerWidthSmEm = 18;
+const drawerWidthMdEm = 22;
 
 const useStyles = makeStyles(
   (theme) => ({
     root: {
-      display: 'flex',
+      display: 'block',
+      [theme.breakpoints.up('sm')]: {
+        display: 'flex',
+      },
     },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      [theme.breakpoints.down('xs')]: {
+        zIndex: 1300,
+        background: theme.palette.background.paper,
+        color: theme.palette.primary.dark,
+      },
     },
     appBarShift: {
-      width: `calc(100% - ${drawerWidthEm}em)`,
-      marginLeft: `${drawerWidthEm}em`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidthSmEm}em)`,
+        marginLeft: `${drawerWidthSmEm}em`,
+      },
+      [theme.breakpoints.up('md')]: {
+        width: `calc(100% - ${drawerWidthMdEm}em)`,
+        marginLeft: `${drawerWidthMdEm}em`,
+      },
+    },
+    logoContainer: {
+      width: '5rem',
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
     },
     drawer: {
-      width: `${drawerWidthEm}em`,
+      width: '100vw',
       flexShrink: 0,
+      [theme.breakpoints.up('sm')]: {
+        width: `${drawerWidthSmEm}em`,
+      },
+      [theme.breakpoints.up('md')]: {
+        width: `${drawerWidthMdEm}em`,
+      },
     },
     drawerPaper: {
-      width: `${drawerWidthEm}em`,
+      width: '100vw',
+      background: theme.palette.primary.dark,
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.up('sm')]: {
+        background: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+        width: `${drawerWidthSmEm}em`,
+      },
+      [theme.breakpoints.up('md')]: {
+        width: `${drawerWidthMdEm}em`,
+      },
     },
     drawerPaperAnchorDockedLeft: {
       borderRightWidth: 0,
@@ -53,7 +93,13 @@ const useStyles = makeStyles(
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      margin: `3rem 0 0 -${drawerWidthEm}em`,
+      marginTop: '3rem',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: `-${drawerWidthSmEm}em`,
+      },
+      [theme.breakpoints.up('md')]: {
+        marginLeft: `-${drawerWidthMdEm}em`,
+      },
     },
     contentShift: {
       transition: theme.transitions.create('margin', {
@@ -89,12 +135,17 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
           <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="Toggle Menu"
+              aria-label={t('navigation-title')}
               onClick={toggleDrawerOpen}
               edge="start"
             >
               <MenuIcon />
             </IconButton>
+            <div className={classes.logoContainer}>
+              <Link href="/region">
+                <Logo variant="standalone" />
+              </Link>
+            </div>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -107,7 +158,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
           anchor="left"
           open={open}
         >
-          {t('navigation-title')}
+          <RegionSidebar />
         </Drawer>
         <main
           className={classNames(

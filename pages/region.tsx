@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import RegionLayout from '../layouts/RegionLayout';
+import RegionLayout from '../layouts/RegionLayout/RegionLayout';
 import Button from '../components/Button';
 import Typography from '../components/Typography';
 
