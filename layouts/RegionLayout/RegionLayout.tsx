@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { ReactNode, ReactElement, useState } from 'react';
 
+import createShadow from '../../styles/helpers/createShadow';
+import { fade } from '../../styles/helpers/color';
 import MainLayout from '../MainLayout';
 import RegionSidebar from './RegionSidebar';
 import RegionToolbar from './RegionToolbar';
@@ -62,6 +64,7 @@ const useStyles = makeStyles(
     },
     drawerPaper: {
       width: '100vw',
+      boxShadow: createShadow(fade(theme.palette.primary.dark, 0.65), 9),
       background: theme.palette.primary.dark,
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.up('sm')]: {
