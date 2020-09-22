@@ -3,8 +3,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { ReactNode, ReactElement, useState } from 'react';
+import {
+  ReactNode,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
 
+import { useViewport } from '../../providers/viewport';
 import createShadow from '../../styles/helpers/createShadow';
 import { fade } from '../../styles/helpers/color';
 import MainLayout from '../MainLayout';
@@ -36,6 +42,14 @@ const useStyles = makeStyles(
         zIndex: 1300,
         background: theme.palette.background.paper,
         color: theme.palette.primary.dark,
+      },
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(1.5),
+        paddingRight: theme.spacing(1.5),
+      },
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(2.5),
+        paddingRight: theme.spacing(2.5),
       },
     },
     appBarShift: {
@@ -81,16 +95,18 @@ const useStyles = makeStyles(
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      padding: theme.spacing(1.75),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginTop: '3rem',
+      marginTop: '3.5rem',
       [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(3),
         marginLeft: `-${drawerWidthSmEm}em`,
       },
       [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(4),
         marginLeft: `-${drawerWidthMdEm}em`,
       },
     },
@@ -106,7 +122,14 @@ const useStyles = makeStyles(
 
 const RegionLayout = ({ children, title }: Props): ReactElement => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const { width } = useViewport();
+
+  const fixedNavBreakpoint = 600;
+  const [open, setOpen] = useState(width >= fixedNavBreakpoint);
+
+  useEffect(() => {
+    setOpen(width >= fixedNavBreakpoint);
+  }, [width]);
 
   const toggleDrawerOpen = () => {
     setOpen(!open);

@@ -1,4 +1,15 @@
 {
+  "profile-form-first-name": "First Name",
+  "profile-form-institution": "Institution",
+  "profile-form-job-title": "Job Title",
+  "profile-form-last-name": "Last Name",
+  "profile-form-phone-number": "Phone Number",
+  "profile-form-submit": "Save Profile",
+  "profile-form-work-address-legend": "Work Address",
+  "profile-form-work-city": "City",
+  "profile-form-work-postal-code": "Postal Code",
+  "profile-form-work-province": "Province",
+  "profile-form-work-street-address": "Street Address", 
   "region-menu-label": "Select Region",
   "user-menu-log-out": "Log Out",
   "user-menu-profile": "Profile"

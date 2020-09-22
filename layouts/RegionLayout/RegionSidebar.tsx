@@ -9,7 +9,6 @@ import { ReactElement } from 'react';
 
 import Logo from '../../components/Logo';
 import RegionMenu from '../../components/RegionMenu';
-import Typography from '../../components/Typography';
 import { fade } from '../../styles/helpers/color';
 import {
   fontSmoothOff,
@@ -58,12 +57,23 @@ const useStyles = makeStyles(
         ...fontSmoothOn,
       },
     },
+    menuItem: {
+      padding: 0,
+    },
     listItemIcon: {
       color: theme.palette.primary.contrastText,
       minWidth: 36,
+      verticalAlign: 'top',
       [theme.breakpoints.up('sm')]: {
         color: theme.palette.primary.main,
       },
+    },
+    listItemLink: {
+      color: 'inherit',
+      display: 'block',
+      padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+      textDecoration: 'none',
+      width: '100%',
     },
     containerSubNav: {
       ...fontSmoothOn,
@@ -113,7 +123,7 @@ const useStyles = makeStyles(
   })
 );
 
-const componentName = (): ReactElement => {
+const RegionSidebar = (): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -124,21 +134,25 @@ const componentName = (): ReactElement => {
       <RegionMenu />
 
       <MenuList className={classes.menuList}>
-        <MenuItem href="/region">
-          <ListItemIcon className={classes.listItemIcon}>
-            <HomeIcon />
-          </ListItemIcon>
-          <Typography>
-            Region Home
-          </Typography>
+        <MenuItem className={classes.menuItem}>
+          <Link href="/region">
+            <a className={classes.listItemLink}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <HomeIcon />
+              </ListItemIcon>
+              Region Home
+            </a>
+          </Link>
         </MenuItem>
-        <MenuItem href="/region/">
-          <ListItemIcon className={classes.listItemIcon}>
-            <WorkIcon />
-          </ListItemIcon>
-          <Typography>
-            Businesses
-          </Typography>
+        <MenuItem className={classes.menuItem}>
+          <Link href="/businesses">
+            <a className={classes.listItemLink}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <WorkIcon />
+              </ListItemIcon>
+              Businesses
+            </a>
+          </Link>
         </MenuItem>
       </MenuList>
 
@@ -170,4 +184,4 @@ export interface SubNavItem {
   url: string;
 }
 
-export default componentName;
+export default RegionSidebar;

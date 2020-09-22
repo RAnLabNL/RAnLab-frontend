@@ -1,4 +1,3 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Head from 'next/head';
 import { ReactNode, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ const MainLayout = ({ children, title }: Props): ReactElement => {
   return (
     <div>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>
           {
             title ? `${title} | ` : ''
@@ -20,8 +20,9 @@ const MainLayout = ({ children, title }: Props): ReactElement => {
           {t('app-name')}
         </title>
       </Head>
-      <CssBaseline />
-      {children}
+      <div>
+        {children}
+      </div>
     </div>
   );
 };
