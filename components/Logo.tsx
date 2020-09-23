@@ -39,7 +39,7 @@ const Logo = forwardRef((props: Props, ref): ReactElement => {
     variant,
     ...other
   } = props;
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('components');
   const classes = useStyles();
 
   return (
