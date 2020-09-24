@@ -11,7 +11,7 @@ export const background = '#F4F8FF';
 export const primary = '#0052CC';
 export const primaryDark = darken(primary, 0.15);
 export const secondary = '#E63881';
-export const highlight = '#47CFDE';
+export const highlight = '#3ABEDF';
 export const lowlight = '#0052CC';
 
 const palette = {

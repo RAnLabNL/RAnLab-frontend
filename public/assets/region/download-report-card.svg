@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="206px" height="100px" viewBox="0 0 206 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Region-Admin---Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Region-Admin---Home" transform="translate(-1116.000000, -384.000000)" fill="#FFFFFF">
+            <g id="Custom-Report-Card" transform="translate(1050.000000, 182.000000)">
+                <g id="Art" transform="translate(64.000000, 171.000000)">
+                    <g id="Group-4" transform="translate(0.990234, 0.994441)">
+                        <g id="Group-13" opacity="0.169549851" transform="translate(104.203364, 66.000000) rotate(9.000000) translate(-104.203364, -66.000000) translate(7.703364, 15.000000)">
+                            <path d="M2.52106429,101.397688 C1.45129008,101.397688 0.827388776,101.37672 0.683041432,101.371881 L0.865881402,96.4960749 C1.09844101,96.5089782 24.4217642,97.2428491 57.5045717,87.4476878 C88.0051657,78.4170427 133.291739,58.3251072 175.818071,13.8863975 L179.314484,17.2686556 C135.9766,62.5525265 89.7838457,83.0057524 58.6625582,92.1896233 C29.8444128,100.694462 8.71677309,101.397688 2.52106429,101.397688" id="Fill-7" opacity="0.584123884"></path>
+                            <polygon id="Fill-10" opacity="0.584123884" points="192.335655 0.333225294 166.787779 5.67516078 187.023673 26.0251608"></polygon>
+                        </g>
+                        <g id="Group-14" opacity="0.250488281" transform="translate(7.000000, 66.068059)">
+                            <polygon id="Fill-1" points="173.167464 63 194.066986 63 194.066986 0 173.167464 0"></polygon>
+                            <polygon id="Fill-2" points="104.497608 63 125.397129 63 125.397129 30 104.497608 30"></polygon>
+                            <polygon id="Fill-3" points="68.6698565 63 89.569378 63 89.569378 41 68.6698565 41"></polygon>
+                            <polygon id="Fill-4" points="33.8373206 63 54.7368421 63 54.7368421 48 33.8373206 48"></polygon>
+                            <polygon id="Fill-5" points="0 63 20.8995215 63 20.8995215 53 0 53"></polygon>
+                            <polygon id="Fill-6" points="138.334928 63 159.23445 63 159.23445 16 138.334928 16"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

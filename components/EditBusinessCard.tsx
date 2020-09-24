@@ -17,6 +17,7 @@ import Typography from './Typography';
 const useStyles = makeStyles(
   (theme) => ({
     root: {
+      height: '100%',
       textAlign: 'center',
     },
     cardContent: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles(
     linkLearnMore: {
       color: theme.palette.secondary.dark,
       display: 'inline-block',
-      marginTop: theme.spacing(1.5),
+      marginTop: theme.spacing(1),
     },
     gridItemImg: {
       [theme.breakpoints.down(700)]: {

@@ -2,14 +2,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import HomeIcon from '@material-ui/icons/Home';
 import WorkIcon from '@material-ui/icons/Work';
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 import RegionMenu from '../../components/RegionMenu';
 import { fade } from '../../styles/helpers/color';
+import createShadow from '../../styles/helpers/createShadow';
 import {
   fontSmoothOff,
   fontSmoothOn,
@@ -18,15 +22,15 @@ import {
 
 const subNavItems: SubNavItem[] = [
   {
-    text: 'Terms',
+    text: 'region-sidebar-terms',
     url: '/terms',
   },
   {
-    text: 'About',
+    text: 'region-sidebar-about',
     url: '/about',
   },
   {
-    text: 'Contact',
+    text: 'region-sidebar-contact',
     url: '/contact',
   },
 ];
@@ -75,18 +79,20 @@ const useStyles = makeStyles(
       textDecoration: 'none',
       width: '100%',
     },
+    containerBottom: {
+      bottom: 0,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
     containerSubNav: {
       ...fontSmoothOn,
-      bottom: 0,
       borderTop: `1px solid ${fade(theme.palette.primary.contrastText, 0.8)}`,
       color: theme.palette.primary.contrastText,
       display: 'flex',
       fontSize: '0.9em',
       justifyContent: 'space-between',
-      left: 0,
       padding: theme.spacing(2),
-      position: 'absolute',
-      right: 0,
       [theme.breakpoints.up('sm')]: {
         ...fontSmoothOff,
         borderColor: theme.palette.divider,
@@ -120,11 +126,39 @@ const useStyles = makeStyles(
         },
       },
     },
+    containerDownloadReport: {
+      padding: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+      },
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+      },
+    },
+    buttonDownloadReport: {
+      marginTop: theme.spacing(2),
+      [theme.breakpoints.down('xs')]: {
+        background: theme.palette.background.paper,
+        boxShadow: createShadow(theme.palette.text.primary, 1),
+        color: theme.palette.primary.dark,
+        '&:hover': {
+          background: fade(theme.palette.background.paper, 0.2),
+          color: theme.palette.primary.dark,
+        },
+      },
+    },
   })
 );
 
 const RegionSidebar = (): ReactElement => {
+  const { t } = useTranslation('layouts');
   const classes = useStyles();
+
+  const handleDownloadReportClick = () => {
+    window.open('/assets/fixture/test-report.pdf');
+  };
 
   return (
     <div className={classes.root}>
@@ -140,7 +174,7 @@ const RegionSidebar = (): ReactElement => {
               <ListItemIcon className={classes.listItemIcon}>
                 <HomeIcon />
               </ListItemIcon>
-              Region Home
+              {t('region-sidebar-home')}
             </a>
           </Link>
         </MenuItem>
@@ -150,30 +184,50 @@ const RegionSidebar = (): ReactElement => {
               <ListItemIcon className={classes.listItemIcon}>
                 <WorkIcon />
               </ListItemIcon>
-              Businesses
+              {t('region-sidebar-businesses')}
             </a>
           </Link>
         </MenuItem>
       </MenuList>
 
-      <div className={classes.containerSubNav}>
-        <ul className={classes.ulSubNav}>
-          {
-            subNavItems.map(({ text, url }) => (
-              <li
-                className={classes.liSubNav}
-                key={url}
-              >
-                <Link href={url}>
-                  <a className={classes.linkSubNav}>
-                    {text}
-                  </a>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-        &copy; 2020 RAnLab
+      <div className={classes.containerBottom}>
+        <div className={classes.containerDownloadReport}>
+          <Button
+            className={classes.buttonDownloadReport}
+            component="a"
+            color="highlight"
+            fullWidth
+            endIcon={
+              <GetAppIcon
+                fontSize="small"
+              />
+            }
+            onClick={handleDownloadReportClick}
+            variant="contained"
+            
+          >
+            {t('region-sidebar-download-report')}
+          </Button>
+        </div>
+        <div className={classes.containerSubNav}>
+          <ul className={classes.ulSubNav}>
+            {
+              subNavItems.map(({ text, url }) => (
+                <li
+                  className={classes.liSubNav}
+                  key={url}
+                >
+                  <Link href={url}>
+                    <a className={classes.linkSubNav}>
+                      {t(text)}
+                    </a>
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+          &copy; 2020 RAnLab
+        </div>
       </div>
     </div>
   );

@@ -55,9 +55,9 @@ const useStyles = makeStyles(
         },
         [theme.breakpoints.up('sm')]: {
           color: theme.palette.highlight.contrastText,
-          background: `linear-gradient(to right, #118BDB 0%, ${theme.palette.highlight.main} 110%)`,
+          background: theme.gradients.blueTeal,
           '&:hover': {
-            background: `linear-gradient(to right, #118BDB 0%, ${theme.palette.highlight.main} 110%)`,
+            background: theme.gradients.blueTeal,
             boxShadow: createShadow(theme.palette.highlight.main, 3),
           },
           '&.Mui-focused': {
