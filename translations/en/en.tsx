@@ -1,13 +1,13 @@
 import common from './_common.json';
-import layoutRegion from './_layoutRegion.json';
-import pageIndex from './_pageIndex.json';
-import pageRegion from './_pageRegion.json';
+import components from './_components.json';
+import layouts from './_layouts.json';
+import pages from './_pages.json';
 
 const en = {
   common,
-  'layout-region': layoutRegion,
-  'page-index': pageIndex,
-  'page-region': pageRegion,
+  components,
+  layouts,
+  pages,
 };
 
 export default en;
