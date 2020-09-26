@@ -12,6 +12,7 @@ export const primary = '#0052CC';
 export const primaryDark = darken(primary, 0.15);
 export const secondary = '#E63881';
 export const highlight = '#3ABEDF';
+export const highlightDark = darken(highlight, 0.15);
 export const lowlight = '#0052CC';
 
 const palette = {
@@ -33,7 +34,7 @@ const palette = {
   highlight: {
     light: lighten(highlight, 0.15),
     main: highlight,
-    dark: darken(highlight, 0.15),
+    dark: highlightDark,
     contrastText: light,
   },
   lowlight: {

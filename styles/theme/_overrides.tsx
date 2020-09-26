@@ -1,5 +1,5 @@
 import { darken, fade } from '../helpers/color';
-import { primaryDark } from './_palette';
+import { highlightDark, primary, primaryDark } from './_palette';
 
 const overrides = {
   MuiBackdrop: {
@@ -7,9 +7,28 @@ const overrides = {
       backgroundColor: fade(darken(primaryDark, 0.5), 0.25),
     },
   },
+  MuiButton: {
+    root: {
+      textTransform: 'none',
+    },
+  },
   MuiCard: {
     root: {
       borderRadius: 10,
+    },
+  },
+  MuiCssBaseline: {
+    '@global': {
+      a: {
+        color: primary,
+        transition: 'color 0.1s',
+        '&:active, &:visited': {
+          color: primary,
+        },
+        '&:hover': {
+          color: highlightDark,
+        },
+      },
     },
   },
 };
