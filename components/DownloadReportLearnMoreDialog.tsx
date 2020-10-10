@@ -13,7 +13,7 @@ import Button from './Button';
 //   })
 // );
 
-const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
+const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
   const {
     onClose,
     ...other
@@ -35,7 +35,7 @@ const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
     >
       <DialogTitle>
         {/* This data will be fed in from Prismic, no need for translations */}
-        About Your Businesses
+        About Your Report
       </DialogTitle>
       <DialogContent>
         Lorem ipsum dolor sit amet
@@ -53,4 +53,4 @@ const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
   );
 };
 
-export default EditBusinessLearnMoreDialog;
+export default DownloadReportLearnMoreDialog;

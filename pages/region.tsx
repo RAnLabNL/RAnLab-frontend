@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import RegionLayout from '../layouts/RegionLayout/RegionLayout';
+import DownloadReportCard from '../components/DownloadReportCard';
 import EditBusinessCard from '../components/EditBusinessCard';
 import Typography from '../components/Typography';
 
@@ -34,9 +35,17 @@ const Region = (): ReactElement => {
         <small>St. John&rsquo;s, NL</small>
         {t('region-heading')}
       </Typography>
-      <Grid container>
-        <Grid item sm={12} md={8} lg={7}>
+
+      <Grid
+        alignItems="stretch"
+        container
+        spacing={3}
+      >
+        <Grid item sm={12} md={12} lg={7}>
           <EditBusinessCard />
+        </Grid>
+        <Grid item sm={12} md={12} lg={5}>
+          <DownloadReportCard />
         </Grid>
       </Grid>
     </RegionLayout>
