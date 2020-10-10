@@ -9,7 +9,7 @@ const overrides = {
   },
   MuiButton: {
     root: {
-      textTransform: 'none',
+      textTransform: 'none' as const,
     },
   },
   MuiCard: {
