@@ -1,4 +1,9 @@
 {
+  "businesses-filter-legend": "Filter",
+  "businesses-filter-industry-label": "Industry",
+  "businesses-filter-name-label": "Name",
+  "businesses-filter-year-label": "Year",
+  "data-sources-button": "Data Sources",
   "download-report-card-body": "We've compiled a booklet of comprehensive reports based on the data for your region.",
   "download-report-card-cta": "Download Report",
   "download-report-card-heading": "Download your custom report.",
