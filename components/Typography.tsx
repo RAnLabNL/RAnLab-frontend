@@ -1,34 +1,39 @@
-import { ReactElement } from 'react';
+import { ReactElement, ElementType } from 'react';
 import {
   Typography as MuiTypography,
-  TypographyProps,
+  TypographyProps as MuiTypographyProps,
 } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(
   (theme) => ({
     h1: {
-      color: theme.palette.primary.main,
+      marginBottom: theme.spacing(2),
     },
   })
 );
 
 const Typography = (props: TypographyProps): ReactElement => {
   const {
-    classes,
+    classes: classesProp,
     ...other
   } = props;
-  const styles = useStyles();
+  const classes = useStyles();
 
   return (
     <MuiTypography
       {...other}
       classes={{
-        h1: styles.h1,
-        ...classes,
+        h1: classes.h1,
+        ...classesProp,
       }}
     />
   );
 };
+
+export interface TypographyProps extends MuiTypographyProps {
+  component?: ElementType;
+}
 
 export default Typography;

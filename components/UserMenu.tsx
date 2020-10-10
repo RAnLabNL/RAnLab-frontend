@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PersonIcon from '@material-ui/icons/Person';
+import Link from 'next/link';
 import {
   MouseEvent,
   ReactElement,
@@ -31,9 +32,17 @@ const useStyles = makeStyles(
     },
     menuItem: {
       fontSize: '0.9rem',
+      minHeight: 'none',
+      padding: 0,
       '&:first-of-type': {
         borderBottom: `1px solid ${fade(theme.palette.text.primary, 0.9)}`,
       },
+    },
+    menuItemLink: {
+      fontSize: 'inherit',
+      textDecoration: 'none',
+      color: 'inherit',
+      padding: theme.spacing(2),
     },
   })
 );
@@ -73,6 +82,9 @@ const UserMenu = (): ReactElement => {
         <PersonIcon fontSize="small" />
       </IconButton>
       <Menu
+        MenuListProps={{
+          disablePadding: true,
+        }}
         id="user-menu"
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -89,10 +101,16 @@ const UserMenu = (): ReactElement => {
         }}
       >
         <MenuItem className={classes.menuItem}>
-          {t('user-menu-profile')}
+          <Link href="/profile">
+            <a className={classes.menuItemLink}>
+              {t('user-menu-profile')}
+            </a>
+          </Link>
         </MenuItem>
         <MenuItem className={classes.menuItem}>
-          {t('user-menu-log-out')}
+          <a className={classes.menuItemLink}>
+            {t('user-menu-log-out')}
+          </a>
         </MenuItem>
       </Menu>
     </div>
