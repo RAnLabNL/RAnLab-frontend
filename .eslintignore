@@ -1,3 +1,4 @@
 .node_modules
 .next
 .eslintrc.js
+next.config.js
