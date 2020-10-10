@@ -15,6 +15,9 @@ jobs:
         run: |
           yarn --frozen-lockfile
           yarn test
+      - name: Export site
+        run: |
+          yarn export
   completed:
     name: All jobs completed
     runs-on: ubuntu-20.04
