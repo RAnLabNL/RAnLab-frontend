@@ -78,6 +78,9 @@ const useStyles = makeStyles(
       padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
       textDecoration: 'none',
       width: '100%',
+      '&:visited, &:active': {
+        color: 'inherit',
+      },
     },
     containerBottom: {
       bottom: 0,

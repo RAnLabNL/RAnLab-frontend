@@ -13,6 +13,12 @@ import FilterSelect from './FilterSelect';
 import FilterTextField from './FilterTextField';
 import Typography from './Typography';
 
+type Props = {
+  setBusinessIndustryFilter: (industry: string) => void,
+  setBusinessNameFilter: (name: string) => void,
+  setBusinessYearFilter: (year: number) => void,
+};
+
 const useStyles = makeStyles(
   (theme) => ({
     root: {
@@ -45,7 +51,12 @@ const useStyles = makeStyles(
   })
 );
 
-const Businesses = (): ReactElement => {
+const Businesses = (props: Props): ReactElement => {
+  const {
+    setBusinessIndustryFilter,
+    setBusinessNameFilter,
+    setBusinessYearFilter,
+  } = props;
   const { t } = useTranslation('components');
   const classes = useStyles();
 
@@ -53,11 +64,20 @@ const Businesses = (): ReactElement => {
   const [industry, setIndustry] = useState('');
 
   const handleYearChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setYear(e.target.value as string);
+    const yearValue = e.target.value as string;
+    setYear(yearValue);
+    setBusinessYearFilter(+yearValue);
   };
 
   const handleIndustryChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setIndustry(e.target.value as string);
+    const industryValue = e.target.value as string;
+    setIndustry(industryValue);
+    setBusinessIndustryFilter(industryValue);
+  };
+
+  const handleNameChange = (e: ChangeEvent<{ value: unknown }>) => {
+    const nameValue = e.target.value as string;
+    setBusinessNameFilter(nameValue);
   };
 
   return (
@@ -94,7 +114,7 @@ const Businesses = (): ReactElement => {
             name="filter-year"
             value={year}
           >
-            <MenuItem>
+            <MenuItem value="">
               --
             </MenuItem>
             <MenuItem value="2020">
@@ -129,17 +149,17 @@ const Businesses = (): ReactElement => {
             name="filter-industry"
             value={industry}
           >
-            <MenuItem>
+            <MenuItem value="">
               --
             </MenuItem>
-            <MenuItem value="0">
-              Forestry
+            <MenuItem value="Air transportation">
+              Air transportation
             </MenuItem>
-            <MenuItem value="1">
-              Oil &amp; Gas
+            <MenuItem value="Construction">
+              Construction
             </MenuItem>
-            <MenuItem value="2">
-              Technology
+            <MenuItem value="Building material and garden equipment and supplies dealers">
+              Building material and garden equipment and supplies dealers
             </MenuItem>
           </FilterSelect>
         </Grid>
@@ -148,6 +168,7 @@ const Businesses = (): ReactElement => {
             className={classes.filterTextFieldName}
             id="filter-name"
             name="filter-name"
+            onChange={handleNameChange}
             label={t('businesses-filter-name-label')}
             InputProps={{
               endAdornment: (

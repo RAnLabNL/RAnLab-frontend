@@ -56,6 +56,9 @@ const useStyles = makeStyles(
       color: 'inherit',
       display: 'inline-block',
       marginTop: theme.spacing(1),
+      '&:visited, &:active': {
+        color: 'inherit',
+      },
     },
   })
 );

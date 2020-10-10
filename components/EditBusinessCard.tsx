@@ -49,6 +49,9 @@ const useStyles = makeStyles(
       color: theme.palette.secondary.dark,
       display: 'inline-block',
       marginTop: theme.spacing(1),
+      '&:visited, &:active': {
+        color: theme.palette.secondary.dark,
+      },
     },
     gridItemImg: {
       [theme.breakpoints.down(700)]: {
