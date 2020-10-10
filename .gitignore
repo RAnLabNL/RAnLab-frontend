@@ -1,6 +1,7 @@
 yarn-error.log
 package-lock.json
 node_modules/
+_static/
 .next/
 .out
 .DS_Store
