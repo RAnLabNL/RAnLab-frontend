@@ -47,6 +47,7 @@ const palette = {
   },
   divider: fade(primaryDark, 0.88),
   action: {
+    active: fade(primaryDark, 0.6),
     hover: fade(primaryDark, 0.96),
     selected: fade(primaryDark, 0.92),
   },

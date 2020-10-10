@@ -1,14 +1,43 @@
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import HomeIcon from '@material-ui/icons/Home';
+import WorkIcon from '@material-ui/icons/Work';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 
 import Logo from '../../components/Logo';
 import RegionMenu from '../../components/RegionMenu';
+import Typography from '../../components/Typography';
+import { fade } from '../../styles/helpers/color';
+import {
+  fontSmoothOff,
+  fontSmoothOn,
+  stripUl,
+} from '../../styles/helpers/extend';
+
+const subNavItems: SubNavItem[] = [
+  {
+    text: 'Terms',
+    url: '/terms',
+  },
+  {
+    text: 'About',
+    url: '/about',
+  },
+  {
+    text: 'Contact',
+    url: '/contact',
+  },
+];
 
 const useStyles = makeStyles(
   (theme) => ({
     root: {
+      height: '100vh',
       padding: `4.5rem ${theme.spacing(2)}px`,
+      position: 'relative',
       [theme.breakpoints.up('sm')]: {
         padding: `0 ${theme.spacing(3)}px`,
       },
@@ -17,10 +46,68 @@ const useStyles = makeStyles(
       },
     },
     logo: {
-      margin: '0 auto',
+      margin: `0 auto ${theme.spacing(2)}px`,
       maxWidth: '10rem',
       [theme.breakpoints.down('xs')]: {
         display: 'none',
+      },
+    },
+    menuList: {
+      marginTop: theme.spacing(1.5),
+      [theme.breakpoints.down('xs')]: {
+        ...fontSmoothOn,
+      },
+    },
+    listItemIcon: {
+      color: theme.palette.primary.contrastText,
+      minWidth: 36,
+      [theme.breakpoints.up('sm')]: {
+        color: theme.palette.primary.main,
+      },
+    },
+    containerSubNav: {
+      ...fontSmoothOn,
+      bottom: 0,
+      borderTop: `1px solid ${fade(theme.palette.primary.contrastText, 0.8)}`,
+      color: theme.palette.primary.contrastText,
+      display: 'flex',
+      fontSize: '0.9em',
+      justifyContent: 'space-between',
+      left: 0,
+      padding: theme.spacing(2),
+      position: 'absolute',
+      right: 0,
+      [theme.breakpoints.up('sm')]: {
+        ...fontSmoothOff,
+        borderColor: theme.palette.divider,
+        color: theme.palette.text.disabled,
+        fontSize: '0.8em',
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: '0.9em',
+      },
+    },
+    ulSubNav: {
+      ...stripUl,
+    },
+    liSubNav: {
+      display: 'inline-block',
+    },
+    linkSubNav: {
+      color: 'inherit',
+      padding: theme.spacing(0.5),
+      textDecoration: 'none',
+      transition: theme.transitions.create('color', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.shortest,
+      }),
+      '&:hover': {
+        color: theme.palette.highlight.main,
+      },
+      [theme.breakpoints.up('sm')]: {
+        '&:hover': {
+          color: theme.palette.primary.main,
+        },
       },
     },
   })
@@ -35,8 +122,52 @@ const componentName = (): ReactElement => {
         <Logo className={classes.logo} />
       </Link>
       <RegionMenu />
+
+      <MenuList className={classes.menuList}>
+        <MenuItem href="/region">
+          <ListItemIcon className={classes.listItemIcon}>
+            <HomeIcon />
+          </ListItemIcon>
+          <Typography>
+            Region Home
+          </Typography>
+        </MenuItem>
+        <MenuItem href="/region/">
+          <ListItemIcon className={classes.listItemIcon}>
+            <WorkIcon />
+          </ListItemIcon>
+          <Typography>
+            Businesses
+          </Typography>
+        </MenuItem>
+      </MenuList>
+
+      <div className={classes.containerSubNav}>
+        <ul className={classes.ulSubNav}>
+          {
+            subNavItems.map(({ text, url }) => (
+              <li
+                className={classes.liSubNav}
+                key={url}
+              >
+                <Link href={url}>
+                  <a className={classes.linkSubNav}>
+                    {text}
+                  </a>
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+        &copy; 2020 RAnLab
+      </div>
     </div>
   );
 };
+
+export interface SubNavItem {
+  text: string;
+  url: string;
+}
 
 export default componentName;
