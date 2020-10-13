@@ -1,4 +1,6 @@
 import classNames from 'classnames';
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   MouseEvent,
@@ -7,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CellClassParams,
   GridOptions,
@@ -61,16 +64,10 @@ const BusinessesTable = (props: Props): ReactElement => {
     yearFilter,
   } = props;
   const classes = useStyles();
+  const { t } = useTranslation('components');
 
   // Grid Config
 
-  const pinnedAddData: BusinessRow[] = [{
-    year: 0,
-    name: 'add',
-    industry: 'add',
-    employment: 0,
-    location: 'add',
-  }];
   const [rowData] = useState(fixtureData);
 
   const [gridApi, setGridApi] = useState<GridOptions['api']>(null);
@@ -208,8 +205,23 @@ const BusinessesTable = (props: Props): ReactElement => {
 
   // Editing
 
+  const defaultAddRow = {
+    year: 0,
+    name: 'add',
+    industry: 'add',
+    employment: 0,
+    location: 'add',
+  };
+  const pinnedAddData = [defaultAddRow];
   const [ removeSnackbarOpen, setRemoveSnackbarOpen ] = useState<boolean>(false);
   const [ selectedRows, setSelectedRows] = useState<RowNode[]>([]);
+
+  const [ alertInfo, setAlertInfo ] = useState<AlertInfo>({});
+  const [ alertSnackbarOpen, setAlertSnackbarOpen ] = useState<boolean>(false);
+
+  const handleAlertSnackbarClose = () => {
+    setAlertSnackbarOpen(false);
+  };
 
   /**
    * Toggle bulk remove snackbar on row selection
@@ -234,6 +246,11 @@ const BusinessesTable = (props: Props): ReactElement => {
       gridApi.applyTransaction({
         remove: rowData,
       });
+      setAlertInfo({
+        message: t('businesses-table-remove-success', { count: rowData.length }),
+        severity: 'success',
+      });
+      setAlertSnackbarOpen(true);
     }
   };
 
@@ -248,11 +265,16 @@ const BusinessesTable = (props: Props): ReactElement => {
       gridApi.applyTransaction({
         remove: [row],
       });
+      setAlertInfo({
+        message: t('businesses-table-remove-success', { count: 1 }),
+        severity: 'success',
+      });
+      setAlertSnackbarOpen(true);
     }
   };
 
   // Default values for adding a cell
-  const defaultValues = {
+  const defaultValues: BusinessRow = {
     year: 2020,
     name: '',
     industry: '',
@@ -274,6 +296,16 @@ const BusinessesTable = (props: Props): ReactElement => {
   };
 
   /**
+   * Resets the add data row by simply redrawing
+   */
+  const resetPinnedRow = () => {
+    if (gridApi) {
+      const pinnedRow = gridApi.getPinnedTopRow(0);
+      gridApi.redrawRows({ rowNodes: [pinnedRow] });
+    }
+  };
+
+  /**
    * Adds the current values to the table
    */
   const handleRowAdd = () => {
@@ -281,6 +313,13 @@ const BusinessesTable = (props: Props): ReactElement => {
       gridApi.applyTransaction({
         add: [addValuesRef.current],
       });
+      addValuesRef.current = defaultValues;
+      resetPinnedRow();
+      setAlertInfo({
+        message: t('businesses-table-add-success'),
+        severity: 'success',
+      });
+      setAlertSnackbarOpen(true);
     }
   };
 
@@ -295,10 +334,10 @@ const BusinessesTable = (props: Props): ReactElement => {
 
     if (params.data.year === 0) {
       const label = params.columnApi.getDisplayNameForColumn(params.column, null);
-      const field = params.column.colId;
+      const field: string = params.column.colId;
       renderedValue = (
         <BusinessesAddCell
-          defaultValues={defaultValues}
+          defaultValue={addValuesRef.current[field]}
           field={field}
           handleChange={updateAddValues}
           label={label}
@@ -431,9 +470,27 @@ const BusinessesTable = (props: Props): ReactElement => {
         open={removeSnackbarOpen}
         rowCount={selectedRows.length}
       />
+      <Snackbar
+        autoHideDuration={3000}
+        open={alertSnackbarOpen}
+        onClose={handleAlertSnackbarClose}
+      >
+        <Alert
+          onClose={handleAlertSnackbarClose}
+          severity={alertInfo.severity}
+          variant="filled"
+        >
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
+
+interface AlertInfo {
+  message?: string;
+  severity?: 'error' | 'info' | 'success' | 'warning';
+}
 
 // Needed to dynamically key in a BusinessRow
 interface BusinessField {

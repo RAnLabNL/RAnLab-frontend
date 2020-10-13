@@ -1,13 +1,11 @@
 import MenuItem from '@material-ui/core/MenuItem';
-// import { makeStyles } from '@material-ui/core/styles';
 import { ChangeEvent, ReactElement, useState } from 'react';
 
-import { BusinessRow } from './BusinessesTable';
 import FilterTextField from '../../base/FilterTextField';
 import FilterSelect from '../../base/FilterSelect';
 
 type Props = {
-  defaultValues: BusinessRow;
+  defaultValue: number | string;
   field: string;
   handleChange: (
     field: string,
@@ -18,7 +16,7 @@ type Props = {
 
 const BusinessesAddCell = (props: Props): ReactElement => {
   const {
-    defaultValues,
+    defaultValue,
     handleChange,
     field,
     label,
@@ -27,7 +25,6 @@ const BusinessesAddCell = (props: Props): ReactElement => {
   // Used for id and name
   const id = `add-business-${field}`;
 
-  const defaultValue = defaultValues[field];
   const [ value, setValue ] = useState<string | number>(defaultValue);
 
   /**
