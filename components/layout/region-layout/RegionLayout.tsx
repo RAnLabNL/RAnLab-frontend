@@ -10,9 +10,9 @@ import {
   useState,
 } from 'react';
 
-import { useViewport } from '../../providers/viewport';
-import createShadow from '../../styles/helpers/createShadow';
-import { fade } from '../../styles/helpers/color';
+import { useViewport } from '../../../providers/viewport';
+import createShadow from '../../../styles/helpers/createShadow';
+import { fade } from '../../../styles/helpers/color';
 import MainLayout from '../MainLayout';
 import RegionSidebar from './RegionSidebar';
 import RegionToolbar from './RegionToolbar';
@@ -95,12 +95,16 @@ const useStyles = makeStyles(
     },
     content: {
       flexGrow: 1,
+      marginTop: '3.5rem',
+      overflowY: 'hidden',
       padding: theme.spacing(1.75),
+      position: 'relative',
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginTop: '3.5rem',
+      // Localize fixed positioning
+      transform: 'translate(0,0)',
       [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(3),
         marginLeft: `-${drawerWidthSmEm}em`,

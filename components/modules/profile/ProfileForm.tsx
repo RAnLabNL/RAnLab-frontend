@@ -12,8 +12,8 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Button from './Button';
-import Typography from './Typography';
+import Button from '../../base/Button';
+import Typography from '../../base/Typography';
 
 // type Props = {};
 

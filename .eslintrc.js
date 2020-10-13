@@ -11,7 +11,7 @@ module.exports = {
   ],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
-    'indent': ['error', 2],
+    'indent': ['error', 2, { 'SwitchCase': 1 }],
     'object-curly-spacing': ['error', 'always'],
     'eol-last': ['error', 'always'],
     'react/react-in-jsx-scope': 'off',

@@ -1,8 +1,9 @@
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
-
+import SaveIcon from '@material-ui/icons/Save';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Link from 'next/link';
 import {
@@ -12,13 +13,13 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import BusinessesDataSourcesDialog from '../components/BusinessesDataSourcesDialog';
-import BusinessesFilters from '../components/BusinessesFilters';
-import BusinessesTable from '../components/BusinessesTable';
-import Button from '../components/Button';
-import DataSources from '../components/DataSourcesButton';
-import Typography from '../components/Typography';
-import RegionLayout from '../layouts/RegionLayout/RegionLayout';
+import BusinessesDataSourcesDialog from '../components/modules/businesses/BusinessesDataSourcesDialog';
+import BusinessesFilters from '../components/modules/businesses/BusinessesFilters';
+import BusinessesTable from '../components/modules/businesses/BusinessesTable';
+import Button from '../components/base/Button';
+import DataSources from '../components/base/DataSourcesButton';
+import Typography from '../components/base/Typography';
+import RegionLayout from '../components/layout/region-layout/RegionLayout';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -103,6 +104,21 @@ const Businesses = (): ReactElement => {
     setBusinessYearFilter,
   ] = useState<number | null>();
 
+  // Business Editing
+
+  const [
+    businessEditingEnabled,
+    setBusinessEditingEnabled,
+  ] = useState<boolean>(false);
+
+  const handleEditBusinesses = () => {
+    setBusinessEditingEnabled(!businessEditingEnabled);
+  };
+
+  const handleCancelBusinessEdits = () => {
+    setBusinessEditingEnabled(false);
+  };
+
   return (
     <RegionLayout title="Edit Businesses">
       <div className={classes.root}>
@@ -130,16 +146,39 @@ const Businesses = (): ReactElement => {
               </Breadcrumbs>
             </Grid>
             <Grid item>
+              {
+                businessEditingEnabled
+                  ? (
+                    <Button
+                      onClick={handleCancelBusinessEdits}
+                      size="small"
+                      startIcon={
+                        <CloseIcon fontSize="small" />
+                      }
+                      variant="outlined"
+                    >
+                      {t('businesses-edit-cancel')}
+                    </Button>
+                  )
+                  : null
+              }
               <Button
                 className={classes.buttonEdit}
-                color="primary"
+                color={businessEditingEnabled ? 'highlight' : 'primary'}
+                onClick={handleEditBusinesses}
                 size="small"
                 startIcon={
-                  <EditIcon fontSize="small" />
+                  businessEditingEnabled
+                    ? <SaveIcon fontSize="small" />
+                    : <EditIcon fontSize="small" />
                 }
                 variant="contained"
               >
-                {t('businesses-edit')}
+                {
+                  businessEditingEnabled
+                    ? t('businesses-edit-save')
+                    : t('businesses-edit')
+                }
               </Button>
             </Grid>
           </Grid>
@@ -170,6 +209,7 @@ const Businesses = (): ReactElement => {
         </Grid>
 
         <BusinessesTable
+          editingEnabled={businessEditingEnabled}
           industryFilter={businessIndustryFilter}
           nameFilter={businessNameFilter}
           yearFilter={businessYearFilter}

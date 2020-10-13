@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 
-import Button from './Button';
+import Button from '../../base/Button';
 
 // const useStyles = makeStyles(
 //   () => ({
@@ -13,7 +13,7 @@ import Button from './Button';
 //   })
 // );
 
-const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
+const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
   const {
     onClose,
     ...other
@@ -35,7 +35,7 @@ const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
     >
       <DialogTitle>
         {/* This data will be fed in from Prismic, no need for translations */}
-        About Your Report
+        About Your Businesses
       </DialogTitle>
       <DialogContent>
         Lorem ipsum dolor sit amet
@@ -53,4 +53,4 @@ const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
   );
 };
 
-export default DownloadReportLearnMoreDialog;
+export default EditBusinessLearnMoreDialog;

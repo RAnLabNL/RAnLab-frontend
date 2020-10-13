@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 
-import Button from './Button';
+import Button from '../../base/Button';
 
 // const useStyles = makeStyles(
 //   () => ({
@@ -13,16 +13,12 @@ import Button from './Button';
 //   })
 // );
 
-// type Props = {
-//   onClose?: DialogProps['onClose'];
-//   open?: DialogProps['open'];
-// };
-
-const BusinessesDataSourcesDialog = (props: DialogProps): ReactElement => {
+const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
   const {
     onClose,
-    open,
+    ...other
   } = props;
+  // const classes = useStyles();
 
   const onCloseClick = () => {
     if (typeof onClose !== 'undefined') {
@@ -32,15 +28,14 @@ const BusinessesDataSourcesDialog = (props: DialogProps): ReactElement => {
 
   return (
     <Dialog
-      aria-describedby="businesses-data-source-content"
-      aria-labelledby="businesses-data-source-title"
+      aria-describedby="edit-business-learn-more-content"
+      aria-labelledby="edit-business-learn-more-title"
       onClose={onClose}
-      open={open}
-      // open={open === undefined ? false : open}
+      {...other}
     >
       <DialogTitle>
         {/* This data will be fed in from Prismic, no need for translations */}
-        Businesses Data Sources
+        About Your Report
       </DialogTitle>
       <DialogContent>
         Lorem ipsum dolor sit amet
@@ -58,4 +53,4 @@ const BusinessesDataSourcesDialog = (props: DialogProps): ReactElement => {
   );
 };
 
-export default BusinessesDataSourcesDialog;
+export default DownloadReportLearnMoreDialog;
