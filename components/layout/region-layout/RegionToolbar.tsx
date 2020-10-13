@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { MouseEvent, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Logo from '../../components/Logo';
-import UserMenu from '../../components/UserMenu';
+import Logo from '../../base/Logo';
+import UserMenu from '../UserMenu';
 
 type Props = {
   onMenuButtonClick: (e: MouseEvent<HTMLButtonElement>) => void,
@@ -39,7 +39,7 @@ const useStyles = makeStyles(
 );
 
 const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
-  const { t } = useTranslation('layouts');
+  const { t } = useTranslation('components');
   const classes = useStyles();
 
   return (

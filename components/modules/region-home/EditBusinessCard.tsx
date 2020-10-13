@@ -10,9 +10,9 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Button from './Button';
+import Button from '../../base/Button';
 import EditBusinessLearnMoreDialog from './EditBusinessLearnMoreDialog';
-import Typography from './Typography';
+import Typography from '../../base/Typography';
 
 const useStyles = makeStyles(
   (theme) => ({

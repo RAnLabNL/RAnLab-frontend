@@ -9,9 +9,9 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FilterSelect from './FilterSelect';
-import FilterTextField from './FilterTextField';
-import Typography from './Typography';
+import FilterSelect from '../../base/FilterSelect';
+import FilterTextField from '../../base/FilterTextField';
+import Typography from '../../base/Typography';
 
 type Props = {
   setBusinessIndustryFilter: (industry: string) => void,

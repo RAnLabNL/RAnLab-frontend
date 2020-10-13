@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import createShadow from '../styles/helpers/createShadow';
+import createShadow from '../../styles/helpers/createShadow';
 
 const useStyles = makeStyles(
   (theme) => {

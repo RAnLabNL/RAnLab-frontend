@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import RegionLayout from '../layouts/RegionLayout/RegionLayout';
-import DownloadReportCard from '../components/DownloadReportCard';
-import EditBusinessCard from '../components/EditBusinessCard';
-import Typography from '../components/Typography';
+import RegionLayout from '../components/layout/region-layout/RegionLayout';
+import DownloadReportCard from '../components/modules/region-home/DownloadReportCard';
+import EditBusinessCard from '../components/modules/region-home/EditBusinessCard';
+import Typography from '../components/base/Typography';
 
 const useStyles = makeStyles(
   (theme) => ({

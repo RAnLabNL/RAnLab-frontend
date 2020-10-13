@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { fade } from '../styles/helpers/color';
+import { fade } from '../../styles/helpers/color';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -41,8 +41,14 @@ const useStyles = makeStyles(
     menuItemLink: {
       fontSize: 'inherit',
       textDecoration: 'none',
-      color: 'inherit',
+      color: theme.palette.text.primary,
       padding: theme.spacing(2),
+      '&:visited': {
+        color: theme.palette.text.primary,
+      },
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
     },
   })
 );

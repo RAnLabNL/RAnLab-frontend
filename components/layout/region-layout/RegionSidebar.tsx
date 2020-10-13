@@ -9,16 +9,16 @@ import Link from 'next/link';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Button from '../../components/Button';
-import Logo from '../../components/Logo';
-import RegionMenu from '../../components/RegionMenu';
-import { fade } from '../../styles/helpers/color';
-import createShadow from '../../styles/helpers/createShadow';
+import Button from '../../base/Button';
+import Logo from '../../base/Logo';
+import RegionMenu from '../RegionMenu';
+import { fade } from '../../../styles/helpers/color';
+import createShadow from '../../../styles/helpers/createShadow';
 import {
   fontSmoothOff,
   fontSmoothOn,
   stripUl,
-} from '../../styles/helpers/extend';
+} from '../../../styles/helpers/extend';
 
 const subNavItems: SubNavItem[] = [
   {
@@ -156,7 +156,7 @@ const useStyles = makeStyles(
 );
 
 const RegionSidebar = (): ReactElement => {
-  const { t } = useTranslation('layouts');
+  const { t } = useTranslation('components');
   const classes = useStyles();
 
   const handleDownloadReportClick = () => {

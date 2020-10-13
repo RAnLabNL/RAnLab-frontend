@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 
-import Button from './Button';
+import Button from '../../base/Button';
 
 // const useStyles = makeStyles(
 //   () => ({
@@ -13,12 +13,16 @@ import Button from './Button';
 //   })
 // );
 
-const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
+// type Props = {
+//   onClose?: DialogProps['onClose'];
+//   open?: DialogProps['open'];
+// };
+
+const BusinessesDataSourcesDialog = (props: DialogProps): ReactElement => {
   const {
     onClose,
-    ...other
+    open,
   } = props;
-  // const classes = useStyles();
 
   const onCloseClick = () => {
     if (typeof onClose !== 'undefined') {
@@ -28,14 +32,15 @@ const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
 
   return (
     <Dialog
-      aria-describedby="edit-business-learn-more-content"
-      aria-labelledby="edit-business-learn-more-title"
+      aria-describedby="businesses-data-source-content"
+      aria-labelledby="businesses-data-source-title"
       onClose={onClose}
-      {...other}
+      open={open}
+      // open={open === undefined ? false : open}
     >
       <DialogTitle>
         {/* This data will be fed in from Prismic, no need for translations */}
-        About Your Businesses
+        Businesses Data Sources
       </DialogTitle>
       <DialogContent>
         Lorem ipsum dolor sit amet
@@ -53,4 +58,4 @@ const EditBusinessLearnMoreDialog = (props: DialogProps): ReactElement => {
   );
 };
 
-export default EditBusinessLearnMoreDialog;
+export default BusinessesDataSourcesDialog;
