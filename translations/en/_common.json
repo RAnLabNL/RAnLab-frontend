@@ -1,3 +1,8 @@
 {
-  "app-name": "Regional Analytics Lab"
+  "app-name": "Regional Analytics Lab",
+  "businesses-employment": "Employment",
+  "businesses-industry": "Industry",
+  "businesses-location": "Location",
+  "businesses-name": "Name",
+  "businesses-year": "Year"
 }

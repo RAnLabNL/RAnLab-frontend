@@ -108,6 +108,7 @@ const BusinessesAddCell = (props: Props): ReactElement => {
           label={label}
           name={id}
           type={field === 'employment' ? 'number' : 'text'}
+          value={value}
         />
       );
   }
