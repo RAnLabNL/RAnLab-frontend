@@ -145,7 +145,7 @@ const BusinessesTable = (props: Props): ReactElement => {
 
   // TODO this needs to be fed in from API
   const editYearParams = {
-    values: [ 2019, 2020 ],
+    values: [2019, 2020],
   };
 
   // TODO this needs to be fed in from API
@@ -324,11 +324,11 @@ const BusinessesTable = (props: Props): ReactElement => {
     location: 'add',
   };
   const pinnedAddData = [defaultAddRow];
-  const [ removeSnackbarOpen, setRemoveSnackbarOpen ] = useState<boolean>(false);
-  const [ selectedRows, setSelectedRows] = useState<RowNode[]>([]);
+  const [removeSnackbarOpen, setRemoveSnackbarOpen] = useState<boolean>(false);
+  const [selectedRows, setSelectedRows] = useState<RowNode[]>([]);
 
-  const [ alertInfo, setAlertInfo ] = useState<AlertInfo>({});
-  const [ alertSnackbarOpen, setAlertSnackbarOpen ] = useState<boolean>(false);
+  const [alertInfo, setAlertInfo] = useState<AlertInfo>({});
+  const [alertSnackbarOpen, setAlertSnackbarOpen] = useState<boolean>(false);
 
   const handleAlertSnackbarClose = () => {
     setAlertSnackbarOpen(false);
@@ -504,6 +504,9 @@ const BusinessesTable = (props: Props): ReactElement => {
     () => {
       if (columnApi && editingEnabled) {
         columnApi.moveColumn('select', 0);
+      }
+      if (gridApi && !editingEnabled) {
+        gridApi.setRowData(originalData);
       }
     },
     [editingEnabled]

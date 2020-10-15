@@ -25,6 +25,7 @@ import Button from '../components/base/Button';
 import DataSources from '../components/base/DataSourcesButton';
 import Typography from '../components/base/Typography';
 import RegionLayout from '../components/layout/region-layout/RegionLayout';
+import AlertDialog from '../components/base/AlertDialog';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -117,24 +118,37 @@ const Businesses = (): ReactElement => {
     businessEditingEnabled,
     setBusinessEditingEnabled,
   ] = useState<boolean>(false);
+  const [
+    leaveEditsAlertOpen,
+    setLeaveEditsAlertOpen,
+  ] = useState<boolean>(false);
 
   const handleEditBusinesses = () => {
     setBusinessEditingEnabled(!businessEditingEnabled);
   };
 
   const handleCancelBusinessEdits = () => {
+    setLeaveEditsAlertOpen(true);
+  };
+
+  const handleLeaveEditsAlertClose = () => {
+    setLeaveEditsAlertOpen(false);
+  };
+
+  const handleLeaveEditsAlertConfirm = () => {
     setBusinessEditingEnabled(false);
+    setLeaveEditsAlertOpen(false);
   };
 
   // Transaction Record
 
-  const [ transactions, setTransactions ] = useState<UpdateTransaction>({
+  const [transactions, setTransactions] = useState<UpdateTransaction>({
     add: [],
     remove: [],
     update: [],
   });
 
-  const [ showConfirmation, setShowConfirmation ] = useState<boolean>(false);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   const handleSaveBusinesses = () => {
     setShowConfirmation(true);
@@ -142,6 +156,14 @@ const Businesses = (): ReactElement => {
 
   const handleCancelBusinessConfirmation = () => {
     setShowConfirmation(false);
+  };
+
+  const getSaveDisabled = (): boolean => {
+    return (
+      !transactions.add.length
+      && !transactions.remove.length
+      && !transactions.update.length
+    );
   };
 
   const handleConfirmBusinessUpdates = () => {
@@ -222,6 +244,7 @@ const Businesses = (): ReactElement => {
                       <Button
                         className={classes.buttonEdit}
                         color={'highlight'}
+                        disabled={getSaveDisabled()}
                         onClick={handleSaveBusinesses}
                         size="small"
                         startIcon={<SaveIcon fontSize="small" />}
@@ -303,6 +326,13 @@ const Businesses = (): ReactElement => {
           setTransactions={setTransactions}
           transactions={transactions}
           yearFilter={businessYearFilter}
+        />
+        <AlertDialog
+          content={t('businesses-leave-edits-content')}
+          onClose={handleLeaveEditsAlertClose}
+          onConfirm={handleLeaveEditsAlertConfirm}
+          open={leaveEditsAlertOpen}
+          title={t('businesses-leave-edits-title')}
         />
         {
           showConfirmation

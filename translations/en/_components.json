@@ -1,4 +1,6 @@
 {
+  "alert-dialog-cancel": "Cancel",
+  "alert-dialog-confirm": "OK",
   "businesses-action-cell-add": "Add",
   "businesses-bulk-remove-body": "Apply to selected (<1>{{count}}</1>):",
   "businesses-bulk-remove-button": "Remove",

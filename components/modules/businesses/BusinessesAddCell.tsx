@@ -25,7 +25,7 @@ const BusinessesAddCell = (props: Props): ReactElement => {
   // Used for id and name
   const id = `add-business-${field}`;
 
-  const [ value, setValue ] = useState<string | number>(defaultValue);
+  const [value, setValue] = useState<string | number>(defaultValue);
 
   /**
    * Handles changes of field values, sends value change to parent component.
@@ -108,7 +108,7 @@ const BusinessesAddCell = (props: Props): ReactElement => {
           label={label}
           name={id}
           type={field === 'employment' ? 'number' : 'text'}
-          value={value}
+          value={field === 'employment' ? undefined : value}
         />
       );
   }
