@@ -58,6 +58,7 @@ const Businesses = (props: Props): ReactElement => {
     setBusinessYearFilter,
   } = props;
   const { t } = useTranslation('components');
+  const { t: tCommon } = useTranslation('common');
   const classes = useStyles();
 
   const [year, setYear] = useState('');
@@ -110,7 +111,7 @@ const Businesses = (props: Props): ReactElement => {
             }}
             handleChange={handleYearChange}
             id="filter-year"
-            label={t('businesses-filter-year-label')}
+            label={tCommon('businesses-year')}
             name="filter-year"
             value={year}
           >
@@ -145,7 +146,7 @@ const Businesses = (props: Props): ReactElement => {
             }}
             handleChange={handleIndustryChange}
             id="filter-industry"
-            label={t('businesses-filter-industry-label')}
+            label={tCommon('businesses-industry')}
             name="filter-industry"
             value={industry}
           >
@@ -169,7 +170,7 @@ const Businesses = (props: Props): ReactElement => {
             id="filter-name"
             name="filter-name"
             onChange={handleNameChange}
-            label={t('businesses-filter-name-label')}
+            label={tCommon('businesses-name')}
             InputProps={{
               endAdornment: (
                 <SearchIcon fontSize="small" />

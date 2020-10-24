@@ -1,6 +1,9 @@
+import classNames from 'classnames';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
@@ -9,13 +12,15 @@ import Link from 'next/link';
 import {
   MouseEvent,
   ReactElement,
+  useEffect,
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import BusinessesDataSourcesDialog from '../components/modules/businesses/BusinessesDataSourcesDialog';
 import BusinessesFilters from '../components/modules/businesses/BusinessesFilters';
-import BusinessesTable from '../components/modules/businesses/BusinessesTable';
+import BusinessesSaveConfirm from '../components/modules/businesses/BusinessesSaveConfirm';
+import BusinessesTable, { UpdateTransaction } from '../components/modules/businesses/BusinessesTable';
 import Button from '../components/base/Button';
 import DataSources from '../components/base/DataSourcesButton';
 import Typography from '../components/base/Typography';
@@ -30,8 +35,10 @@ const useStyles = makeStyles(
     return {
       root: {
         display: 'flex',
-        height: getCalculatedHeight(2),
         flexDirection: 'column',
+      },
+      tableVisible: {
+        height: getCalculatedHeight(2),
         [theme.breakpoints.up('sm')]: {
           height: getCalculatedHeight(3),
         },
@@ -119,9 +126,45 @@ const Businesses = (): ReactElement => {
     setBusinessEditingEnabled(false);
   };
 
+  // Transaction Record
+
+  const [ transactions, setTransactions ] = useState<UpdateTransaction>({
+    add: [],
+    remove: [],
+    update: [],
+  });
+
+  const [ showConfirmation, setShowConfirmation ] = useState<boolean>(false);
+
+  const handleSaveBusinesses = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleCancelBusinessConfirmation = () => {
+    setShowConfirmation(false);
+  };
+
+  const handleConfirmBusinessUpdates = () => {
+    console.log('save');
+  };
+
+  useEffect(
+    () => {
+      console.log(transactions);
+    },
+    [transactions]
+  );
+
   return (
     <RegionLayout title="Edit Businesses">
-      <div className={classes.root}>
+      <div
+        className={classNames(
+          classes.root,
+          {
+            [classes.tableVisible]: !showConfirmation,
+          }
+        )}
+      >
         <div className={classes.containerNavigation}>
           <Grid
             alignItems="center"
@@ -147,39 +190,77 @@ const Businesses = (): ReactElement => {
             </Grid>
             <Grid item>
               {
-                businessEditingEnabled
+                !businessEditingEnabled
                   ? (
                     <Button
-                      onClick={handleCancelBusinessEdits}
+                      className={classes.buttonEdit}
+                      color={'primary'}
+                      onClick={handleEditBusinesses}
                       size="small"
-                      startIcon={
-                        <CloseIcon fontSize="small" />
-                      }
-                      variant="outlined"
+                      startIcon={<EditIcon fontSize="small" />}
+                      variant="contained"
                     >
-                      {t('businesses-edit-cancel')}
+                      {t('businesses-edit')}
                     </Button>
                   )
                   : null
               }
-              <Button
-                className={classes.buttonEdit}
-                color={businessEditingEnabled ? 'highlight' : 'primary'}
-                onClick={handleEditBusinesses}
-                size="small"
-                startIcon={
-                  businessEditingEnabled
-                    ? <SaveIcon fontSize="small" />
-                    : <EditIcon fontSize="small" />
-                }
-                variant="contained"
-              >
-                {
-                  businessEditingEnabled
-                    ? t('businesses-edit-save')
-                    : t('businesses-edit')
-                }
-              </Button>
+              {
+                businessEditingEnabled && !showConfirmation
+                  ? (
+                    <>
+                      <Button
+                        onClick={handleCancelBusinessEdits}
+                        size="small"
+                        startIcon={
+                          <CloseIcon fontSize="small" />
+                        }
+                        variant="outlined"
+                      >
+                        {t('businesses-edit-cancel')}
+                      </Button>
+                      <Button
+                        className={classes.buttonEdit}
+                        color={'highlight'}
+                        onClick={handleSaveBusinesses}
+                        size="small"
+                        startIcon={<SaveIcon fontSize="small" />}
+                        variant="contained"
+                      >
+                        {t('businesses-edit-save')}
+                      </Button>
+                    </>
+                  )
+                  : null
+              }
+              {
+                showConfirmation
+                  ? (
+                    <>
+                      <Button
+                        onClick={handleCancelBusinessConfirmation}
+                        size="small"
+                        startIcon={
+                          <KeyboardBackspaceIcon fontSize="small" />
+                        }
+                        variant="outlined"
+                      >
+                        {t('businesses-confirm-back')}
+                      </Button>
+                      <Button
+                        className={classes.buttonEdit}
+                        color={'highlight'}
+                        onClick={handleConfirmBusinessUpdates}
+                        size="small"
+                        startIcon={<CheckIcon fontSize="small" />}
+                        variant="contained"
+                      >
+                        {t('businesses-confirm-save')}
+                      </Button>
+                    </>
+                  )
+                  : null
+              }
             </Grid>
           </Grid>
         </div>
@@ -191,11 +272,17 @@ const Businesses = (): ReactElement => {
           spacing={2}
         >
           <Grid item>
-            <BusinessesFilters
-              setBusinessIndustryFilter={setBusinessIndustryFilter}
-              setBusinessNameFilter={setBusinessNameFilter}
-              setBusinessYearFilter={setBusinessYearFilter}
-            />
+            {
+              showConfirmation
+                ? 'Confirmation'
+                : (
+                  <BusinessesFilters
+                    setBusinessIndustryFilter={setBusinessIndustryFilter}
+                    setBusinessNameFilter={setBusinessNameFilter}
+                    setBusinessYearFilter={setBusinessYearFilter}
+                  />
+                )
+            }
           </Grid>
           <Grid item>
             <DataSources
@@ -212,8 +299,20 @@ const Businesses = (): ReactElement => {
           editingEnabled={businessEditingEnabled}
           industryFilter={businessIndustryFilter}
           nameFilter={businessNameFilter}
+          saving={showConfirmation}
+          setTransactions={setTransactions}
+          transactions={transactions}
           yearFilter={businessYearFilter}
         />
+        {
+          showConfirmation
+            ? (
+              <BusinessesSaveConfirm
+                transactions={transactions}
+              />
+            )
+            : null
+        }
       </div>
     </RegionLayout>
   );

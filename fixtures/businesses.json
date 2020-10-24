@@ -1,12 +1,14 @@
 [
   {
-    "year": 2020,
+    "id": 0,
+    "year": 2019,
     "name": "3 MK CONSTRUCTION LIMITED",
     "industry": "Construction",
     "employment": 21,
     "location": "53.30745732, -60.37430679"
   },
   {
+    "id": 1,
     "year": 2019,
     "name": "A&M CONSTRUCTION",
     "industry": "Construction",
@@ -14,6 +16,7 @@
     "location": "53.30601919, -60.30175911"
   },
   {
+    "id": 2,
     "year": 2019,
     "name": "ACADEMY CANADA",
     "industry": "Community colleges and C.E.G.E.P.s",
@@ -21,6 +24,7 @@
     "location": "53.29559651, -60.30390697"
   },
   {
+    "id": 3,
     "year": 2019,
     "name": "AG PIKES HOLDING LIMITED",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -28,6 +32,7 @@
     "location": "53.2981993, -60.31767145"
   },
   {
+    "id": 4,
     "year": 2019,
     "name": "AIR BORELIS",
     "industry": "Air transportation",
@@ -35,6 +40,7 @@
     "location": "53.3079428, -60.4260839"
   },
   {
+    "id": 5,
     "year": 2019,
     "name": "AIR LABRADOR LIMITED",
     "industry": "Air transportation",
@@ -42,6 +48,7 @@
     "location": "53.31138539, -60.4260839"
   },
   {
+    "id": 6,
     "year": 2019,
     "name": "AIRBOURNE CAFÉ & GIFTS LIMITED",
     "industry": "Food services and drinking places",
@@ -49,6 +56,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 7,
     "year": 2019,
     "name": "ALANTRA LEASING INCORPORTED",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -56,6 +64,7 @@
     "location": "53.31743976, -60.28843946"
   },
   {
+    "id": 8,
     "year": 2019,
     "name": "ALL WHEEL DRIVE",
     "industry": "Motor vehicle and parts dealers",
@@ -63,6 +72,7 @@
     "location": "53.30961117, -60.33953662"
   },
   {
+    "id": 9,
     "year": 2019,
     "name": "AMARUK GOLF CLUB",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
@@ -70,6 +80,7 @@
     "location": "53.3046169, -60.3732009"
   },
   {
+    "id": 10,
     "year": 2019,
     "name": "ANTHONY INSURANCE INC",
     "industry": "Agencies, brokerages and other insurance related activities",
@@ -77,6 +88,7 @@
     "location": "53.31100121, -60.37825874"
   },
   {
+    "id": 11,
     "year": 2019,
     "name": "ASSOCIATION OF NEW CANADIANS",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -84,13 +96,15 @@
     "location": "53.29641705, -60.32769873"
   },
   {
+    "id": 12,
     "year": 2019,
     "name": "ATLANTIC CANADA OPPORTUNITEIS AGENGY",
     "industry": "Other federal government services (except defence)",
     "employment": 187,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 13,
     "year": 2019,
     "name": "AURORA ENERGY LTD. /ARORA ENERGY RESOURCES",
     "industry": "Other metal ore mining",
@@ -98,6 +112,7 @@
     "location": "53.31173682, -60.41675995"
   },
   {
+    "id": 14,
     "year": 2019,
     "name": "AVIS BUDGET GROUP",
     "industry": "Automotive equipment rental and leasing",
@@ -105,6 +120,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 15,
     "year": 2019,
     "name": "BANK OF MONTREAL",
     "industry": "Banking and other depository credit intermediation",
@@ -112,6 +128,7 @@
     "location": "53.2975273, -60.32884211"
   },
   {
+    "id": 16,
     "year": 2019,
     "name": "BANK OF NOVA SCOTIA",
     "industry": "Banking and other depository credit intermediation",
@@ -119,6 +136,7 @@
     "location": "53.29813733, -60.30205639"
   },
   {
+    "id": 17,
     "year": 2019,
     "name": "BAYTEC MECHANICAL SERVICES INC.",
     "industry": "Automotive repair and maintenance",
@@ -126,6 +144,7 @@
     "location": "53.30867419, -60.38413748"
   },
   {
+    "id": 18,
     "year": 2019,
     "name": "BECKEN PHOTOGRAPHY",
     "industry": "Other professional, scientific and technical services",
@@ -133,20 +152,23 @@
     "location": "53.31930646, -60.39606284"
   },
   {
+    "id": 19,
     "year": 2019,
     "name": "BELL CANADA",
     "industry": "Telecommunications",
     "employment": 135,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 20,
     "year": 2019,
     "name": "BELL MOBILITY INC",
     "industry": "Telecommunications",
     "employment": 135,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 21,
     "year": 2019,
     "name": "BELRON CANADA LTD",
     "industry": "Automotive repair and maintenance",
@@ -154,6 +176,7 @@
     "location": "53.29860083, -60.32545434"
   },
   {
+    "id": 22,
     "year": 2019,
     "name": "BIG LAND BED & BREAKFAST",
     "industry": "Traveller accommodation",
@@ -161,6 +184,7 @@
     "location": "53.30216789, -60.31755328"
   },
   {
+    "id": 23,
     "year": 2019,
     "name": "BIG LAND REALTY LIMITED",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -168,6 +192,7 @@
     "location": "53.2981993, -60.31767145"
   },
   {
+    "id": 24,
     "year": 2019,
     "name": "BIRCH ISLAND SPA & SKIN CARE SERVICES",
     "industry": "Personal care services and other personal services",
@@ -175,6 +200,7 @@
     "location": "53.2956335, -60.30080833"
   },
   {
+    "id": 25,
     "year": 2019,
     "name": "BIRDHOUSE GARDEN MARKET INC.",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -182,6 +208,7 @@
     "location": "53.2978903, -60.31496141"
   },
   {
+    "id": 26,
     "year": 2019,
     "name": "BLACK & MACDONALD",
     "industry": "Construction",
@@ -189,13 +216,15 @@
     "location": "53.33071296, -60.41398069"
   },
   {
+    "id": 27,
     "year": 2019,
     "name": "BLACK SPRUCE EXPEDITIONS",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
     "employment": 173,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 28,
     "year": 2019,
     "name": "BLB PROPERTY MAINTENANCE LTD.",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -203,6 +232,7 @@
     "location": "53.30838417, -60.38444373"
   },
   {
+    "id": 29,
     "year": 2019,
     "name": "BLIZZARD CORPORATION LTD. . MINIPI CAMP",
     "industry": "Clothing and clothing accessories stores",
@@ -210,6 +240,7 @@
     "location": "53.33000157, -60.4121786"
   },
   {
+    "id": 30,
     "year": 2019,
     "name": "BNR DISTRIBUTION & TRANSMISSION LTD.",
     "industry": "Construction",
@@ -217,6 +248,7 @@
     "location": "53.31521057, -60.38449977"
   },
   {
+    "id": 31,
     "year": 2019,
     "name": "BURDEN'S JANITORIAL",
     "industry": "Services to buildings and dwellings",
@@ -224,6 +256,7 @@
     "location": "53.30844046, -60.37921409"
   },
   {
+    "id": 32,
     "year": 2019,
     "name": "C.B.C.L.",
     "industry": "Architectural, engineering and related services",
@@ -231,6 +264,7 @@
     "location": "53.305186, -60.37233974"
   },
   {
+    "id": 33,
     "year": 2019,
     "name": "CABOT AUTO",
     "industry": "Automotive repair and maintenance",
@@ -238,6 +272,7 @@
     "location": "53.29921121, -60.33186023"
   },
   {
+    "id": 34,
     "year": 2019,
     "name": "CAL LEGROW INSURANCE LIMITED",
     "industry": "Agencies, brokerages and other insurance related activities",
@@ -245,6 +280,7 @@
     "location": "53.308795, -60.37730677"
   },
   {
+    "id": 35,
     "year": 2019,
     "name": "CANADA INC. / HONG KONG RESTAURANT",
     "industry": "Food services and drinking places",
@@ -252,6 +288,7 @@
     "location": "53.30776722, -60.37589535"
   },
   {
+    "id": 36,
     "year": 2019,
     "name": "CANADA POST - STATION B",
     "industry": "Postal service",
@@ -259,6 +296,7 @@
     "location": "53.29852592, -60.30267656"
   },
   {
+    "id": 37,
     "year": 2019,
     "name": "CANADA POST - STATION C",
     "industry": "Postal service",
@@ -266,6 +304,7 @@
     "location": "53.3128239, -60.37995245"
   },
   {
+    "id": 38,
     "year": 2019,
     "name": "CANADIAN HELICOPTERS",
     "industry": "Air transportation",
@@ -273,6 +312,7 @@
     "location": "53.30488541, -60.37169876"
   },
   {
+    "id": 39,
     "year": 2019,
     "name": "CANADIAN NATIONAL INSTITUTE FOR THE BLIND",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -280,13 +320,15 @@
     "location": "53.29780617, -60.3036578"
   },
   {
+    "id": 40,
     "year": 2019,
     "name": "CAPITAL SECURITY GOURP",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 41,
     "year": 2019,
     "name": "CARTWRIGHT DRILLING INC.",
     "industry": "Support activities for mining, and oil and gas extraction",
@@ -294,6 +336,7 @@
     "location": "53.32628995, -60.40763883"
   },
   {
+    "id": 42,
     "year": 2019,
     "name": "CENTRAL TRUSS SYSTEMS (LABRADOR) INC.",
     "industry": "Veneer, plywood and engineered wood product manufacturing",
@@ -301,6 +344,7 @@
     "location": "53.32932522, -60.4108383"
   },
   {
+    "id": 43,
     "year": 2019,
     "name": "CGI DEVELOPMENT INC / CGI HOLDINGS INC",
     "industry": "Construction",
@@ -308,6 +352,7 @@
     "location": "53.31502551, -60.38422084"
   },
   {
+    "id": 44,
     "year": 2019,
     "name": "CHIASSON CONSTRUCTION LTD.",
     "industry": "Construction",
@@ -315,6 +360,7 @@
     "location": "53.29973484, -60.32045108"
   },
   {
+    "id": 45,
     "year": 2019,
     "name": "CHUBB'S MACHINE SHOP LIMITED",
     "industry": "Machine shops, turned product, and screw, nut and bolt manufacturing",
@@ -322,6 +368,7 @@
     "location": "53.32667294, -60.40681639"
   },
   {
+    "id": 46,
     "year": 2019,
     "name": "CLARIFIED PROFESSIONAL CORPORATION INC.",
     "industry": "Accounting, tax preparation, bookkeeping and payroll services",
@@ -329,6 +376,7 @@
     "location": "53.29726513, -60.30641989"
   },
   {
+    "id": 47,
     "year": 2019,
     "name": "COLLEGE OF THE NORTH ATLANTIC",
     "industry": "Community colleges and C.E.G.E.P.s",
@@ -336,6 +384,7 @@
     "location": "53.29661755, -60.33108885"
   },
   {
+    "id": 48,
     "year": 2019,
     "name": "COMMUNITY BUSINESS DEVELOPMENT CORPORATION",
     "industry": "Non-depository credit intermediation",
@@ -343,6 +392,7 @@
     "location": "53.30149662, -60.30710929"
   },
   {
+    "id": 49,
     "year": 2019,
     "name": "CONWARD ENTERPRISES INC.",
     "industry": "Traveller accommodation",
@@ -350,6 +400,7 @@
     "location": "53.30830984, -60.37530581"
   },
   {
+    "id": 50,
     "year": 2019,
     "name": "CONWARD ENTERPRISES LTD / CHERRYWOOD SUITES",
     "industry": "Traveller accommodation",
@@ -357,6 +408,7 @@
     "location": "53.30817897, -60.37903963"
   },
   {
+    "id": 51,
     "year": 2019,
     "name": "COONEY'S TAXI LTD.",
     "industry": "Taxi and limousine service",
@@ -364,6 +416,7 @@
     "location": "53.29539791, -60.30540527"
   },
   {
+    "id": 52,
     "year": 2019,
     "name": "CREATIVE CURL",
     "industry": "Personal care services and other personal services",
@@ -371,6 +424,7 @@
     "location": "53.31100121, -60.37825874"
   },
   {
+    "id": 53,
     "year": 2019,
     "name": "D & F ELECTRICAL",
     "industry": "Construction",
@@ -378,6 +432,7 @@
     "location": "53.2996912, -60.3334935"
   },
   {
+    "id": 54,
     "year": 2019,
     "name": "D & L APPLIANCES",
     "industry": "Construction",
@@ -385,6 +440,7 @@
     "location": "53.30002341, -60.33162049"
   },
   {
+    "id": 55,
     "year": 2019,
     "name": "DANDY DOLLAR STORE",
     "industry": "General merchandise stores",
@@ -392,6 +448,7 @@
     "location": "53.30933941, -60.37782646"
   },
   {
+    "id": 56,
     "year": 2019,
     "name": "DAPPER DOGZ",
     "industry": "Personal care services and other personal services",
@@ -399,6 +456,7 @@
     "location": "53.30825584, -60.36633748"
   },
   {
+    "id": 57,
     "year": 2019,
     "name": "DBH LTD",
     "industry": "Construction",
@@ -406,6 +464,7 @@
     "location": "53.29721754, -60.34469137"
   },
   {
+    "id": 58,
     "year": 2019,
     "name": "DEBORAH VOISEY",
     "industry": "Unclassified",
@@ -413,6 +472,7 @@
     "location": "53.32068881, -60.39445175"
   },
   {
+    "id": 59,
     "year": 2019,
     "name": "DECADENT TREATS",
     "industry": "Food services and drinking places",
@@ -420,6 +480,7 @@
     "location": "53.29624871, -60.29639181"
   },
   {
+    "id": 60,
     "year": 2019,
     "name": "DEPARTMENT OF ADVANCED EDUCATION  SKILL DEVELOPMENT",
     "industry": "Provincial and territorial public administration",
@@ -427,6 +488,7 @@
     "location": "53.29741434, -60.32571495"
   },
   {
+    "id": 61,
     "year": 2019,
     "name": "DEPARTMENT OF CHILDREN, SENIORS AND SOCIAL DEVELOMENT",
     "industry": "Provincial and territorial public administration",
@@ -434,6 +496,7 @@
     "location": "53.3026053, -60.3863375"
   },
   {
+    "id": 62,
     "year": 2019,
     "name": "DEPARTMENT OF CROWN LANDS, WATER RESOURCES",
     "industry": "Provincial and territorial public administration",
@@ -441,6 +504,7 @@
     "location": "53.29859246, -60.3229424"
   },
   {
+    "id": 63,
     "year": 2019,
     "name": "DEPARTMENT OF FISHERIES AND LANDS / FISHERIES",
     "industry": "Provincial and territorial public administration",
@@ -448,6 +512,7 @@
     "location": "53.2990261, -60.30428051"
   },
   {
+    "id": 64,
     "year": 2019,
     "name": "DEPARTMENT OF FISHERIES AND LANDS / WILDLIFE",
     "industry": "Provincial and territorial public administration",
@@ -455,6 +520,7 @@
     "location": "53.30857204, -60.38626254"
   },
   {
+    "id": 65,
     "year": 2019,
     "name": "DEPARTMENT OF FORESTY & AGRICULTURE",
     "industry": "Provincial and territorial public administration",
@@ -462,13 +528,15 @@
     "location": "53.29741434, -60.32571495"
   },
   {
+    "id": 66,
     "year": 2019,
     "name": "DEPARTMENT OF JUSTICE / PROVINCIAL COURT",
     "industry": "Provincial and territorial public administration",
     "employment": 188,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 67,
     "year": 2019,
     "name": "DEPARTMENT OF LABRADOR & ABORIGINAL AFFAIRS",
     "industry": "Provincial and territorial public administration",
@@ -476,6 +544,7 @@
     "location": "53.31447312, -60.28952072"
   },
   {
+    "id": 68,
     "year": 2019,
     "name": "DEPARTMENT OF MOTOR REGISTRATION",
     "industry": "Provincial and territorial public administration",
@@ -483,6 +552,7 @@
     "location": "53.29859246, -60.3229424"
   },
   {
+    "id": 69,
     "year": 2019,
     "name": "DEPARTMENT OF MUNICIPAL AFFAIRS (IND. EXPERT ADVISORY C)",
     "industry": "Provincial and territorial public administration",
@@ -490,6 +560,7 @@
     "location": "53.3096776, -60.382516"
   },
   {
+    "id": 70,
     "year": 2019,
     "name": "DEPARTMENT OF TOURISM CULTURE INDUSTRY & INNOVATION",
     "industry": "Provincial and territorial public administration",
@@ -497,6 +568,7 @@
     "location": "53.29856664, -60.3069206"
   },
   {
+    "id": 71,
     "year": 2019,
     "name": "DEPARTMENT OF TRANSPORTATION & WORKS",
     "industry": "Provincial and territorial public administration",
@@ -504,6 +576,7 @@
     "location": "53.2979898, -60.3248421"
   },
   {
+    "id": 72,
     "year": 2019,
     "name": "DESTINATION LABRADOR INC",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -511,6 +584,7 @@
     "location": "53.30424867, -60.36564806"
   },
   {
+    "id": 73,
     "year": 2019,
     "name": "DEXTER INSTITUTE",
     "industry": "Elementary and secondary schools plus other educational services",
@@ -518,6 +592,7 @@
     "location": "53.29559651, -60.30390697"
   },
   {
+    "id": 74,
     "year": 2019,
     "name": "DISTINCTIVE KNITTING",
     "industry": "Sporting goods, hobby, book and music stores",
@@ -525,6 +600,7 @@
     "location": "53.298615, -60.3066989"
   },
   {
+    "id": 75,
     "year": 2019,
     "name": "DOGGIE SPAWZ",
     "industry": "Personal care services and other personal services",
@@ -532,6 +608,7 @@
     "location": "53.30540391, -60.36671623"
   },
   {
+    "id": 76,
     "year": 2019,
     "name": "DONNY'S CARPET CLEANING & CAR DETAILING",
     "industry": "Automotive repair and maintenance",
@@ -539,6 +616,7 @@
     "location": "53.30933941, -60.37782646"
   },
   {
+    "id": 77,
     "year": 2019,
     "name": "DONSAR ENTERPRISE LIMITED",
     "industry": "Services to buildings and dwellings",
@@ -546,6 +624,7 @@
     "location": "53.30385119, -60.36905749"
   },
   {
+    "id": 78,
     "year": 2019,
     "name": "DOROTHY'S CRAFTS & SEWING INC.",
     "industry": "Sporting goods, hobby, book and music stores",
@@ -553,6 +632,7 @@
     "location": "53.30933941, -60.37782646"
   },
   {
+    "id": 79,
     "year": 2019,
     "name": "DRIVING FORCE INC., THE",
     "industry": "Automotive equipment rental and leasing",
@@ -560,6 +640,7 @@
     "location": "53.30964163, -60.38256693"
   },
   {
+    "id": 80,
     "year": 2019,
     "name": "D'S LANDING INC.",
     "industry": "Food and beverage stores",
@@ -567,6 +648,7 @@
     "location": "53.29686096, -60.28283725"
   },
   {
+    "id": 81,
     "year": 2019,
     "name": "EAGLE RIVER CREDIT UNION",
     "industry": "Local credit unions",
@@ -574,6 +656,7 @@
     "location": "53.30222276, -60.36967202"
   },
   {
+    "id": 82,
     "year": 2019,
     "name": "EARLY CHILDHOOD DEVELOPMENT ASSOCIATION (PUMKIN HOUSE)",
     "industry": "Social assistance",
@@ -581,6 +664,7 @@
     "location": "53.32717831, -60.40874734"
   },
   {
+    "id": 83,
     "year": 2019,
     "name": "EASTERN LABRADOR ARTS ALLIANCE",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -588,13 +672,15 @@
     "location": "53.30558123, -60.34880867"
   },
   {
+    "id": 84,
     "year": 2019,
     "name": "EASTLINK ATLANTIC DIVISON",
     "industry": "Telecommunications",
     "employment": 135,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 85,
     "year": 2019,
     "name": "EFCO ENTERPRISES LTD / SIGMA MANAGEMENT CORP",
     "industry": "Construction",
@@ -602,6 +688,7 @@
     "location": "53.30856689, -60.33890865"
   },
   {
+    "id": 86,
     "year": 2019,
     "name": "EJB CONTRACTING LIMITED",
     "industry": "Construction",
@@ -609,6 +696,7 @@
     "location": "53.30249314, -60.36327656"
   },
   {
+    "id": 87,
     "year": 2019,
     "name": "EL GRECO",
     "industry": "Food services and drinking places",
@@ -616,6 +704,7 @@
     "location": "53.29543292, -60.30978219"
   },
   {
+    "id": 88,
     "year": 2019,
     "name": "EMMA'S SUITES",
     "industry": "Traveller accommodation",
@@ -623,6 +712,7 @@
     "location": "53.30942407, -60.34140485"
   },
   {
+    "id": 89,
     "year": 2019,
     "name": "ENVIRO SAFE FUEL SYSTEMS",
     "industry": "Waste management and remediation services",
@@ -630,6 +720,7 @@
     "location": "53.31309782, -60.3833457"
   },
   {
+    "id": 90,
     "year": 2019,
     "name": "ERMSIGN PHOTOGRAPHY",
     "industry": "Other professional, scientific and technical services",
@@ -637,6 +728,7 @@
     "location": "53.30921418, -60.33170397"
   },
   {
+    "id": 91,
     "year": 2019,
     "name": "ERNEST, GARY",
     "industry": "Construction",
@@ -644,6 +736,7 @@
     "location": "53.30263134, -60.32161641"
   },
   {
+    "id": 92,
     "year": 2019,
     "name": "FAIRSTONE FINANCIAL INC",
     "industry": "Non-depository credit intermediation",
@@ -651,13 +744,15 @@
     "location": "53.2982662, -60.3224203"
   },
   {
+    "id": 93,
     "year": 2019,
     "name": "FELSBERG, RICHARD",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 94,
     "year": 2019,
     "name": "FILLATRE'S FUNERAL HOME",
     "industry": "Funeral services",
@@ -665,6 +760,7 @@
     "location": "53.3152339, -60.3845779"
   },
   {
+    "id": 95,
     "year": 2019,
     "name": "FINLEY'S FARM INC.",
     "industry": "Crop and animal production",
@@ -672,6 +768,7 @@
     "location": "53.29715518, -60.31534457"
   },
   {
+    "id": 96,
     "year": 2019,
     "name": "FRENCHIES SERVICE CENTER",
     "industry": "Motor vehicle and parts dealers",
@@ -679,6 +776,7 @@
     "location": "53.29756323, -60.32377073"
   },
   {
+    "id": 97,
     "year": 2019,
     "name": "FRONTIER ENTERPRISES LIMITED",
     "industry": "Construction",
@@ -686,6 +784,7 @@
     "location": "53.29658302, -60.3261027"
   },
   {
+    "id": 98,
     "year": 2019,
     "name": "FROYD SERVICES LTD / A&W LIMITED",
     "industry": "Food services and drinking places",
@@ -693,6 +792,7 @@
     "location": "53.31968121, -60.39683136"
   },
   {
+    "id": 99,
     "year": 2019,
     "name": "GARY HILLIER",
     "industry": "Construction",
@@ -700,6 +800,7 @@
     "location": "53.30778559, -60.30309757"
   },
   {
+    "id": 100,
     "year": 2019,
     "name": "GEAR'S GAINS FITNESS CENTRE INC.",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
@@ -707,6 +808,7 @@
     "location": "53.29824348, -60.32480758"
   },
   {
+    "id": 101,
     "year": 2019,
     "name": "GEORGE BENNETT ULTRAMAR",
     "industry": "Gasoline stations",
@@ -714,6 +816,7 @@
     "location": "53.29773351, -60.32632049"
   },
   {
+    "id": 102,
     "year": 2019,
     "name": "GET GELOUS",
     "industry": "Personal care services and other personal services",
@@ -721,6 +824,7 @@
     "location": "53.30319688, -60.29209689"
   },
   {
+    "id": 103,
     "year": 2019,
     "name": "GILCO WHOLESALERS LTD.",
     "industry": "Machinery, equipment and supplies merchant wholesalers",
@@ -728,6 +832,7 @@
     "location": "53.29824348, -60.32480758"
   },
   {
+    "id": 104,
     "year": 2019,
     "name": "GOOSE BAY AIRPORT CORPORATION",
     "industry": "Support activities for transportation",
@@ -735,6 +840,7 @@
     "location": "53.313422, -60.4123414"
   },
   {
+    "id": 105,
     "year": 2019,
     "name": "GOOSE BAY AIRPORT RESTAURANT LTD",
     "industry": "Food services and drinking places",
@@ -742,6 +848,7 @@
     "location": "53.29543292, -60.30978219"
   },
   {
+    "id": 106,
     "year": 2019,
     "name": "GOOSE BAY AUTO PARTS LTD",
     "industry": "Motor vehicle and parts dealers",
@@ -749,6 +856,7 @@
     "location": "53.30753709, -60.38452544"
   },
   {
+    "id": 107,
     "year": 2019,
     "name": "GOOSE BAY MILITARY RESOURCES CENTRE",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -756,6 +864,7 @@
     "location": "53.29501622, -60.41576047"
   },
   {
+    "id": 108,
     "year": 2019,
     "name": "GOOSE BAY MOTORS",
     "industry": "Motor vehicle and parts dealers",
@@ -763,6 +872,7 @@
     "location": "53.29649498, -60.31226234"
   },
   {
+    "id": 109,
     "year": 2019,
     "name": "GOOSE BAY PAINTERS LIMITED",
     "industry": "Construction",
@@ -770,6 +880,7 @@
     "location": "53.30198338, -60.2923024"
   },
   {
+    "id": 110,
     "year": 2019,
     "name": "GOOSE BAY ULTAMAR",
     "industry": "Gasoline stations",
@@ -777,6 +888,7 @@
     "location": "53.2976919, -60.3263282"
   },
   {
+    "id": 111,
     "year": 2019,
     "name": "GOOSE BAY WHOLESALERS",
     "industry": "Machinery, equipment and supplies merchant wholesalers",
@@ -784,6 +896,7 @@
     "location": "53.3000333, -60.3308342"
   },
   {
+    "id": 112,
     "year": 2019,
     "name": "GOOSE REAL ESTATE",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -791,6 +904,7 @@
     "location": "53.31222715, -60.38157355"
   },
   {
+    "id": 113,
     "year": 2019,
     "name": "GOSALA, HEM DENTAL SERVICES",
     "industry": "Ambulatory health care services",
@@ -798,13 +912,15 @@
     "location": "53.29996435, -60.32348103"
   },
   {
+    "id": 114,
     "year": 2019,
     "name": "GOSLING LAKE HOLDINGS LTD",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
     "employment": 173,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 115,
     "year": 2019,
     "name": "GRAFTER'S",
     "industry": "Food services and drinking places",
@@ -812,6 +928,7 @@
     "location": "53.3080263, -60.37489238"
   },
   {
+    "id": 116,
     "year": 2019,
     "name": "GRAHAM CONSULTING SERVICES",
     "industry": "Employment services and management, scientific and technical consulting services",
@@ -819,6 +936,7 @@
     "location": "53.3040125, -60.36456062"
   },
   {
+    "id": 117,
     "year": 2019,
     "name": "GRANT THORNTON LLP",
     "industry": "Accounting, tax preparation, bookkeeping and payroll services",
@@ -826,6 +944,7 @@
     "location": "53.29767628, -60.326871"
   },
   {
+    "id": 118,
     "year": 2019,
     "name": "GREAT NORTH DATA",
     "industry": "Data processing, hosting, and related services",
@@ -833,6 +952,7 @@
     "location": "53.3287206, -60.41161272"
   },
   {
+    "id": 119,
     "year": 2019,
     "name": "GREENLEAF GARDEN SUPPLIES",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -840,6 +960,7 @@
     "location": "53.29570991, -60.29986952"
   },
   {
+    "id": 120,
     "year": 2019,
     "name": "GREEN'S CONSTRUCTION",
     "industry": "Construction",
@@ -847,6 +968,7 @@
     "location": "53.30706372, -60.30357931"
   },
   {
+    "id": 121,
     "year": 2019,
     "name": "GREYROCK INC.",
     "industry": "Construction",
@@ -854,6 +976,7 @@
     "location": "53.29777824, -60.28260398"
   },
   {
+    "id": 122,
     "year": 2019,
     "name": "GUILLEVIN INTERNATIONAL CO.",
     "industry": "Personal and household goods, and building material and supplies wholesaler-distributors",
@@ -861,6 +984,7 @@
     "location": "53.3128239, -60.37995245"
   },
   {
+    "id": 123,
     "year": 2019,
     "name": "H & R BLOCK",
     "industry": "Accounting, tax preparation, bookkeeping and payroll services",
@@ -868,6 +992,7 @@
     "location": "53.30651755, -60.37365135"
   },
   {
+    "id": 124,
     "year": 2019,
     "name": "HAIR STUDIO, THE",
     "industry": "Personal care services and other personal services",
@@ -875,6 +1000,7 @@
     "location": "53.30933941, -60.37782646"
   },
   {
+    "id": 125,
     "year": 2019,
     "name": "HAMILTON BUILDING COMPONENTS INC",
     "industry": "Construction",
@@ -882,6 +1008,7 @@
     "location": "53.30429596, -60.33078386"
   },
   {
+    "id": 126,
     "year": 2019,
     "name": "HAMILTON CONTRACTING LTD",
     "industry": "Construction",
@@ -889,6 +1016,7 @@
     "location": "53.32706441, -60.40451437"
   },
   {
+    "id": 127,
     "year": 2019,
     "name": "HAMILTON DRUGS LIMITED",
     "industry": "Health and personal care stores",
@@ -896,6 +1024,7 @@
     "location": "53.30745732, -60.37430679"
   },
   {
+    "id": 128,
     "year": 2019,
     "name": "HAMILTON RIVER DENTAL CLINIC",
     "industry": "Ambulatory health care services",
@@ -903,6 +1032,7 @@
     "location": "53.31126178, -60.37970329"
   },
   {
+    "id": 129,
     "year": 2019,
     "name": "HAMILTON STORES LTD.",
     "industry": "Food and beverage stores",
@@ -910,6 +1040,7 @@
     "location": "53.32056098, -60.38935576"
   },
   {
+    "id": 130,
     "year": 2019,
     "name": "HAMILTON WHOLESALERS LTD.",
     "industry": "Food, beverage and tobacco merchant wholesalers",
@@ -917,6 +1048,7 @@
     "location": "53.30207264, -60.40327176"
   },
   {
+    "id": 131,
     "year": 2019,
     "name": "HAPPY GOOSE CAR WASH",
     "industry": "Automotive repair and maintenance",
@@ -924,6 +1056,7 @@
     "location": "53.31049682, -60.3802552"
   },
   {
+    "id": 132,
     "year": 2019,
     "name": "HARRIS, KELLY",
     "industry": "Unclassified",
@@ -931,6 +1064,7 @@
     "location": "53.30888968, -60.29052655"
   },
   {
+    "id": 133,
     "year": 2019,
     "name": "HARVEY'S TRAVEL",
     "industry": "Travel arrangement and reservation services",
@@ -938,6 +1072,7 @@
     "location": "53.29824348, -60.32480758"
   },
   {
+    "id": 134,
     "year": 2019,
     "name": "HICKEY CONSTRUCTION",
     "industry": "Construction",
@@ -945,13 +1080,15 @@
     "location": "53.2998313, -60.3296358"
   },
   {
+    "id": 135,
     "year": 2019,
     "name": "HILLCORP INVESTMENTS INC., MOTHERWOOD",
     "industry": "Building material and garden equipment and supplies dealers",
     "employment": 108,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 136,
     "year": 2019,
     "name": "HILLCREST AUTOMOTIVE",
     "industry": "Motor vehicle and parts dealers",
@@ -959,6 +1096,7 @@
     "location": "53.29699914, -60.32654314"
   },
   {
+    "id": 137,
     "year": 2019,
     "name": "HILLIERS TRADES LIMITED",
     "industry": "Construction",
@@ -966,6 +1104,7 @@
     "location": "53.29661755, -60.33108885"
   },
   {
+    "id": 138,
     "year": 2019,
     "name": "HOTEL NORTH",
     "industry": "Traveller accommodation",
@@ -973,6 +1112,7 @@
     "location": "53.30668087, -60.38192087"
   },
   {
+    "id": 139,
     "year": 2019,
     "name": "HOTEL NORTH TWO",
     "industry": "Traveller accommodation",
@@ -980,6 +1120,7 @@
     "location": "53.31093714, -60.37750697"
   },
   {
+    "id": 140,
     "year": 2019,
     "name": "HOUSING HUB",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -987,13 +1128,15 @@
     "location": "53.29648097, -60.32683104"
   },
   {
+    "id": 141,
     "year": 2019,
     "name": "IAN BLAKE / CROSSFOX CONSTRUCTION",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 142,
     "year": 2019,
     "name": "ICE WORKS",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
@@ -1001,6 +1144,7 @@
     "location": "53.29597758, -60.31464803"
   },
   {
+    "id": 143,
     "year": 2019,
     "name": "IGLUTEK COMPUTERS INC.",
     "industry": "Electronics and appliance stores",
@@ -1008,6 +1152,7 @@
     "location": "53.30493355, -60.37222389"
   },
   {
+    "id": 144,
     "year": 2019,
     "name": "IMPERIAL OIL LIMITED",
     "industry": "Gasoline stations",
@@ -1015,6 +1160,7 @@
     "location": "53.29900643, -60.39276759"
   },
   {
+    "id": 145,
     "year": 2019,
     "name": "INNU DEVELOP. LTD. PARTNERSHIP",
     "industry": "Management of companies and enterprises",
@@ -1022,6 +1168,7 @@
     "location": "53.29915811, -60.29815364"
   },
   {
+    "id": 146,
     "year": 2019,
     "name": "INTERNATIONAL CATERING LIMITED",
     "industry": "Food services and drinking places",
@@ -1029,6 +1176,7 @@
     "location": "53.30243748, -60.40485783"
   },
   {
+    "id": 147,
     "year": 2019,
     "name": "IRVING AVIATION SERVICES",
     "industry": "Support activities for transportation",
@@ -1036,6 +1184,7 @@
     "location": "53.30940512, -60.42332914"
   },
   {
+    "id": 148,
     "year": 2019,
     "name": "J.J.'S TRUCKING/10122 NFLD LTD",
     "industry": "Truck transportation",
@@ -1043,6 +1192,7 @@
     "location": "53.29666794, -60.32537319"
   },
   {
+    "id": 149,
     "year": 2019,
     "name": "JAKE RETAIL INC.",
     "industry": "General merchandise stores",
@@ -1050,6 +1200,7 @@
     "location": "53.30953234, -60.34034966"
   },
   {
+    "id": 150,
     "year": 2019,
     "name": "JAZZ AVIATION LP",
     "industry": "Air transportation",
@@ -1057,6 +1208,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 151,
     "year": 2019,
     "name": "JEMM CATERING",
     "industry": "Food services and drinking places",
@@ -1064,13 +1216,15 @@
     "location": "53.29800781, -60.34096212"
   },
   {
+    "id": 152,
     "year": 2019,
     "name": "JH & S CONTRACTING",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 153,
     "year": 2019,
     "name": "JLD DESIGNS",
     "industry": "Specialized design services",
@@ -1078,6 +1232,7 @@
     "location": "53.29909122, -60.30382452"
   },
   {
+    "id": 154,
     "year": 2019,
     "name": "JUNGLE JIMS",
     "industry": "Food services and drinking places",
@@ -1085,6 +1240,7 @@
     "location": "53.31093714, -60.37750697"
   },
   {
+    "id": 155,
     "year": 2019,
     "name": "K & K DAWE TRUCKING LTD",
     "industry": "Truck transportation",
@@ -1092,6 +1248,7 @@
     "location": "53.32762194, -60.4056635"
   },
   {
+    "id": 156,
     "year": 2019,
     "name": "KARDIA NUTRITION & APPAREL",
     "industry": "Unclassified",
@@ -1099,6 +1256,7 @@
     "location": "53.30272019, -60.28376939"
   },
   {
+    "id": 157,
     "year": 2019,
     "name": "KEITH DECKER",
     "industry": "Legal services",
@@ -1106,6 +1264,7 @@
     "location": "53.31007953, -60.3369629"
   },
   {
+    "id": 158,
     "year": 2019,
     "name": "KOINEDGE",
     "industry": "Data processing, hosting, and related services",
@@ -1113,6 +1272,7 @@
     "location": "53.32871097, -60.40858279"
   },
   {
+    "id": 159,
     "year": 2019,
     "name": "KOMATIK SUPPORT SERVICES / ROYAL INN & SUITES",
     "industry": "Traveller accommodation",
@@ -1120,6 +1280,7 @@
     "location": "53.29944622, -60.32261622"
   },
   {
+    "id": 160,
     "year": 2019,
     "name": "LAB CABS",
     "industry": "Taxi and limousine service",
@@ -1127,6 +1288,7 @@
     "location": "53.29517445, -60.30682142"
   },
   {
+    "id": 161,
     "year": 2019,
     "name": "LAB SPECIALTY SERVICES INC.",
     "industry": "Electronics and appliance stores",
@@ -1134,6 +1296,7 @@
     "location": "53.30875708, -60.37885918"
   },
   {
+    "id": 162,
     "year": 2019,
     "name": "LABRADOR ABORIGINAL TRAINING PARTNERSHIP",
     "industry": "Elementary and secondary schools plus other educational services",
@@ -1141,6 +1304,7 @@
     "location": "53.30890457, -60.38382049"
   },
   {
+    "id": 163,
     "year": 2019,
     "name": "LABRADOR AIRWAYS",
     "industry": "Air transportation",
@@ -1148,6 +1312,7 @@
     "location": "53.313422, -60.4123414"
   },
   {
+    "id": 164,
     "year": 2019,
     "name": "LABRADOR CATERING INC.",
     "industry": "Food services and drinking places",
@@ -1155,6 +1320,7 @@
     "location": "53.31337649, -60.38265211"
   },
   {
+    "id": 165,
     "year": 2019,
     "name": "LABRADOR CERAMIC TILES",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -1162,6 +1328,7 @@
     "location": "53.30880211, -60.36008669"
   },
   {
+    "id": 166,
     "year": 2019,
     "name": "LABRADOR COATING LTD",
     "industry": "Automotive repair and maintenance",
@@ -1169,6 +1336,7 @@
     "location": "53.32672322, -60.40390578"
   },
   {
+    "id": 167,
     "year": 2019,
     "name": "LABRADOR DIVING SERVICES",
     "industry": "Facilities and other support services",
@@ -1176,6 +1344,7 @@
     "location": "53.30660138, -60.37532565"
   },
   {
+    "id": 168,
     "year": 2019,
     "name": "LABRADOR FRIENDSHIP CENTRE",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1183,13 +1352,15 @@
     "location": "53.297736, -60.3043252"
   },
   {
+    "id": 169,
     "year": 2019,
     "name": "LABRADOR HUNTING & FISHING ASSOCIATION",
     "industry": "Grant-making, civic, and professional and similar organizations",
     "employment": 184,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 170,
     "year": 2019,
     "name": "LABRADOR INN",
     "industry": "Traveller accommodation",
@@ -1197,6 +1368,7 @@
     "location": "53.31014523, -60.37663949"
   },
   {
+    "id": 171,
     "year": 2019,
     "name": "LABRADOR INSTITUTE",
     "industry": "Universities",
@@ -1204,6 +1376,7 @@
     "location": "53.2988841, -60.30047794"
   },
   {
+    "id": 172,
     "year": 2019,
     "name": "LABRADOR INVESTMENTS LIMITED / THE NEW STORE",
     "industry": "General merchandise stores",
@@ -1211,6 +1384,7 @@
     "location": "53.30728673, -60.37392309"
   },
   {
+    "id": 173,
     "year": 2019,
     "name": "LABRADOR MASSAGE THERAPY",
     "industry": "Ambulatory health care services",
@@ -1218,6 +1392,7 @@
     "location": "53.30395218, -60.30057501"
   },
   {
+    "id": 174,
     "year": 2019,
     "name": "LABRADOR MILITARY MUSEUM",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1225,6 +1400,7 @@
     "location": "53.3010538, -60.4120338"
   },
   {
+    "id": 175,
     "year": 2019,
     "name": "LABRADOR MOTORS LTD.",
     "industry": "Motor vehicle and parts dealers",
@@ -1232,6 +1408,7 @@
     "location": "53.30960334, -60.37962775"
   },
   {
+    "id": 176,
     "year": 2019,
     "name": "LABRADOR NORTH CHAMBER OF COMMERCE",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1239,6 +1416,7 @@
     "location": "53.30699038, -60.37388092"
   },
   {
+    "id": 177,
     "year": 2019,
     "name": "LABRADOR OFFICE ESSENTIALS LTD.",
     "industry": "Miscellaneous store retailers",
@@ -1246,6 +1424,7 @@
     "location": "53.29758558, -60.32521359"
   },
   {
+    "id": 178,
     "year": 2019,
     "name": "LABRADOR PROFESSIONAL DENTAL CORP",
     "industry": "Ambulatory health care services",
@@ -1253,6 +1432,7 @@
     "location": "53.308795, -60.37730677"
   },
   {
+    "id": 179,
     "year": 2019,
     "name": "LABRADOR UPHOLSTERY",
     "industry": "Repair and maintenance (except automotive)",
@@ -1260,13 +1440,15 @@
     "location": "53.29700922, -60.28374432"
   },
   {
+    "id": 180,
     "year": 2019,
     "name": "LABRADOR WASTE MANAGEMENT LIMITED",
     "industry": "Waste management and remediation services",
     "employment": 165,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 181,
     "year": 2019,
     "name": "LABRADORIAN PRINTERS",
     "industry": "Printing and related support activities",
@@ -1274,6 +1456,7 @@
     "location": "53.29831506, -60.32228385"
   },
   {
+    "id": 182,
     "year": 2019,
     "name": "LARRY'S PIZZA & WAFFLE HOUSE",
     "industry": "Food services and drinking places",
@@ -1281,6 +1464,7 @@
     "location": "53.31014523, -60.37663949"
   },
   {
+    "id": 183,
     "year": 2019,
     "name": "LASHES BY HEATHER",
     "industry": "Personal care services and other personal services",
@@ -1288,6 +1472,7 @@
     "location": "53.30031808, -60.29490801"
   },
   {
+    "id": 184,
     "year": 2019,
     "name": "LAVELLEE PAINTERS & CLEANERS",
     "industry": "Construction",
@@ -1295,6 +1480,7 @@
     "location": "53.3067554, -60.3343912"
   },
   {
+    "id": 185,
     "year": 2019,
     "name": "LEGAL AID",
     "industry": "Legal services",
@@ -1302,6 +1488,7 @@
     "location": "53.30919552, -60.37616479"
   },
   {
+    "id": 186,
     "year": 2019,
     "name": "LEGAL AID FAMILY & CHILD",
     "industry": "Legal services",
@@ -1309,6 +1496,7 @@
     "location": "53.31047555, -60.37338707"
   },
   {
+    "id": 187,
     "year": 2019,
     "name": "LEWIS CONCRETE FORMING LTD",
     "industry": "Construction",
@@ -1316,6 +1504,7 @@
     "location": "53.29869137, -60.31438575"
   },
   {
+    "id": 188,
     "year": 2019,
     "name": "LIBERTY TAX SERVICE",
     "industry": "Accounting, tax preparation, bookkeeping and payroll services",
@@ -1323,6 +1512,7 @@
     "location": "53.29833902, -60.29976593"
   },
   {
+    "id": 189,
     "year": 2019,
     "name": "LOCKIES COOKIE JAR",
     "industry": "Bakeries and tortilla manufacturing",
@@ -1330,6 +1520,7 @@
     "location": "53.29735943, -60.29769571"
   },
   {
+    "id": 190,
     "year": 2019,
     "name": "MACDONALD HOFFE APPRAISALS LTD",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -1337,6 +1528,7 @@
     "location": "53.31100121, -60.37825874"
   },
   {
+    "id": 191,
     "year": 2019,
     "name": "MARINER' GALLEY",
     "industry": "Food services and drinking places",
@@ -1344,6 +1536,7 @@
     "location": "53.30668087, -60.38192087"
   },
   {
+    "id": 192,
     "year": 2019,
     "name": "MARY BROWN'S CHICKEN TAKE-OUT",
     "industry": "Food services and drinking places",
@@ -1351,6 +1544,7 @@
     "location": "53.29809876, -60.33206509"
   },
   {
+    "id": 193,
     "year": 2019,
     "name": "MASONIC LODGE",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1358,6 +1552,7 @@
     "location": "53.31088285, -60.37981631"
   },
   {
+    "id": 194,
     "year": 2019,
     "name": "MATTHEW BARRETT PIANO LESSONS",
     "industry": "Elementary and secondary schools plus other educational services",
@@ -1365,6 +1560,7 @@
     "location": "53.30747007, -60.30749958"
   },
   {
+    "id": 195,
     "year": 2019,
     "name": "MAVIS PENNEY STUDIOS",
     "industry": "Miscellaneous store retailers",
@@ -1372,6 +1568,7 @@
     "location": "53.2969706, -60.30497467"
   },
   {
+    "id": 196,
     "year": 2019,
     "name": "MAXWELL'S / BENTLEY",
     "industry": "Food services and drinking places",
@@ -1379,13 +1576,15 @@
     "location": "53.2952566, -60.3025395"
   },
   {
+    "id": 197,
     "year": 2019,
     "name": "McCARTHY'S ROOFING",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 198,
     "year": 2019,
     "name": "MCNALLAYS BILLIARDS",
     "industry": "Food services and drinking places",
@@ -1393,6 +1592,7 @@
     "location": "53.3105968, -60.3812811"
   },
   {
+    "id": 199,
     "year": 2019,
     "name": "MEALY MOUNTAIN CONTRACTING",
     "industry": "Construction",
@@ -1400,6 +1600,7 @@
     "location": "53.30824218, -60.38602122"
   },
   {
+    "id": 200,
     "year": 2019,
     "name": "MELINA ANTHONY",
     "industry": "Personal care services and other personal services",
@@ -1407,6 +1608,7 @@
     "location": "53.31793407, -60.38479907"
   },
   {
+    "id": 201,
     "year": 2019,
     "name": "MELVILLE COMMUNICATIONS",
     "industry": "Newspaper, periodical, book, directory, and software publishers, sound recording industries, and other information services",
@@ -1414,6 +1616,7 @@
     "location": "53.30653752, -60.2977253"
   },
   {
+    "id": 202,
     "year": 2019,
     "name": "MELVILLE NATIVE HOUSING ASSOCIATION",
     "industry": "Lessors of real estate and financial investment services, funds and other financial vehicles",
@@ -1421,6 +1624,7 @@
     "location": "53.30951664, -60.34312576"
   },
   {
+    "id": 203,
     "year": 2019,
     "name": "MELVILLE TRUCKING & EXCAVATING LTD.",
     "industry": "Construction",
@@ -1428,6 +1632,7 @@
     "location": "53.29906406, -60.32524747"
   },
   {
+    "id": 204,
     "year": 2019,
     "name": "MEMORIES FOR LIFE PHOTOGRAPHY",
     "industry": "Other professional, scientific and technical services",
@@ -1435,6 +1640,7 @@
     "location": "53.3050347, -60.3333686"
   },
   {
+    "id": 205,
     "year": 2019,
     "name": "MERLE NORMAN COSMETICS",
     "industry": "Health and personal care stores",
@@ -1442,6 +1648,7 @@
     "location": "53.30933941, -60.37782646"
   },
   {
+    "id": 206,
     "year": 2019,
     "name": "MOKAMI TRAVEL",
     "industry": "Travel arrangement and reservation services",
@@ -1449,6 +1656,7 @@
     "location": "53.30721401, -60.37536076"
   },
   {
+    "id": 207,
     "year": 2019,
     "name": "MOMAMI STATUS OF WOMEN COUNCIL",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1456,6 +1664,7 @@
     "location": "53.29806023, -60.30147076"
   },
   {
+    "id": 208,
     "year": 2019,
     "name": "MOM'S PLACE LIMITED",
     "industry": "Food services and drinking places",
@@ -1463,6 +1672,7 @@
     "location": "53.30921182, -60.37813828"
   },
   {
+    "id": 209,
     "year": 2019,
     "name": "MORTGAGE ALLIANCE",
     "industry": "Activities related to credit intermediation",
@@ -1470,6 +1680,7 @@
     "location": "53.30490006, -60.36227517"
   },
   {
+    "id": 210,
     "year": 2019,
     "name": "MRB PHOTO COMMUNICATIONS",
     "industry": "Other professional, scientific and technical services",
@@ -1477,6 +1688,7 @@
     "location": "53.29859569, -60.29870838"
   },
   {
+    "id": 211,
     "year": 2019,
     "name": "MUKLUK STUDIOS",
     "industry": "Newspaper, periodical, book, directory, and software publishers, sound recording industries, and other information services",
@@ -1484,6 +1696,7 @@
     "location": "53.29565207, -60.28816496"
   },
   {
+    "id": 212,
     "year": 2019,
     "name": "N.E. PARROTT SURVEYS LIMITED",
     "industry": "Architectural, engineering and related services",
@@ -1491,6 +1704,7 @@
     "location": "53.30413626, -60.37153901"
   },
   {
+    "id": 213,
     "year": 2019,
     "name": "NATIONAL SAFETY EQUIPMENT",
     "industry": "Miscellaneous store retailers",
@@ -1498,6 +1712,7 @@
     "location": "53.30651755, -60.37365135"
   },
   {
+    "id": 214,
     "year": 2019,
     "name": "NATIONAL TILDEN SYSTEM / NATIONAL CAR RENTAL",
     "industry": "Automotive equipment rental and leasing",
@@ -1505,6 +1720,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 215,
     "year": 2019,
     "name": "NAV CANADA",
     "industry": "Support activities for transportation",
@@ -1512,6 +1728,7 @@
     "location": "53.30853543, -60.40954927"
   },
   {
+    "id": 216,
     "year": 2019,
     "name": "NEWCAP RADIO INC / BIG LAND FM",
     "industry": "Radio and television broadcasting",
@@ -1519,27 +1736,31 @@
     "location": "53.29824348, -60.32480758"
   },
   {
+    "id": 217,
     "year": 2019,
     "name": "NEWFOUNDLAND & LABRADOR INC.",
     "industry": "RV (recreational vehicle) parks, recreational camps, and rooming and boarding houses",
     "employment": 176,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 218,
     "year": 2019,
     "name": "NEWFOUNDLAND AND LABRADOR HYDRO / NL HYDRO",
     "industry": "Electric power generation, transmission and distribution",
     "employment": 18,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 219,
     "year": 2019,
     "name": "NEWFOUNDLAND LIMITED",
     "industry": "Unclassified",
     "employment": 241,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 220,
     "year": 2019,
     "name": "NEWFOUNDLAND MULTI FOODS LTD.",
     "industry": "Food services and drinking places",
@@ -1547,6 +1768,7 @@
     "location": "53.31637728, -60.3856579"
   },
   {
+    "id": 221,
     "year": 2019,
     "name": "NGC NUNATSIAVUT CONSTRUCTION INC.",
     "industry": "Construction",
@@ -1554,6 +1776,7 @@
     "location": "53.31226036, -60.28995057"
   },
   {
+    "id": 222,
     "year": 2019,
     "name": "NIKITA WOODWARD",
     "industry": "Unclassified",
@@ -1561,6 +1784,7 @@
     "location": "53.31793407, -60.38479907"
   },
   {
+    "id": 223,
     "year": 2019,
     "name": "NL LEGAL AID COMMISSION",
     "industry": "Legal services",
@@ -1568,6 +1792,7 @@
     "location": "53.30291204, -60.31438564"
   },
   {
+    "id": 224,
     "year": 2019,
     "name": "NL LIQUOR COPORTATION",
     "industry": "Food and beverage stores",
@@ -1575,6 +1800,7 @@
     "location": "53.2982612, -60.3230356"
   },
   {
+    "id": 225,
     "year": 2019,
     "name": "NOR-LAB LIMITED / MAXWELL'S / BENTLEY'S",
     "industry": "Food services and drinking places",
@@ -1582,13 +1808,15 @@
     "location": "53.29510135, -60.30250423"
   },
   {
+    "id": 226,
     "year": 2019,
     "name": "NORTH LAB PEST CONTROL",
     "industry": "Services to buildings and dwellings",
     "employment": 164,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 227,
     "year": 2019,
     "name": "NORTH WEST CO. INC. (NORTHMART)",
     "industry": "Food and beverage stores",
@@ -1596,6 +1824,7 @@
     "location": "53.29629591, -60.30041552"
   },
   {
+    "id": 228,
     "year": 2019,
     "name": "NORTHERN CONCRETE PRODUCTS",
     "industry": "Construction",
@@ -1603,6 +1832,7 @@
     "location": "53.29780617, -60.3036578"
   },
   {
+    "id": 229,
     "year": 2019,
     "name": "NORTHERN DENTAL INC",
     "industry": "Ambulatory health care services",
@@ -1610,6 +1840,7 @@
     "location": "53.30651755, -60.37365135"
   },
   {
+    "id": 230,
     "year": 2019,
     "name": "NORTHERN LIGHTS",
     "industry": "Sporting goods, hobby, book and music stores",
@@ -1617,6 +1848,7 @@
     "location": "53.2984801, -60.32085626"
   },
   {
+    "id": 231,
     "year": 2019,
     "name": "NORTHERN NATURALS",
     "industry": "Crop and animal production",
@@ -1624,6 +1856,7 @@
     "location": "53.30722707, -60.38426712"
   },
   {
+    "id": 232,
     "year": 2019,
     "name": "NORTHERN OIL LTD",
     "industry": "Gasoline stations",
@@ -1631,6 +1864,7 @@
     "location": "53.30942683, -60.34079659"
   },
   {
+    "id": 233,
     "year": 2019,
     "name": "NORTHERN OXYGEN LTD",
     "industry": "Miscellaneous merchant wholesalers",
@@ -1638,6 +1872,7 @@
     "location": "53.31555741, -60.38453555"
   },
   {
+    "id": 234,
     "year": 2019,
     "name": "NORTHERN SLINGS & THINGS LTD",
     "industry": "Personal and household goods, and building material and supplies wholesaler-distributors",
@@ -1645,6 +1880,7 @@
     "location": "53.32708491, -60.40856727"
   },
   {
+    "id": 235,
     "year": 2019,
     "name": "NORTHFIELD BUILDERS INC",
     "industry": "Construction",
@@ -1652,6 +1888,7 @@
     "location": "53.31443209, -60.2899643"
   },
   {
+    "id": 236,
     "year": 2019,
     "name": "NORTHSIDE DEVELOPMENT CORP.",
     "industry": "Basic chemical manufacturing",
@@ -1659,6 +1896,7 @@
     "location": "53.32369098, -60.40915012"
   },
   {
+    "id": 237,
     "year": 2019,
     "name": "NORTRAX",
     "industry": "Motor vehicle and parts dealers",
@@ -1666,6 +1904,7 @@
     "location": "53.32736889, -60.41143548"
   },
   {
+    "id": 238,
     "year": 2019,
     "name": "NOTRE DAME AGENCIES",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -1673,13 +1912,15 @@
     "location": "53.29833902, -60.29976593"
   },
   {
+    "id": 239,
     "year": 2019,
     "name": "NOVA SCOTIA LIMITED",
     "industry": "Unclassified",
     "employment": 241,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 240,
     "year": 2019,
     "name": "NUNACOR DEVELOPMENT CORP.",
     "industry": "Management of companies and enterprises",
@@ -1687,6 +1928,7 @@
     "location": "53.29763965, -60.32792414"
   },
   {
+    "id": 241,
     "year": 2019,
     "name": "NUNATSIAVUT GOVERNMENT",
     "industry": "Aboriginal public administration",
@@ -1694,6 +1936,7 @@
     "location": "53.30946306, -60.34267108"
   },
   {
+    "id": 242,
     "year": 2019,
     "name": "NUNATSIAVUT GOVERNMENT",
     "industry": "Aboriginal public administration",
@@ -1701,6 +1944,7 @@
     "location": "53.29714769, -60.3288114"
   },
   {
+    "id": 243,
     "year": 2019,
     "name": "NUNATSIAVUT GROUP OF COMPANIES",
     "industry": "Management of companies and enterprises",
@@ -1708,6 +1952,7 @@
     "location": "53.29996435, -60.32348103"
   },
   {
+    "id": 244,
     "year": 2019,
     "name": "NUNATSIAVUT MARINE INC.",
     "industry": "Water transportation",
@@ -1715,6 +1960,7 @@
     "location": "53.342304, -60.4019094"
   },
   {
+    "id": 245,
     "year": 2019,
     "name": "NUNATUKAVUT",
     "industry": "Aboriginal public administration",
@@ -1722,6 +1968,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 246,
     "year": 2019,
     "name": "NUNATUKAVUT",
     "industry": "Aboriginal public administration",
@@ -1729,6 +1976,7 @@
     "location": "53.30984638, -60.3381594"
   },
   {
+    "id": 247,
     "year": 2019,
     "name": "NUSHUK PLUMBING AND HEATING LIMITED",
     "industry": "Construction",
@@ -1736,13 +1984,15 @@
     "location": "53.31029801, -60.29034825"
   },
   {
+    "id": 248,
     "year": 2019,
     "name": "ORKIN CANADA INC.",
     "industry": "Services to buildings and dwellings",
     "employment": 164,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 249,
     "year": 2019,
     "name": "PARDY'S HOLDINGS LIMITED",
     "industry": "Waste management and remediation services",
@@ -1750,6 +2000,7 @@
     "location": "53.32633713, -60.40611236"
   },
   {
+    "id": 250,
     "year": 2019,
     "name": "PENCAL SUPPLIES LIMITED",
     "industry": "Couriers and messengers",
@@ -1757,6 +2008,7 @@
     "location": "53.29641705, -60.32769873"
   },
   {
+    "id": 251,
     "year": 2019,
     "name": "PENNEY PAVING LTD.",
     "industry": "Construction",
@@ -1764,6 +2016,7 @@
     "location": "53.32431746, -60.40790085"
   },
   {
+    "id": 252,
     "year": 2019,
     "name": "PER-MIT ENTERPRISES / THE PAINTSHOP",
     "industry": "Building material and garden equipment and supplies dealers",
@@ -1771,6 +2024,7 @@
     "location": "53.29762688, -60.32742129"
   },
   {
+    "id": 253,
     "year": 2019,
     "name": "PERSONAL TOUCH ENGRAVING / PAWS BOUTIQUE",
     "industry": "Miscellaneous store retailers",
@@ -1778,6 +2032,7 @@
     "location": "53.30501715, -60.37321379"
   },
   {
+    "id": 254,
     "year": 2019,
     "name": "PIZZA DELIGHT",
     "industry": "Food services and drinking places",
@@ -1785,6 +2040,7 @@
     "location": "53.29546281, -60.3011009"
   },
   {
+    "id": 255,
     "year": 2019,
     "name": "POOLE ALTHOUSE",
     "industry": "Legal services",
@@ -1792,6 +2048,7 @@
     "location": "53.29765566, -60.30435301"
   },
   {
+    "id": 256,
     "year": 2019,
     "name": "PRECISION AUTOMOTIVE INC. / AVIS RENT-A-CAR",
     "industry": "Automotive equipment rental and leasing",
@@ -1799,6 +2056,7 @@
     "location": "53.29894207, -60.33180056"
   },
   {
+    "id": 257,
     "year": 2019,
     "name": "PRESSURE PIPE STEEL",
     "industry": "Cutlery, hand tools and other fabricated metal product manufacturing",
@@ -1806,6 +2064,7 @@
     "location": "53.31566199, -60.38507883"
   },
   {
+    "id": 258,
     "year": 2019,
     "name": "PRO-FIRE SALES & SERVICES",
     "industry": "Miscellaneous store retailers",
@@ -1813,6 +2072,7 @@
     "location": "53.29666794, -60.32537319"
   },
   {
+    "id": 259,
     "year": 2019,
     "name": "PROVACTIVE PHYSIOTHERAPY INC.",
     "industry": "Ambulatory health care services",
@@ -1820,6 +2080,7 @@
     "location": "53.308795, -60.37730677"
   },
   {
+    "id": 260,
     "year": 2019,
     "name": "PROVINCIAL AIRLINES LTD.",
     "industry": "Air transportation",
@@ -1827,6 +2088,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 261,
     "year": 2019,
     "name": "QUICK STOP / KFC",
     "industry": "Food services and drinking places",
@@ -1834,13 +2096,15 @@
     "location": "53.30971216, -60.38104402"
   },
   {
+    "id": 262,
     "year": 2019,
     "name": "RDEE",
     "industry": "Grant-making, civic, and professional and similar organizations",
     "employment": 184,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 263,
     "year": 2019,
     "name": "RED APPLE STORES INC.",
     "industry": "General merchandise stores",
@@ -1848,6 +2112,7 @@
     "location": "53.31148061, -60.37822237"
   },
   {
+    "id": 264,
     "year": 2019,
     "name": "REMAX REALTY PROFESSIONALS LTD",
     "industry": "Offices of real estate agents and brokers and activities related to real estate",
@@ -1855,6 +2120,7 @@
     "location": "53.31100121, -60.37825874"
   },
   {
+    "id": 265,
     "year": 2019,
     "name": "RICHARD MICHELIN",
     "industry": "Sporting goods, hobby, book and music stores",
@@ -1862,6 +2128,7 @@
     "location": "53.29969398, -60.31677992"
   },
   {
+    "id": 266,
     "year": 2019,
     "name": "RIDEOUT'S CONSTRUCTION",
     "industry": "Construction",
@@ -1869,6 +2136,7 @@
     "location": "53.29750588, -60.28308675"
   },
   {
+    "id": 267,
     "year": 2019,
     "name": "RNR PLUMBING",
     "industry": "Construction",
@@ -1876,6 +2144,7 @@
     "location": "53.3171077, -60.3890257"
   },
   {
+    "id": 268,
     "year": 2019,
     "name": "ROBERTA BENEFIEL",
     "industry": "Personal care services and other personal services",
@@ -1883,6 +2152,7 @@
     "location": "53.36157064, -60.41662343"
   },
   {
+    "id": 269,
     "year": 2019,
     "name": "ROCK PROPERTIES LIMITED / RIFF'S LTD",
     "industry": "General merchandise stores",
@@ -1890,6 +2160,7 @@
     "location": "53.29697196, -60.32850442"
   },
   {
+    "id": 270,
     "year": 2019,
     "name": "RODGER'S RECYCLING",
     "industry": "Miscellaneous merchant wholesalers",
@@ -1897,6 +2168,7 @@
     "location": "53.30086601, -60.33163334"
   },
   {
+    "id": 271,
     "year": 2019,
     "name": "ROYAL BANK OF CANADA",
     "industry": "Banking and other depository credit intermediation",
@@ -1904,6 +2176,7 @@
     "location": "53.2988841, -60.30047794"
   },
   {
+    "id": 272,
     "year": 2019,
     "name": "ROYAL CANADIAN LEGION BRANCH 51",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -1911,6 +2184,7 @@
     "location": "53.29907046, -60.32147785"
   },
   {
+    "id": 273,
     "year": 2019,
     "name": "ROYAL CANADIAN MOUNTED POLICE",
     "industry": "Other federal government services (except defence)",
@@ -1918,6 +2192,7 @@
     "location": "53.31954311, -60.39868139"
   },
   {
+    "id": 274,
     "year": 2019,
     "name": "RUNAT ENTERPRISES LTD. / HOMETOWN SPORTS",
     "industry": "Sporting goods, hobby, book and music stores",
@@ -1925,6 +2200,7 @@
     "location": "53.30336099, -60.37086643"
   },
   {
+    "id": 275,
     "year": 2019,
     "name": "SAGA ENTERPRISES INC.",
     "industry": "Construction",
@@ -1932,6 +2208,7 @@
     "location": "53.31050432, -60.37896175"
   },
   {
+    "id": 276,
     "year": 2019,
     "name": "SALTWIRE NETWORK INC.",
     "industry": "Newspaper, periodical, book, directory, and software publishers, sound recording industries, and other information services",
@@ -1939,6 +2216,7 @@
     "location": "53.29629427, -60.32850641"
   },
   {
+    "id": 277,
     "year": 2019,
     "name": "SCHWALBE, MARTIN\n(GLENDA SCHWALBE)",
     "industry": "Unclassified",
@@ -1946,6 +2224,7 @@
     "location": "53.3134695, -60.38320419"
   },
   {
+    "id": 278,
     "year": 2019,
     "name": "SECURITAS TRANS AVAITION SECURITY LTD.",
     "industry": "Investigation and security services",
@@ -1953,6 +2232,7 @@
     "location": "53.31386773, -60.4127364"
   },
   {
+    "id": 279,
     "year": 2019,
     "name": "SERCO CANADA INC.",
     "industry": "Support activities for transportation",
@@ -1960,6 +2240,7 @@
     "location": "53.32430612, -60.40727432"
   },
   {
+    "id": 280,
     "year": 2019,
     "name": "SERVICES NL / MOTOR REGISTRATION",
     "industry": "Provincial and territorial public administration",
@@ -1967,6 +2248,7 @@
     "location": "53.29741434, -60.32571495"
   },
   {
+    "id": 281,
     "year": 2019,
     "name": "SHOUSE, HANK",
     "industry": "Crop and animal production",
@@ -1974,6 +2256,7 @@
     "location": "53.29405328, -60.36506214"
   },
   {
+    "id": 282,
     "year": 2019,
     "name": "SKIPPER JOE'S",
     "industry": "Food services and drinking places",
@@ -1981,6 +2264,7 @@
     "location": "53.29809876, -60.33206509"
   },
   {
+    "id": 283,
     "year": 2019,
     "name": "SLIPPERS N' THINGS INC.",
     "industry": "Miscellaneous store retailers",
@@ -1988,6 +2272,7 @@
     "location": "53.29731573, -60.30591806"
   },
   {
+    "id": 284,
     "year": 2019,
     "name": "SNELGROVE'S WHOLESALER LIMITED",
     "industry": "Food, beverage and tobacco merchant wholesalers",
@@ -1995,6 +2280,7 @@
     "location": "53.31277577, -60.38171205"
   },
   {
+    "id": 285,
     "year": 2019,
     "name": "SPINAL CORD INJURY NL",
     "industry": "Ambulatory health care services",
@@ -2002,6 +2288,7 @@
     "location": "53.29559651, -60.30390697"
   },
   {
+    "id": 286,
     "year": 2019,
     "name": "SPRUCED UP LABRADOR",
     "industry": "Health and personal care stores",
@@ -2009,6 +2296,7 @@
     "location": "53.319397, -60.3969175"
   },
   {
+    "id": 287,
     "year": 2019,
     "name": "STANTEC CONSULTING LTD.",
     "industry": "Architectural, engineering and related services",
@@ -2016,6 +2304,7 @@
     "location": "53.30838417, -60.38444373"
   },
   {
+    "id": 288,
     "year": 2019,
     "name": "STRENGHTS FITNESS / KATHY LYALL",
     "industry": "Amusement, recreation, performing arts, spectator sports and related industries, and heritage institutions",
@@ -2023,6 +2312,7 @@
     "location": "53.30067649, -60.36144116"
   },
   {
+    "id": 289,
     "year": 2019,
     "name": "SUBWAY -FRANCHISE, CANADIAN ADVERTISING TRUST",
     "industry": "Food services and drinking places",
@@ -2030,6 +2320,7 @@
     "location": "53.30844046, -60.37921409"
   },
   {
+    "id": 290,
     "year": 2019,
     "name": "SUNSHINE & BEYOND TANNING",
     "industry": "Personal care services and other personal services",
@@ -2037,6 +2328,7 @@
     "location": "53.30461699, -60.36141861"
   },
   {
+    "id": 291,
     "year": 2019,
     "name": "SWEET TREATS BY DANI",
     "industry": "Bakeries and tortilla manufacturing",
@@ -2044,6 +2336,7 @@
     "location": "53.31162054, -60.336976"
   },
   {
+    "id": 292,
     "year": 2019,
     "name": "SWITCH ELECTRICAL  INC.",
     "industry": "Construction",
@@ -2051,6 +2344,7 @@
     "location": "53.3074959, -60.3839644"
   },
   {
+    "id": 293,
     "year": 2019,
     "name": "TAKU PC REPAIR",
     "industry": "Repair and maintenance (except automotive)",
@@ -2058,13 +2352,15 @@
     "location": "53.29545363, -60.30161148"
   },
   {
+    "id": 294,
     "year": 2019,
     "name": "TELUS",
     "industry": "Telecommunications",
     "employment": 135,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 295,
     "year": 2019,
     "name": "TENDERS LOUNGE LIMITED",
     "industry": "Food services and drinking places",
@@ -2072,6 +2368,7 @@
     "location": "53.30648038, -60.3822995"
   },
   {
+    "id": 296,
     "year": 2019,
     "name": "TERRINGTON BUILDING LIMITED",
     "industry": "Warehousing and storage",
@@ -2079,6 +2376,7 @@
     "location": "53.30917507, -60.33632603"
   },
   {
+    "id": 297,
     "year": 2019,
     "name": "TERRINGTON CONSUMERS CO-OP",
     "industry": "Food and beverage stores",
@@ -2086,6 +2384,7 @@
     "location": "53.30583139, -60.37152787"
   },
   {
+    "id": 298,
     "year": 2019,
     "name": "TERRY'S TENT & SHOE REPAIR LIMITED",
     "industry": "Repair and maintenance (except automotive)",
@@ -2093,6 +2392,7 @@
     "location": "53.30198337, -60.36953783"
   },
   {
+    "id": 299,
     "year": 2019,
     "name": "THE CARPET MAN LTD.",
     "industry": "Furniture and home furnishings stores",
@@ -2100,6 +2400,7 @@
     "location": "53.31298857, -60.38218806"
   },
   {
+    "id": 300,
     "year": 2019,
     "name": "THE COOPERATORS",
     "industry": "Agencies, brokerages and other insurance related activities",
@@ -2107,6 +2408,7 @@
     "location": "53.30702414, -60.37515656"
   },
   {
+    "id": 301,
     "year": 2019,
     "name": "THE HAMILTON RENTAL UNITS",
     "industry": "Traveller accommodation",
@@ -2114,6 +2416,7 @@
     "location": "53.3016292, -60.36940626"
   },
   {
+    "id": 302,
     "year": 2019,
     "name": "THE REPAIR SHOP",
     "industry": "Automotive repair and maintenance",
@@ -2121,6 +2424,7 @@
     "location": "53.30031077, -60.32342062"
   },
   {
+    "id": 303,
     "year": 2019,
     "name": "THE SAND BAR LTD.",
     "industry": "Food services and drinking places",
@@ -2128,6 +2432,7 @@
     "location": "53.3048308, -60.3717108"
   },
   {
+    "id": 304,
     "year": 2019,
     "name": "THE TIRE SHOP REPAIR",
     "industry": "Automotive repair and maintenance",
@@ -2135,6 +2440,7 @@
     "location": "53.30964163, -60.38256693"
   },
   {
+    "id": 305,
     "year": 2019,
     "name": "THEM DAYS INCORPORATED",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -2142,6 +2448,7 @@
     "location": "53.2990845, -60.30379709"
   },
   {
+    "id": 306,
     "year": 2019,
     "name": "THRIFTY FASHIONS",
     "industry": "Miscellaneous store retailers",
@@ -2149,6 +2456,7 @@
     "location": "53.29806023, -60.30147076"
   },
   {
+    "id": 307,
     "year": 2019,
     "name": "TIM HORTONS CANADA INC",
     "industry": "Food services and drinking places",
@@ -2156,6 +2464,7 @@
     "location": "53.29754347, -60.33778555"
   },
   {
+    "id": 308,
     "year": 2019,
     "name": "TM AUTO LTD",
     "industry": "Automotive repair and maintenance",
@@ -2163,6 +2472,7 @@
     "location": "53.29647954, -60.31072968"
   },
   {
+    "id": 309,
     "year": 2019,
     "name": "TORNGAT FISH PRODUCERS COOPERATIVE",
     "industry": "Food and beverage stores",
@@ -2170,6 +2480,7 @@
     "location": "53.29765803, -60.32342383"
   },
   {
+    "id": 310,
     "year": 2019,
     "name": "TORNGAT REG. HOUSING ASSOC.",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -2177,6 +2488,7 @@
     "location": "53.3208329, -60.38847711"
   },
   {
+    "id": 311,
     "year": 2019,
     "name": "TORNGAT SERVICES INC",
     "industry": "Employment services and management, scientific and technical consulting services",
@@ -2184,6 +2496,7 @@
     "location": "53.2975273, -60.32884211"
   },
   {
+    "id": 312,
     "year": 2019,
     "name": "TOROMONT CAT",
     "industry": "Motor vehicle and parts dealers",
@@ -2191,6 +2504,7 @@
     "location": "53.32443137, -60.41080239"
   },
   {
+    "id": 313,
     "year": 2019,
     "name": "TOROMONT INDUSTRIES LIMITED",
     "industry": "Rental and leasing services (except automotive equipment)",
@@ -2198,6 +2512,7 @@
     "location": "53.3257181, -60.4080695"
   },
   {
+    "id": 314,
     "year": 2019,
     "name": "TOSSS SIGNS INC",
     "industry": "Other miscellaneous manufacturing",
@@ -2205,6 +2520,7 @@
     "location": "53.30948548, -60.34177485"
   },
   {
+    "id": 315,
     "year": 2019,
     "name": "TRAPPERS CABIN BAR & GRILL LTD",
     "industry": "Food services and drinking places",
@@ -2212,13 +2528,15 @@
     "location": "53.31160256, -60.38076553"
   },
   {
+    "id": 316,
     "year": 2019,
     "name": "TRAVESPINE LIMITED",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 317,
     "year": 2019,
     "name": "TRC APPLIANCE LIMITED",
     "industry": "Electronics and appliance stores",
@@ -2226,6 +2544,7 @@
     "location": "53.29556822, -60.2970803"
   },
   {
+    "id": 318,
     "year": 2019,
     "name": "UNITED RENTALS LEASE ADMIN & FISHER & COMPANY",
     "industry": "Rental and leasing services (except automotive equipment)",
@@ -2233,6 +2552,7 @@
     "location": "53.29991515, -60.32204893"
   },
   {
+    "id": 319,
     "year": 2019,
     "name": "UNITED RENTALS OF CANADA, INC.",
     "industry": "Rental and leasing services (except automotive equipment)",
@@ -2240,6 +2560,7 @@
     "location": "53.3070595, -60.381297"
   },
   {
+    "id": 320,
     "year": 2019,
     "name": "UNIVERSAL HELICOPTERS NEWFOUNDLAND LTD.",
     "industry": "Air transportation",
@@ -2247,6 +2568,7 @@
     "location": "53.32669149, -60.41477332"
   },
   {
+    "id": 321,
     "year": 2019,
     "name": "VALE NEWFOUNDLAND AND LABRADOR LTD",
     "industry": "Copper, nickel, lead and zinc ore mining",
@@ -2254,6 +2576,7 @@
     "location": "53.30568806, -60.41950392"
   },
   {
+    "id": 322,
     "year": 2019,
     "name": "VALLEY BUSINESS EQUIPMENT INC",
     "industry": "Miscellaneous store retailers",
@@ -2261,6 +2584,7 @@
     "location": "53.30788623, -60.38402392"
   },
   {
+    "id": 323,
     "year": 2019,
     "name": "VALLEY RENTALS & SALES TLD.",
     "industry": "Rental and leasing services (except automotive equipment)",
@@ -2268,6 +2592,7 @@
     "location": "53.31372351, -60.38076301"
   },
   {
+    "id": 324,
     "year": 2019,
     "name": "VALLEY VETERINARY CLINIC",
     "industry": "Other professional, scientific and technical services",
@@ -2275,6 +2600,7 @@
     "location": "53.31250353, -60.37961"
   },
   {
+    "id": 325,
     "year": 2019,
     "name": "VERA O'BRIEN MORTAGE BROKER",
     "industry": "Activities related to credit intermediation",
@@ -2282,6 +2608,7 @@
     "location": "53.29748335, -60.32915046"
   },
   {
+    "id": 326,
     "year": 2019,
     "name": "VIOLENCE PREVENTION LABRADOR",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -2289,6 +2616,7 @@
     "location": "53.29559651, -60.30390697"
   },
   {
+    "id": 327,
     "year": 2019,
     "name": "VOGUE OPTICAL GROUP INC",
     "industry": "Ambulatory health care services",
@@ -2296,6 +2624,7 @@
     "location": "53.2956335, -60.30080833"
   },
   {
+    "id": 328,
     "year": 2019,
     "name": "WARR'S PHARMACY",
     "industry": "Health and personal care stores",
@@ -2303,6 +2632,7 @@
     "location": "53.2954645, -60.3016302"
   },
   {
+    "id": 329,
     "year": 2019,
     "name": "WELCOME NL",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -2310,13 +2640,15 @@
     "location": "53.29661755, -60.33108885"
   },
   {
+    "id": 330,
     "year": 2019,
     "name": "WESJER CONSTRUCTION",
     "industry": "Construction",
     "employment": 21,
-    "location": ""
+    "location": ","
   },
   {
+    "id": 331,
     "year": 2019,
     "name": "WHITELAW.LEGAL",
     "industry": "Legal services",
@@ -2324,6 +2656,7 @@
     "location": "53.29763965, -60.32792414"
   },
   {
+    "id": 332,
     "year": 2019,
     "name": "WOMEN IN RESOURCE DEVELOPMENT",
     "industry": "Grant-making, civic, and professional and similar organizations",
@@ -2331,6 +2664,7 @@
     "location": "53.29559651, -60.30390697"
   },
   {
+    "id": 333,
     "year": 2019,
     "name": "WOOD ENVIRONMENT & INFRASTRUCTURE SOLUTIONS",
     "industry": "Construction",
@@ -2338,6 +2672,7 @@
     "location": "53.30702414, -60.37515656"
   },
   {
+    "id": 334,
     "year": 2019,
     "name": "WOODWARDS AVIATION",
     "industry": "Support activities for transportation",
@@ -2345,6 +2680,7 @@
     "location": "53.31354919, -60.41110045"
   },
   {
+    "id": 335,
     "year": 2019,
     "name": "WOODWARDS GROUP OF COMPANIES",
     "industry": "Management of companies and enterprises",
@@ -2352,6 +2688,7 @@
     "location": "53.30751876, -60.38235754"
   },
   {
+    "id": 336,
     "year": 2019,
     "name": "WOODWARD'S OIL LIMITED",
     "industry": "Gasoline stations",
@@ -2359,6 +2696,7 @@
     "location": "53.3083508, -60.3802469"
   },
   {
+    "id": 337,
     "year": 2019,
     "name": "WYMAN JACQUE",
     "industry": "Employment services and management, scientific and technical consulting services",

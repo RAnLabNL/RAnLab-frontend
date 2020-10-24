@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import {
   CellClassParams,
+  CellValueChangedEvent,
   GridOptions,
   IsColumnFuncParams,
   RowNode,
@@ -30,8 +31,11 @@ import BusinessesBulkRemoveSnackbar from './BusinessesBulkRemoveSnackbar';
 
 type Props = {
   editingEnabled: boolean,
-  nameFilter?: string | null,
   industryFilter?: string | null,
+  nameFilter?: string | null,
+  saving: boolean,
+  setTransactions: (transactions: UpdateTransaction) => void;
+  transactions: UpdateTransaction;
   yearFilter?: number | null,
 };
 
@@ -43,6 +47,9 @@ const useStyles = makeStyles(
       '& .ag-body-viewport': {
         paddingBottom: '1.75rem',
       },
+    },
+    saving: {
+      display: 'none',
     },
     cellAdd: {
       paddingTop: 12,
@@ -61,6 +68,9 @@ const BusinessesTable = (props: Props): ReactElement => {
     editingEnabled,
     industryFilter,
     nameFilter,
+    saving,
+    setTransactions,
+    transactions,
     yearFilter,
   } = props;
   const classes = useStyles();
@@ -68,7 +78,9 @@ const BusinessesTable = (props: Props): ReactElement => {
 
   // Grid Config
 
-  const [rowData] = useState(fixtureData);
+  // Clone original data so it can be accessed when creating transaction records
+  const originalData = JSON.parse(JSON.stringify(fixtureData));
+  const [rowData] = useState<BusinessRow[]>(fixtureData);
 
   const [gridApi, setGridApi] = useState<GridOptions['api']>(null);
   const [columnApi, setColumnApi] = useState<GridOptions['columnApi']>(null);
@@ -203,6 +215,105 @@ const BusinessesTable = (props: Props): ReactElement => {
     [industryFilter, nameFilter, yearFilter]
   );
 
+  // Transaction records
+
+  /**
+   * Generates a new transaction record based on a row to be added
+   * @param row Row to be added
+   * @returns New transaction record
+   */
+  const addTransaction = (row: BusinessRow): UpdateTransaction => {
+    const add = transactions.add;
+    add.push(row);
+
+    return {
+      add,
+      remove: transactions.remove,
+      update: transactions.update,
+    };
+  };
+
+  /**
+   * Generates a new transaction record based on a row to be removed
+   * @param row Row to be removed
+   * @returns New transaction record
+   */
+  const removeTransaction = (row: BusinessRow): UpdateTransaction => {
+    const remove = transactions.remove;
+
+    // Checks if row was updated, and removes row from update record
+    const update = transactions.update;
+    const updateMatchedRow = transactions.update.filter(
+      transRow => transRow.id === row.id
+    );
+    if (updateMatchedRow.length) {
+      const matchedIndex = transactions.update.indexOf(updateMatchedRow[0]);
+      update.splice(matchedIndex, 1);
+    }
+
+    // Checks if row was added, and removes row from add record
+    const add = transactions.add;
+    const addMatchedRow = transactions.add.filter(
+      transRow => transRow.id === row.id
+    );
+    if (addMatchedRow.length) {
+      const matchedIndex = transactions.add.indexOf(addMatchedRow[0]);
+      add.splice(matchedIndex, 1);
+    }
+
+    // Adds row to remove record if it isn't a fresh add
+    if (!addMatchedRow.length) {
+      // We want to push the original row to the remove array
+      const originalRow = originalData.filter(
+        (origRow: BusinessRow) => origRow.id === row.id
+      );
+      remove.push(originalRow[0]);
+    }
+
+    return {
+      add,
+      remove,
+      update,
+    };
+  };
+
+  /**
+   * Generates a new transaction record based on a row to be updated
+   * @param row Row to be updated
+   * @returns New transaction record
+   */
+  const updateTransaction = (row: BusinessRow): UpdateTransaction => {
+    const matchedRow = transactions.update.filter(
+      transRow => transRow.id === row.id
+    );
+    const update = transactions.update;
+
+    // No current record of this row being updated
+    if (!matchedRow.length) {
+      update.push(row);
+    }
+    // Row has already been updated
+    else {
+      const matchedIndex = transactions.update.indexOf(matchedRow[0]);
+      update[matchedIndex] = row;
+    }
+
+    return {
+      add: transactions.add,
+      remove: transactions.remove,
+      update,
+    };
+  };
+
+  /**
+   * Updates transaction record on cell changed
+   * @param e Cell changed event
+   */
+  const handleCellValueChanged = (e: CellValueChangedEvent) => {
+    const newTransactions = updateTransaction(e.data);
+    setTransactions(newTransactions);
+  };
+
   // Editing
 
   const defaultAddRow = {
@@ -242,15 +353,21 @@ const BusinessesTable = (props: Props): ReactElement => {
       selectedRows.forEach(row => {
         rowData.push(row.data);
       });
-      
-      gridApi.applyTransaction({
+      const gridResponse = gridApi.applyTransaction({
         remove: rowData,
       });
+
       setAlertInfo({
         message: t('businesses-table-remove-success', { count: rowData.length }),
         severity: 'success',
       });
       setAlertSnackbarOpen(true);
+
+      // Update transaction record
+      gridResponse.remove.forEach(row => {
+        const newTransactions = removeTransaction(row.data);
+        setTransactions(newTransactions);
+      });
     }
   };
 
@@ -262,7 +379,7 @@ const BusinessesTable = (props: Props): ReactElement => {
   const handleSingleRowRemove = (row: BusinessRow, e: MouseEvent) => {
     e.preventDefault();
     if (gridApi) {
-      gridApi.applyTransaction({
+      const gridResponse = gridApi.applyTransaction({
         remove: [row],
       });
       setAlertInfo({
@@ -270,11 +387,15 @@ const BusinessesTable = (props: Props): ReactElement => {
         severity: 'success',
       });
       setAlertSnackbarOpen(true);
+
+      const newTransactions = removeTransaction(gridResponse.remove[0].data);
+      setTransactions(newTransactions);
     }
   };
 
   // Default values for adding a cell
   const defaultValues: BusinessRow = {
+    id: -1,
     year: 2020,
     name: '',
     industry: '',
@@ -310,16 +431,28 @@ const BusinessesTable = (props: Props): ReactElement => {
    */
   const handleRowAdd = () => {
     if (gridApi) {
-      gridApi.applyTransaction({
+      const gridResponse = gridApi.applyTransaction({
         add: [addValuesRef.current],
       });
-      addValuesRef.current = defaultValues;
+
+      // Update ID for next addition and reset values
+      const addId = addValuesRef.current.id;
+      addValuesRef.current = {
+        ...defaultValues,
+        id: addId - 1,
+      };
       resetPinnedRow();
+
+      // Alert user of addition
       setAlertInfo({
         message: t('businesses-table-add-success'),
         severity: 'success',
       });
       setAlertSnackbarOpen(true);
+
+      // Update transaction record
+      const newTransactions = addTransaction(gridResponse.add[0].data);
+      setTransactions(newTransactions);
     }
   };
 
@@ -382,9 +515,13 @@ const BusinessesTable = (props: Props): ReactElement => {
         className={classNames(
           'ag-theme-alpine',
           classes.root,
+          {
+            [classes.saving]: saving,
+          }
         )}
       >
         <AgGridReact
+          onCellValueChanged={handleCellValueChanged}
           gridOptions={{
             editType: 'fullRow',
             getRowHeight: getRowHeight,
@@ -406,6 +543,10 @@ const BusinessesTable = (props: Props): ReactElement => {
             headerName=""
             hide={!editingEnabled}
             width={50}
+          />
+          <AgGridColumn
+            field="id"
+            hide
           />
           <AgGridColumn
             cellClass={getCellClass}
@@ -498,11 +639,18 @@ interface BusinessField {
 }
 
 export interface BusinessRow extends BusinessField {
+  id: number;
   year: number;
   name: string;
   industry: string;
   employment: number;
   location: string;
+}
+
+export interface UpdateTransaction {
+  add: BusinessRow[];
+  remove: BusinessRow[];
+  update: BusinessRow[];
 }
 
 export default BusinessesTable;
