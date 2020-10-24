@@ -26,6 +26,7 @@ import DataSources from '../components/base/DataSourcesButton';
 import Typography from '../components/base/Typography';
 import RegionLayout from '../components/layout/region-layout/RegionLayout';
 import AlertDialog from '../components/base/AlertDialog';
+import BusinessesSaveSuccess from '../components/modules/businesses/BusinessesSaveSuccess';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -64,6 +65,10 @@ const useStyles = makeStyles(
       linkBreadcrumb: {
         fontWeight: theme.typography.fontWeightBold,
         textDecoration: 'none',
+      },
+      containerSaveSuccess: {
+        margin: `${theme.spacing(4)}px auto`,
+        maxWidth: '45rem',
       },
       gridContainerFilters: {
         padding: `${theme.spacing(2)}px 0`,
@@ -166,8 +171,17 @@ const Businesses = (): ReactElement => {
     );
   };
 
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+
   const handleConfirmBusinessUpdates = () => {
-    console.log('save');
+    // TODO send transactions to API
+    setShowConfirmation(false);
+    setShowSuccess(true);
+  };
+
+  const handleSaveSuccessBack = () => {
+    setBusinessEditingEnabled(false);
+    setShowSuccess(false);
   };
 
   useEffect(
@@ -210,119 +224,156 @@ const Businesses = (): ReactElement => {
                 </Typography>
               </Breadcrumbs>
             </Grid>
-            <Grid item>
-              {
-                !businessEditingEnabled
-                  ? (
-                    <Button
-                      className={classes.buttonEdit}
-                      color={'primary'}
-                      onClick={handleEditBusinesses}
-                      size="small"
-                      startIcon={<EditIcon fontSize="small" />}
-                      variant="contained"
-                    >
-                      {t('businesses-edit')}
-                    </Button>
-                  )
-                  : null
-              }
-              {
-                businessEditingEnabled && !showConfirmation
-                  ? (
-                    <>
-                      <Button
-                        onClick={handleCancelBusinessEdits}
-                        size="small"
-                        startIcon={
-                          <CloseIcon fontSize="small" />
-                        }
-                        variant="outlined"
-                      >
-                        {t('businesses-edit-cancel')}
-                      </Button>
-                      <Button
-                        className={classes.buttonEdit}
-                        color={'highlight'}
-                        disabled={getSaveDisabled()}
-                        onClick={handleSaveBusinesses}
-                        size="small"
-                        startIcon={<SaveIcon fontSize="small" />}
-                        variant="contained"
-                      >
-                        {t('businesses-edit-save')}
-                      </Button>
-                    </>
-                  )
-                  : null
-              }
-              {
-                showConfirmation
-                  ? (
-                    <>
-                      <Button
-                        onClick={handleCancelBusinessConfirmation}
-                        size="small"
-                        startIcon={
-                          <KeyboardBackspaceIcon fontSize="small" />
-                        }
-                        variant="outlined"
-                      >
-                        {t('businesses-confirm-back')}
-                      </Button>
-                      <Button
-                        className={classes.buttonEdit}
-                        color={'highlight'}
-                        onClick={handleConfirmBusinessUpdates}
-                        size="small"
-                        startIcon={<CheckIcon fontSize="small" />}
-                        variant="contained"
-                      >
-                        {t('businesses-confirm-save')}
-                      </Button>
-                    </>
-                  )
-                  : null
-              }
-            </Grid>
-          </Grid>
-        </div>
-        <Grid
-          alignItems="flex-end"
-          className={classes.gridContainerFilters}
-          container
-          justify="space-between"
-          spacing={2}
-        >
-          <Grid item>
             {
-              showConfirmation
-                ? 'Confirmation'
+              showSuccess
+                ? null
                 : (
-                  <BusinessesFilters
-                    setBusinessIndustryFilter={setBusinessIndustryFilter}
-                    setBusinessNameFilter={setBusinessNameFilter}
-                    setBusinessYearFilter={setBusinessYearFilter}
-                  />
+                  <Grid item>
+                    {
+                      !businessEditingEnabled
+                        ? (
+                          <Button
+                            className={classes.buttonEdit}
+                            color={'primary'}
+                            onClick={handleEditBusinesses}
+                            size="small"
+                            startIcon={<EditIcon fontSize="small" />}
+                            variant="contained"
+                          >
+                            {t('businesses-edit')}
+                          </Button>
+                        )
+                        : null
+                    }
+                    {
+                      businessEditingEnabled && !showConfirmation
+                        ? (
+                          <>
+                            <Button
+                              onClick={handleCancelBusinessEdits}
+                              size="small"
+                              startIcon={
+                                <CloseIcon fontSize="small" />
+                              }
+                              variant="outlined"
+                            >
+                              {t('businesses-edit-cancel')}
+                            </Button>
+                            <Button
+                              className={classes.buttonEdit}
+                              color={'highlight'}
+                              disabled={getSaveDisabled()}
+                              onClick={handleSaveBusinesses}
+                              size="small"
+                              startIcon={<SaveIcon fontSize="small" />}
+                              variant="contained"
+                            >
+                              {t('businesses-edit-save')}
+                            </Button>
+                          </>
+                        )
+                        : null
+                    }
+                    {
+                      showConfirmation
+                        ? (
+                          <>
+                            <Button
+                              onClick={handleCancelBusinessConfirmation}
+                              size="small"
+                              startIcon={
+                                <KeyboardBackspaceIcon fontSize="small" />
+                              }
+                              variant="outlined"
+                            >
+                              {t('businesses-confirm-back')}
+                            </Button>
+                            <Button
+                              className={classes.buttonEdit}
+                              color={'highlight'}
+                              onClick={handleConfirmBusinessUpdates}
+                              size="small"
+                              startIcon={<CheckIcon fontSize="small" />}
+                              variant="contained"
+                            >
+                              {t('businesses-confirm-save')}
+                            </Button>
+                          </>
+                        )
+                        : null
+                    }
+                  </Grid>
                 )
             }
           </Grid>
-          <Grid item>
-            <DataSources
-              onClick={handleDataSourcesClick}
-            />
-            <BusinessesDataSourcesDialog
-              open={dataSourcesDialogOpen}
-              onClose={handleDataSourcesDialogClose}
-            />
-          </Grid>
-        </Grid>
+        </div>
+
+        {
+          showSuccess
+            ? (
+              <div className={classes.containerSaveSuccess}>
+                <BusinessesSaveSuccess
+                  handleBack={handleSaveSuccessBack}
+                />
+              </div>
+            )
+            : (
+              <Grid
+                alignItems="flex-end"
+                className={classes.gridContainerFilters}
+                container
+                justify="space-between"
+                spacing={2}
+              >
+                <Grid item>
+                  {
+                    showConfirmation
+                      ? (
+                        <>
+                          <Typography variant="h3" component="h2" gutterBottom>
+                            {t('businesses-confirm-heading')}
+                          </Typography>
+                          <Typography>
+                            {t('businesses-confirm-body')}
+                          </Typography>
+                        </>
+                      )
+                      : (
+                        <BusinessesFilters
+                          setBusinessIndustryFilter={setBusinessIndustryFilter}
+                          setBusinessNameFilter={setBusinessNameFilter}
+                          setBusinessYearFilter={setBusinessYearFilter}
+                        />
+                      )
+                  }
+                </Grid>
+                <Grid item>
+                  {
+                    !showConfirmation
+                      ? (
+                        <>
+                          <DataSources
+                            onClick={handleDataSourcesClick}
+                          />
+                          <BusinessesDataSourcesDialog
+                            open={dataSourcesDialogOpen}
+                            onClose={handleDataSourcesDialogClose}
+                          />
+                        </>
+                      )
+                      : null
+                  }
+                  
+                </Grid>
+              </Grid>
+            )
+        }
 
         <BusinessesTable
           editingEnabled={businessEditingEnabled}
           industryFilter={businessIndustryFilter}
           nameFilter={businessNameFilter}
-          saving={showConfirmation}
+          saving={showConfirmation || showSuccess}
           setTransactions={setTransactions}
           transactions={transactions}
           yearFilter={businessYearFilter}
