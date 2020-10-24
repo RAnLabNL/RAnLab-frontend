@@ -168,12 +168,14 @@ const RegionSidebar = (): ReactElement => {
       <Link href="/region">
         <Logo className={classes.logo} />
       </Link>
-      <RegionMenu />
+      <div id="region-tour-step-1">
+        <RegionMenu />
+      </div>
 
       <MenuList className={classes.menuList}>
         <MenuItem className={classes.menuItem}>
           <Link href="/region">
-            <a className={classes.listItemLink}>
+            <a className={classes.listItemLink} id="region-tour-step-2">
               <ListItemIcon className={classes.listItemIcon}>
                 <HomeIcon />
               </ListItemIcon>
@@ -183,7 +185,7 @@ const RegionSidebar = (): ReactElement => {
         </MenuItem>
         <MenuItem className={classes.menuItem}>
           <Link href="/businesses">
-            <a className={classes.listItemLink}>
+            <a className={classes.listItemLink} id="region-tour-step-3">
               <ListItemIcon className={classes.listItemIcon}>
                 <WorkIcon />
               </ListItemIcon>
@@ -205,6 +207,7 @@ const RegionSidebar = (): ReactElement => {
                 fontSize="small"
               />
             }
+            id="region-tour-step-4"
             onClick={handleDownloadReportClick}
             variant="contained"
             

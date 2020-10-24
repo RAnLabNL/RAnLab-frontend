@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import Logo from '../../base/Logo';
 import UserMenu from '../UserMenu';
+import RegionTourButton from './RegionTourButton';
 
 type Props = {
   onMenuButtonClick: (e: MouseEvent<HTMLButtonElement>) => void,
@@ -24,6 +25,11 @@ const useStyles = makeStyles(
       justifyContent: 'space-between',
       width: '100%',
     },
+    menuContainer: {
+      [theme.breakpoints.down('xs')]: {
+        flex: '1 1 100%',
+      },
+    },
     logoContainer: {
       display: 'inline-block',
       verticalAlign: 'middle',
@@ -33,7 +39,16 @@ const useStyles = makeStyles(
       },
     },
     actionsContainer: {
-      paddingRight: theme.spacing(1),
+      alignItems: 'center',
+      display: 'flex',
+      flex: '1 1 100%',
+      justifyContent: 'space-between',
+      padding: `0 ${theme.spacing(1)}px`,
+      [theme.breakpoints.down('xs')]: {
+        display: 'block',
+        flex: 'auto',
+        whiteSpace: 'nowrap',
+      },
     },
   })
 );
@@ -45,10 +60,10 @@ const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
   return (
     <Toolbar className={classes.root}>
       <div className={classes.container}>
-        <div>
+        <div className={classes.menuContainer}>
           <IconButton
             color="inherit"
-            aria-label={t('region-toggle-menu')}
+            aria-label={t('region-toolbar-toggle-menu')}
             onClick={onMenuButtonClick}
           >
             <MenuIcon />
@@ -60,6 +75,7 @@ const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
           </div>
         </div>
         <div className={classes.actionsContainer}>
+          <RegionTourButton />
           <UserMenu />
         </div>
       </div>

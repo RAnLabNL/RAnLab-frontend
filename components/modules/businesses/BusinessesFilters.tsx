@@ -82,7 +82,10 @@ const Businesses = (props: Props): ReactElement => {
   };
 
   return (
-    <fieldset className={classes.root}>
+    <fieldset
+      className={classes.root}
+      id="business-tour-step-1"
+    >
       <Grid
         alignItems="center"
         container

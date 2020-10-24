@@ -522,6 +522,7 @@ const BusinessesTable = (props: Props): ReactElement => {
             [classes.saving]: saving,
           }
         )}
+        id="business-tour-editing-step-1"
       >
         <AgGridReact
           onCellValueChanged={handleCellValueChanged}
