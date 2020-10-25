@@ -1,5 +1,7 @@
 {
   "businesses-confirm-back": "Back",
+  "businesses-confirm-body": "Please verify the changes you've made to your region's businesses data before sending your request.",
+  "businesses-confirm-heading": "Confirm Business Updates",
   "businesses-confirm-save": "Confirm",
   "businesses-edit": "Edit",
   "businesses-edit-cancel": "Cancel",

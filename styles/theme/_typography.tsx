@@ -13,6 +13,10 @@ const typography = {
     fontSize: '1.2rem',
     fontWeight: 700,
   },
+  h3: {
+    fontSize: '1.1rem',
+    fontWeight: 700,
+  },
   button: {
     fontWeight: 700,
   },
