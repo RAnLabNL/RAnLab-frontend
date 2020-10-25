@@ -5,6 +5,8 @@
   "businesses-edit-cancel": "Cancel",
   "businesses-edit-save": "Save",
   "businesses-heading": "Businesses",
+  "businesses-leave-edits-content": "If you leave your edits all of your changes will be lost. Are you sure you want to leave?",
+  "businesses-leave-edits-title": "Are you sure you want to lose changes?",
   "index-link-region-dashboard": "Region Dashboard",
   "profile-edit-heading": "Edit Profile",
   "region-heading": "Region Homepage"

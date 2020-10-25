@@ -10,6 +10,7 @@ module.exports = {
     'plugin:react/recommended',
   ],
   rules: {
+    'array-bracket-spacing': ['error', 'never'],
     'comma-dangle': ['error', 'always-multiline'],
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'object-curly-spacing': ['error', 'always'],
