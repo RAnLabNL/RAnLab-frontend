@@ -17,6 +17,7 @@
   "businesses-table-add-success": "You added 1 business.",
   "businesses-table-remove-success": "You removed {{count}} business.",
   "businesses-table-remove-success_plural": "You removed {{count}} businesses.",
+  "businesses-tour-button": "Show Businesses Tour",
   "data-sources-button": "Data Sources",
   "download-report-card-body": "We've compiled a booklet of comprehensive reports based on the data for your region.",
   "download-report-card-cta": "Download Report",
@@ -45,7 +46,13 @@
   "region-sidebar-download-report": "Download Report",
   "region-sidebar-home": "Region Home",
   "region-sidebar-terms": "Terms",
-  "region-toggle-button-label": "Toggle Menu",
+  "region-toolbar-toggle-button-label": "Toggle Menu",
+  "region-walkthrough-button": "Show Walkthrough",
+  "tour-back": "Back",
+  "tour-close": "Close",
+  "tour-last": "Finish",
+  "tour-next": "Next",
+  "tour-skip": "Close",
   "user-menu-log-out": "Log Out",
   "user-menu-profile": "Profile"
 }

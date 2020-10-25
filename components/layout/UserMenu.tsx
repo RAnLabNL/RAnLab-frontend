@@ -16,7 +16,6 @@ import { fade } from '../../styles/helpers/color';
 
 const useStyles = makeStyles(
   (theme) => ({
-    root: {},
     iconButton: {
       border: `1px solid ${fade(theme.palette.primary.main, 0.75)}`,
       padding: '0.25em',
@@ -74,7 +73,7 @@ const UserMenu = (): ReactElement => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       <IconButton
         color="inherit"
         className={classNames(
@@ -83,6 +82,7 @@ const UserMenu = (): ReactElement => {
             [classes.iconButtonActive]: Boolean(anchorEl),
           },
         )}
+        id="region-tour-step-5"
         onClick={handleClick}
       >
         <PersonIcon fontSize="small" />
@@ -119,7 +119,7 @@ const UserMenu = (): ReactElement => {
           </a>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 };
 

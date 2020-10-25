@@ -27,6 +27,7 @@ import Typography from '../components/base/Typography';
 import RegionLayout from '../components/layout/region-layout/RegionLayout';
 import AlertDialog from '../components/base/AlertDialog';
 import BusinessesSaveSuccess from '../components/modules/businesses/BusinessesSaveSuccess';
+import BusinessesTourButton from '../components/modules/businesses/BusinessesTourButton';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -229,79 +230,101 @@ const Businesses = (): ReactElement => {
                 ? null
                 : (
                   <Grid item>
-                    {
-                      !businessEditingEnabled
-                        ? (
-                          <Button
-                            className={classes.buttonEdit}
-                            color={'primary'}
-                            onClick={handleEditBusinesses}
-                            size="small"
-                            startIcon={<EditIcon fontSize="small" />}
-                            variant="contained"
-                          >
-                            {t('businesses-edit')}
-                          </Button>
-                        )
-                        : null
-                    }
-                    {
-                      businessEditingEnabled && !showConfirmation
-                        ? (
-                          <>
-                            <Button
-                              onClick={handleCancelBusinessEdits}
-                              size="small"
-                              startIcon={
-                                <CloseIcon fontSize="small" />
-                              }
-                              variant="outlined"
-                            >
-                              {t('businesses-edit-cancel')}
-                            </Button>
-                            <Button
-                              className={classes.buttonEdit}
-                              color={'highlight'}
-                              disabled={getSaveDisabled()}
-                              onClick={handleSaveBusinesses}
-                              size="small"
-                              startIcon={<SaveIcon fontSize="small" />}
-                              variant="contained"
-                            >
-                              {t('businesses-edit-save')}
-                            </Button>
-                          </>
-                        )
-                        : null
-                    }
-                    {
-                      showConfirmation
-                        ? (
-                          <>
-                            <Button
-                              onClick={handleCancelBusinessConfirmation}
-                              size="small"
-                              startIcon={
-                                <KeyboardBackspaceIcon fontSize="small" />
-                              }
-                              variant="outlined"
-                            >
-                              {t('businesses-confirm-back')}
-                            </Button>
-                            <Button
-                              className={classes.buttonEdit}
-                              color={'highlight'}
-                              onClick={handleConfirmBusinessUpdates}
-                              size="small"
-                              startIcon={<CheckIcon fontSize="small" />}
-                              variant="contained"
-                            >
-                              {t('businesses-confirm-save')}
-                            </Button>
-                          </>
-                        )
-                        : null
-                    }
+                    <Grid
+                      alignItems="center"
+                      container
+                    >
+                      <Grid item>
+                        {
+                          !showConfirmation && !showSuccess
+                            ? (
+                              <BusinessesTourButton
+                                editingEnabled={businessEditingEnabled}
+                              />
+                            )
+                            : null
+                        }
+                      </Grid>
+                      <Grid item>
+                        {
+                          !businessEditingEnabled
+                            ? (
+                              <Button
+                                className={classes.buttonEdit}
+                                color={'primary'}
+                                id="business-tour-step-2"
+                                onClick={handleEditBusinesses}
+                                size="small"
+                                startIcon={<EditIcon fontSize="small" />}
+                                variant="contained"
+                              >
+                                {t('businesses-edit')}
+                              </Button>
+                            )
+                            : null
+                        }
+                        {
+                          businessEditingEnabled && !showConfirmation
+                            ? (
+                              <>
+                                <Button
+                                  className={classes.buttonEdit}
+                                  id="business-tour-editing-step-3"
+                                  onClick={handleCancelBusinessEdits}
+                                  size="small"
+                                  startIcon={
+                                    <CloseIcon fontSize="small" />
+                                  }
+                                  variant="outlined"
+                                >
+                                  {t('businesses-edit-cancel')}
+                                </Button>
+                                <Button
+                                  className={classes.buttonEdit}
+                                  color={'highlight'}
+                                  disabled={getSaveDisabled()}
+                                  id="business-tour-editing-step-2"
+                                  onClick={handleSaveBusinesses}
+                                  size="small"
+                                  startIcon={<SaveIcon fontSize="small" />}
+                                  variant="contained"
+                                >
+                                  {t('businesses-edit-save')}
+                                </Button>
+                              </>
+                            )
+                            : null
+                        }
+                        {
+                          showConfirmation
+                            ? (
+                              <>
+                                <Button
+                                  onClick={handleCancelBusinessConfirmation}
+                                  size="small"
+                                  startIcon={
+                                    <KeyboardBackspaceIcon fontSize="small" />
+                                  }
+                                  variant="outlined"
+                                >
+                                  {t('businesses-confirm-back')}
+                                </Button>
+                                <Button
+                                  className={classes.buttonEdit}
+                                  color={'highlight'}
+                                  onClick={handleConfirmBusinessUpdates}
+                                  size="small"
+                                  startIcon={<CheckIcon fontSize="small" />}
+                                  variant="contained"
+                                >
+                                  {t('businesses-confirm-save')}
+                                </Button>
+                              </>
+                            )
+                            : null
+                        }
+                      </Grid>
+                    </Grid>
                   </Grid>
                 )
             }
