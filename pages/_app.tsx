@@ -1,9 +1,11 @@
+import { Auth0Provider } from '@auth0/auth0-react';
 import { ReactNode, useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import Auth0Redirect from '../components/base/Auth0Redirect';
 import theme from '../styles/theme/theme';
 import '../translations/i18n';
 
@@ -21,13 +23,25 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
     }
   }, []);
 
+  const redirectUri = process.browser ? window.location.origin : '';
+  console.log(redirectUri);
+
   return (
-    <ThemeProvider theme={theme}>
-      <ViewportProvider>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ViewportProvider>
-    </ThemeProvider>
+    <Auth0Provider
+      domain={process.env.AUTH0_DOMAIN || ''}
+      clientId={process.env.AUTH0_CLIENT_ID || ''}
+      redirectUri={redirectUri}
+      scope="read:current_user read:current_user_metadata update:current_user_metadata"
+    >
+      <ThemeProvider theme={theme}>
+        <ViewportProvider>
+          <CssBaseline />
+          <Auth0Redirect>
+            <Component {...pageProps} />
+          </Auth0Redirect>
+        </ViewportProvider>
+      </ThemeProvider>
+    </Auth0Provider>
   );
 };
 

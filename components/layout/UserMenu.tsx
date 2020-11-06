@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -38,15 +39,21 @@ const useStyles = makeStyles(
       },
     },
     menuItemLink: {
+      background: 'transparent',
+      border: 'none',
       fontSize: 'inherit',
       textDecoration: 'none',
       color: theme.palette.text.primary,
+      cursor: 'pointer',
       padding: theme.spacing(2),
       '&:visited': {
         color: theme.palette.text.primary,
       },
       '&:hover': {
         color: theme.palette.primary.main,
+      },
+      '&:focus, &:active': {
+        outline: 'none',
       },
     },
   })
@@ -55,6 +62,8 @@ const useStyles = makeStyles(
 const UserMenu = (): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
+  const { logout } = useAuth0();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   /**
@@ -70,6 +79,14 @@ const UserMenu = (): ReactElement => {
    */
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  /**
+   * Logs current user out
+   */
+  const handleLogOut = () => {
+    const returnTo = process.browser ? window.location.origin : '';
+    logout({ returnTo });
   };
 
   return (
@@ -114,9 +131,12 @@ const UserMenu = (): ReactElement => {
           </Link>
         </MenuItem>
         <MenuItem className={classes.menuItem}>
-          <a className={classes.menuItemLink}>
+          <button
+            className={classes.menuItemLink}
+            onClick={handleLogOut}
+          >
             {t('user-menu-log-out')}
-          </a>
+          </button>
         </MenuItem>
       </Menu>
     </>
