@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Auth0Redirect from '../components/base/Auth0Redirect';
+import { wrapper } from '../store/store';
 import theme from '../styles/theme/theme';
 import '../translations/i18n';
 
@@ -24,7 +25,6 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
   }, []);
 
   const redirectUri = process.browser ? window.location.origin : '';
-  console.log(redirectUri);
 
   return (
     <Auth0Provider
@@ -45,4 +45,4 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
   );
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
