@@ -6,3 +6,4 @@ _static/
 .out
 .DS_Store
 .vscode/
+.env

@@ -20,7 +20,7 @@ export const setUser = (userId: string): UserThunkResult => {
         };
 
         //Fetch user profile
-        const userByIdUrl = `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${userId}`;
+        const userByIdUrl = `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/users/${userId}`;
         const userProfileResponse = await fetch(userByIdUrl, { headers });
         const { app_metadata, user_metadata } = await userProfileResponse.json();
 

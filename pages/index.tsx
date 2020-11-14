@@ -20,7 +20,7 @@ const Home = (): ReactElement => {
   const getAccessToken = async () => {
     try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
+        audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,
         scope: 'read:current_user read:current_user_metadata update:current_user_metadata read:roles',
       });
       dispatch(setToken(accessToken));
