@@ -193,7 +193,7 @@ const Businesses = (): ReactElement => {
   );
 
   return (
-    <RegionLayout title="Edit Businesses">
+    <RegionLayout title={t('businesses-title')}>
       <div
         className={classNames(
           classes.root,

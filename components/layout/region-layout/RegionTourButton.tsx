@@ -24,6 +24,9 @@ const useStyles = makeStyles(
         display: 'none',
       },
     },
+    containerTour: {
+      display: 'inline-block',
+    },
   })
 );
 
@@ -102,11 +105,15 @@ const RegionWalkthroughButton = (): ReactElement => {
       >
         <FlagIcon fontSize="small" />
       </IconButton>
-      <Tour
-        handleClose={handleTourClose}
-        open={isTourOpen}
-        steps={steps}
-      />
+      <div
+        className={classes.containerTour}
+      >
+        <Tour
+          handleClose={handleTourClose}
+          open={isTourOpen}
+          steps={steps}
+        />
+      </div>
     </>
   );
 };

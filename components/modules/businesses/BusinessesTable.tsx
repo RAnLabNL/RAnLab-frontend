@@ -20,9 +20,6 @@ import {
 } from 'ag-grid-community';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-
 import fixtureData from '../../../fixtures/businesses.json';
 
 import BusinessesActionCell from './BusinessesActionCell';

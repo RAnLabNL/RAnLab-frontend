@@ -6,16 +6,20 @@ export const SET_USER_STARTED = 'SET_USER_STARTED';
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const SET_USER_FAILURE = 'SET_USER_FAILURE';
 
+export const SET_USER_PROFILE_STARTED = 'SET_USER_PROFILE_STARTED';
+export const SET_USER_PROFILE_SUCCESS = 'SET_USER_PROFILE_SUCCESS';
+export const SET_USER_PROFILE_FAILURE = 'SET_USER_PROFILE_FAILURE';
+
 export interface UserProfile {
   city?: string;
-  first_name?: string;
+  firstName?: string;
   institution?: string;
-  job_title?: string;
-  last_name?: string;
-  phone_number?: string;
-  postal_code?: string;
+  jobTitle?: string;
+  lastName?: string;
+  phone?: string;
+  postalCode?: string;
   province?: string;
-  street_address?: string;
+  streetAddress?: string;
 }
 
 export type UserRole = 'region' | 'admin';
@@ -27,6 +31,7 @@ interface SetUserStartedAction {
 interface SetUserSuccessAction {
   type: typeof SET_USER_SUCCESS;
   payload: {
+    id: string,
     role: UserRole,
     profile: UserProfile,
   };
@@ -39,10 +44,31 @@ interface SetUserFailureAction {
   };
 }
 
+interface SetUserProfileStartedAction {
+  type: typeof SET_USER_PROFILE_STARTED;
+}
+
+interface SetUserProfileSuccessAction {
+  type: typeof SET_USER_PROFILE_SUCCESS;
+  payload: {
+    profile: UserProfile,
+  };
+}
+
+interface SetUserProfileFailureAction {
+  type: typeof SET_USER_PROFILE_FAILURE;
+  payload: {
+    error: Error,
+  };
+}
+
 export type UserActionTypes =
   SetUserStartedAction
   | SetUserSuccessAction
-  | SetUserFailureAction;
+  | SetUserFailureAction
+  | SetUserProfileStartedAction
+  | SetUserProfileSuccessAction
+  | SetUserProfileFailureAction;
 
 export type UserThunkResult = ThunkAction<void, RootState, undefined, UserActionTypes>;
 
@@ -51,6 +77,7 @@ export type UserThunkDispatch = ThunkDispatch<RootState, void, Action>;
 export interface UserState {
   error?: Error | null;
   loading: boolean;
+  id?: string | null;
   role?: UserRole | null;
   profile?: UserProfile | null;
 }

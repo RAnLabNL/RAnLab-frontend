@@ -10,6 +10,12 @@ import { wrapper } from '../store/store';
 import theme from '../styles/theme/theme';
 import '../translations/i18n';
 
+// Import CSS from external libraries
+// Known issue in @zeit/next-css if imports aren't performed
+// at the app level then dev server Link components will not work
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
 const ViewportProvider = dynamic(
   () => import('../providers/viewport'),
   { ssr: false },

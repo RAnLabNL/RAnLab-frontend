@@ -9,10 +9,10 @@ import Typography from '../components/base/Typography';
 const Profile = (): ReactElement => {
   const { t } = useTranslation('pages');
   return (
-    <RegionLayout title="Edit Profile">
+    <RegionLayout title={t('profile-title')}>
       <Container maxWidth="md">
         <Typography variant="h1">
-          {t('profile-edit-heading')}
+          {t('profile-title')}
         </Typography>
         <ProfileForm />
       </Container>
