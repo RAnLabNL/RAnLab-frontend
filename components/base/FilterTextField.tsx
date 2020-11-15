@@ -21,7 +21,8 @@ const useStyles = makeStyles(
       fontSize: '1em',
       transform: 'translate(14px, 8px) scale(1)',
     },
-  })
+  }),
+  { name: 'RanLabFilterTextField' },
 );
 
 const FilterTextField = (props: TextFieldProps): ReactElement => {

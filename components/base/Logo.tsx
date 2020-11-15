@@ -28,7 +28,8 @@ const useStyles = makeStyles(
     standalone: {
       backgroundImage: 'url(/assets/logos/logo-color-standalone.svg)',
     },
-  })
+  }),
+  { name: 'RanLabLogo' },
 );
 
 const Logo = forwardRef((props: Props, ref): ReactElement => {

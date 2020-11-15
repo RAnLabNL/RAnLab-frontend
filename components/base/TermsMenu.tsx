@@ -70,7 +70,8 @@ const useStyles = makeStyles(
         },
       },
     },
-  })
+  }),
+  { name: 'RanLabTermsMenu' },
 );
 
 const TermsMenu = ({ isMenu }: Props): ReactElement => {

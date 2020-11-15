@@ -11,7 +11,8 @@ const useStyles = makeStyles(
     h1: {
       marginBottom: theme.spacing(2),
     },
-  })
+  }),
+  { name: 'RanLabTypography' },
 );
 
 const Typography = (props: TypographyProps): ReactElement => {

@@ -38,7 +38,8 @@ const useStyles = makeStyles(
     img: {
       width: '100%',
     },
-  })
+  }),
+  { name: 'RanLabBusinessesSaveSuccess' },
 );
 
 const BusinessesSaveSuccess = ({ handleBack }: Props): ReactElement => {

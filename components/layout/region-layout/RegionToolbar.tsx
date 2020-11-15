@@ -50,7 +50,8 @@ const useStyles = makeStyles(
         whiteSpace: 'nowrap',
       },
     },
-  })
+  }),
+  { name: 'RanLabRegionToolbar' },
 );
 
 const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {

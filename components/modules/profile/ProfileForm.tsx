@@ -38,7 +38,8 @@ const useStyles = makeStyles(
       color: theme.palette.error.main,
       marginTop: theme.spacing(2),
     },
-  })
+  }),
+  { name: 'RanLabProfileForm' },
 );
 
 const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;

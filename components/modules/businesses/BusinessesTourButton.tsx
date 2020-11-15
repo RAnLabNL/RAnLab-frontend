@@ -17,7 +17,8 @@ const useStyles = makeStyles(
       border: `1px solid ${fade(theme.palette.primary.main, 0.5)}`,
       padding: theme.spacing(0.5),
     },
-  })
+  }),
+  { name: 'RanLabBusinessesTourButton' },
 );
 
 const componentName = (props: Props): ReactElement => {

@@ -83,7 +83,8 @@ const useStyles = makeStyles(
         margin: `0 ${adornmentGutter}px -${theme.spacing(0.5)}px 0`,
       },
     };
-  }
+  },
+  { name: 'RanLabRegionMenu' },
 );
 
 const componentName = (): ReactElement => {

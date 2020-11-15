@@ -57,7 +57,8 @@ const useStyles = makeStyles(
     cellActions: {
       textAlign: 'right',
     },
-  })
+  }),
+  { name: 'RanLabBusinessesTable' },
 );
 
 const BusinessesTable = (props: Props): ReactElement => {

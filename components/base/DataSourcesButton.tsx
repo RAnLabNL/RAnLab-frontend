@@ -14,7 +14,8 @@ const useStyles = makeStyles(
     infoIcon: {
       color: theme.palette.primary.main,
     },
-  })
+  }),
+  { name: 'RanLabDataSources' },
 );
 
 const DataSources = (props: ButtonProps): ReactElement => {

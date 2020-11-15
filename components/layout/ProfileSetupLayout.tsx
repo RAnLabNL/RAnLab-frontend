@@ -31,7 +31,8 @@ const useStyles = makeStyles(
     containerTerms: {
       padding: theme.spacing(2),
     },
-  })
+  }),
+  { name: 'RanLabProfileSetupLayout' },
 );
 
 const ProfileSetupLayout = ({ children }: Props): ReactElement => {

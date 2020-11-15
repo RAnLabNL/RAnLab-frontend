@@ -104,7 +104,8 @@ const useStyles = makeStyles(
         padding: theme.spacing(2),
       },
     },
-  })
+  }),
+  { name: 'RanLabRegionSidebar' },
 );
 
 const RegionSidebar = (): ReactElement => {

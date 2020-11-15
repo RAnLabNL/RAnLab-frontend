@@ -60,7 +60,8 @@ const useStyles = makeStyles(
         color: 'inherit',
       },
     },
-  })
+  }),
+  { name: 'RanLabDownloadReportCard' },
 );
 
 const DownloadReportCard = (): ReactElement => {
