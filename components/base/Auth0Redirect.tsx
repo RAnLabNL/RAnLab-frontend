@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import AppLoading from '../../components/base/AppLoading';
 import { RootState } from '../../store';
 import { setToken } from '../../store/actions/auth0';
 import { setUser } from '../../store/actions/user';
@@ -57,9 +58,7 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
     || auth0.token === null
     || user.id === null
   ) {
-    return (
-      <div>Loading...</div>
-    );
+    return <AppLoading />;
   }
 
   if (
