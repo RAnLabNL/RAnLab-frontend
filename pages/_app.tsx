@@ -1,12 +1,18 @@
 import { Auth0Provider } from '@auth0/auth0-react';
-import { ReactNode, useEffect } from 'react';
+import { create } from 'jss';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
-import { ThemeProvider } from '@material-ui/core/styles';
+import {
+  jssPreset,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ReactNode, useEffect } from 'react';
 
 import Auth0Redirect from '../components/base/Auth0Redirect';
 import { wrapper } from '../store/store';
+import globals from '../styles/globals/globals';
 import theme from '../styles/theme/theme';
 import '../translations/i18n';
 
@@ -21,6 +27,8 @@ const ViewportProvider = dynamic(
   { ssr: false },
 );
 
+const jssGlobals = create().setup(jssPreset());
+
 const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -28,6 +36,11 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
     if (jssStyles && jssStyles.parentElement) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+
+    jssGlobals.createStyleSheet(
+      globals,
+      { meta: 'RanLabGlobals' },
+    ).attach();
   }, []);
 
   const redirectUri = process.browser ? window.location.origin : '';
@@ -39,14 +52,16 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
       redirectUri={redirectUri}
       scope="read:current_user read:current_user_metadata update:current_user_metadata"
     >
-      <ThemeProvider theme={theme}>
-        <ViewportProvider>
-          <CssBaseline />
-          <Auth0Redirect>
-            <Component {...pageProps} />
-          </Auth0Redirect>
-        </ViewportProvider>
-      </ThemeProvider>
+      <StylesProvider>
+        <ThemeProvider theme={theme}>
+          <ViewportProvider>
+            <CssBaseline />
+            <Auth0Redirect>
+              <Component {...pageProps} />
+            </Auth0Redirect>
+          </ViewportProvider>
+        </ThemeProvider>
+      </StylesProvider>
     </Auth0Provider>
   );
 };

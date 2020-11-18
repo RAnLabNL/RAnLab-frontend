@@ -17,6 +17,7 @@ import { setUserProfile } from '../../../store/actions/user';
 import { UserProfile } from '../../../store/types/user';
 import Button from '../../base/Button';
 import Typography from '../../base/Typography';
+import AppLoading from '../../base/AppLoading';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -119,7 +120,7 @@ const ProfileForm = (): ReactElement => {
   if (
     !profileSaving && user.loading
   ) {
-    return <div>Loading...</div>;
+    return <AppLoading />;
   }
 
   return (

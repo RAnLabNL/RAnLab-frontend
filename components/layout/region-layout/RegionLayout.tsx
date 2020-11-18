@@ -16,6 +16,7 @@ import { RootState } from '../../../store';
 import createShadow from '../../../styles/helpers/createShadow';
 import { fade } from '../../../styles/helpers/color';
 
+import AppLoading from '../../base/AppLoading';
 import Typography from '../../base/Typography';
 import ProfileForm from '../../modules/profile/ProfileForm';
 import MainLayout from '../MainLayout';
@@ -159,11 +160,10 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
   const isProfileEmpty = 
     user.profile
     && user.profile.constructor === Object && Object.keys(user.profile).length === 0;
-    
 
   if (!user.profile || isProfileEmpty) {
     if (user.loading) {
-      return <div>Loading...</div>;
+      return <AppLoading />;
     }
     else {
       return (
@@ -227,7 +227,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
     );
   }
 
-  return <div>Loading...</div>;
+  return <AppLoading />;
 };
 
 export default RegionLayout;
