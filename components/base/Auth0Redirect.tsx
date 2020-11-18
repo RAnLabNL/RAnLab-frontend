@@ -29,6 +29,7 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
         audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,
         scope: 'read:current_user read:current_user_metadata update:current_user_metadata read:roles',
       });
+      console.log(accessToken);
       dispatch(setToken(accessToken));
     }
     catch (e) {
@@ -48,7 +49,7 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      loginWithRedirect();
+      // loginWithRedirect();
     }
   }, []);
 
