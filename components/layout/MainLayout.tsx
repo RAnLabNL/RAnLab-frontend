@@ -9,6 +9,7 @@ type Props = {
 
 const MainLayout = ({ children, title }: Props): ReactElement => {
   const { t } = useTranslation('common');
+
   return (
     <div>
       <Head>

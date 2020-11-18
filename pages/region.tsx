@@ -27,13 +27,13 @@ const Region = (): ReactElement => {
   const classes = useStyles();
 
   return (
-    <RegionLayout title="Region Dashboard">
+    <RegionLayout title={t('region-title')}>
       <Typography
         className={classes.typographyH1}
         variant="h1"
       >
         <small>St. John&rsquo;s, NL</small>
-        {t('region-heading')}
+        {t('region-title')}
       </Typography>
 
       <Grid

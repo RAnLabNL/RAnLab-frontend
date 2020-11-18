@@ -2,18 +2,24 @@ import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
-
 import {
   ReactNode,
   ReactElement,
   useEffect,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { useViewport } from '../../../providers/viewport';
+import { RootState } from '../../../store';
 import createShadow from '../../../styles/helpers/createShadow';
 import { fade } from '../../../styles/helpers/color';
+
+import Typography from '../../base/Typography';
+import ProfileForm from '../../modules/profile/ProfileForm';
 import MainLayout from '../MainLayout';
+import ProfileSetupLayout from '../ProfileSetupLayout';
 import RegionSidebar from './RegionSidebar';
 import RegionToolbar from './RegionToolbar';
 
@@ -31,6 +37,15 @@ const useStyles = makeStyles(
       display: 'block',
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
+      },
+    },
+    typographyH1: {
+      marginBottom: theme.spacing(3),
+      '& > small': {
+        color: theme.palette.text.secondary,
+        display: 'block',
+        fontWeight: theme.typography.fontWeightMedium,
+        fontSize: '0.65em',
       },
     },
     appBar: {
@@ -125,8 +140,10 @@ const useStyles = makeStyles(
 );
 
 const RegionLayout = ({ children, title }: Props): ReactElement => {
+  const { t } = useTranslation('components');
   const classes = useStyles();
   const { width } = useViewport();
+  const user = useSelector((state: RootState) => state.user);
 
   const fixedNavBreakpoint = 600;
   const [open, setOpen] = useState(width >= fixedNavBreakpoint);
@@ -139,47 +156,78 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
     setOpen(!open);
   };
 
-  return (
-    <MainLayout title={title}>
-      <div className={classes.root}>
-        <AppBar
-          position="fixed"
-          className={classNames(
-            classes.appBar,
-            {
-              [classes.appBarShift]: open,
-            },
-          )}
-        >
-          <RegionToolbar
-            onMenuButtonClick={toggleDrawerOpen}
-          />
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          classes={{
-            paper: classes.drawerPaper,
-            paperAnchorDockedLeft: classes.drawerPaperAnchorDockedLeft,
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <RegionSidebar />
-        </Drawer>
-        <main
-          className={classNames(
-            classes.content,
-            {
-              [classes.contentShift]: open,
-            },
-          )}
-        >
-          {children}
-        </main>
-      </div>
-    </MainLayout>
-  );
+  const isProfileEmpty = 
+    user.profile
+    && user.profile.constructor === Object && Object.keys(user.profile).length === 0;
+    
+
+  if (!user.profile || isProfileEmpty) {
+    if (user.loading) {
+      return <div>Loading...</div>;
+    }
+    else {
+      return (
+        <ProfileSetupLayout>
+          <Typography
+            className={classes.typographyH1}
+            variant="h1"
+          >
+            {t('region-layout-profile-setup-heading')}
+          </Typography>
+          <Typography>
+            {t('region-layout-profile-setup-body')}
+          </Typography>
+          <ProfileForm />
+        </ProfileSetupLayout>
+      );
+    }
+  }
+
+  if (user.profile && !isProfileEmpty) {
+    return (
+      <MainLayout title={title}>
+        <div className={classes.root}>
+          <AppBar
+            position="fixed"
+            className={classNames(
+              classes.appBar,
+              {
+                [classes.appBarShift]: open,
+              },
+            )}
+          >
+            <RegionToolbar
+              onMenuButtonClick={toggleDrawerOpen}
+            />
+          </AppBar>
+          <Drawer
+            className={classes.drawer}
+            classes={{
+              paper: classes.drawerPaper,
+              paperAnchorDockedLeft: classes.drawerPaperAnchorDockedLeft,
+            }}
+            variant="persistent"
+            anchor="left"
+            open={open}
+          >
+            <RegionSidebar />
+          </Drawer>
+          <main
+            className={classNames(
+              classes.content,
+              {
+                [classes.contentShift]: open,
+              },
+            )}
+          >
+            {children}
+          </main>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  return <div>Loading...</div>;
 };
 
 export default RegionLayout;

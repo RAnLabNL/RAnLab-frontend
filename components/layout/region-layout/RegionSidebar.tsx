@@ -11,29 +11,11 @@ import { useTranslation } from 'react-i18next';
 
 import Button from '../../base/Button';
 import Logo from '../../base/Logo';
+import TermsMenu from '../../base/TermsMenu';
 import RegionMenu from '../RegionMenu';
 import { fade } from '../../../styles/helpers/color';
 import createShadow from '../../../styles/helpers/createShadow';
-import {
-  fontSmoothOff,
-  fontSmoothOn,
-  stripUl,
-} from '../../../styles/helpers/extend';
-
-const subNavItems: SubNavItem[] = [
-  {
-    text: 'region-sidebar-terms',
-    url: '/terms',
-  },
-  {
-    text: 'region-sidebar-about',
-    url: '/about',
-  },
-  {
-    text: 'region-sidebar-contact',
-    url: '/contact',
-  },
-];
+import { fontSmoothOn } from '../../../styles/helpers/extend';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -88,47 +70,6 @@ const useStyles = makeStyles(
       position: 'absolute',
       right: 0,
     },
-    containerSubNav: {
-      ...fontSmoothOn,
-      borderTop: `1px solid ${fade(theme.palette.primary.contrastText, 0.8)}`,
-      color: theme.palette.primary.contrastText,
-      display: 'flex',
-      fontSize: '0.9em',
-      justifyContent: 'space-between',
-      padding: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        ...fontSmoothOff,
-        borderColor: theme.palette.divider,
-        color: theme.palette.text.disabled,
-        fontSize: '0.8em',
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '0.9em',
-      },
-    },
-    ulSubNav: {
-      ...stripUl,
-    },
-    liSubNav: {
-      display: 'inline-block',
-    },
-    linkSubNav: {
-      color: 'inherit',
-      padding: theme.spacing(0.5),
-      textDecoration: 'none',
-      transition: theme.transitions.create('color', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.shortest,
-      }),
-      '&:hover': {
-        color: theme.palette.highlight.main,
-      },
-      [theme.breakpoints.up('sm')]: {
-        '&:hover': {
-          color: theme.palette.primary.main,
-        },
-      },
-    },
     containerDownloadReport: {
       padding: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
@@ -150,6 +91,17 @@ const useStyles = makeStyles(
           background: fade(theme.palette.background.paper, 0.2),
           color: theme.palette.primary.dark,
         },
+      },
+    },
+    containerTermsMenu: {
+      borderTop: `1px solid ${fade(theme.palette.background.paper, 0.75)}`,
+      padding: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        borderColor: theme.palette.divider,
+        padding: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
+      },
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(2),
       },
     },
   })
@@ -215,33 +167,12 @@ const RegionSidebar = (): ReactElement => {
             {t('region-sidebar-download-report')}
           </Button>
         </div>
-        <div className={classes.containerSubNav}>
-          <ul className={classes.ulSubNav}>
-            {
-              subNavItems.map(({ text, url }) => (
-                <li
-                  className={classes.liSubNav}
-                  key={url}
-                >
-                  <Link href={url}>
-                    <a className={classes.linkSubNav}>
-                      {t(text)}
-                    </a>
-                  </Link>
-                </li>
-              ))
-            }
-          </ul>
-          &copy; 2020 RAnLab
+        <div className={classes.containerTermsMenu}>
+          <TermsMenu isMenu />
         </div>
       </div>
     </div>
   );
 };
-
-export interface SubNavItem {
-  text: string;
-  url: string;
-}
 
 export default RegionSidebar;
