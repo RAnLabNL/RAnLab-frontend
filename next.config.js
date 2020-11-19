@@ -6,8 +6,4 @@ module.exports = withCSS({
   cssLoaderOptions: {
     url: false,
   },
-  env: {
-    NEXT_PUBLIC_AUTH0_DOMAIN: 'lesleychard.auth0.com',
-    NEXT_PUBLIC_AUTH0_CLIENT_ID: 'bnyMiWB15Rz5CwsxTNnrN9v5ftHcdabj',
-  }
 });
