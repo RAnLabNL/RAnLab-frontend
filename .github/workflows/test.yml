@@ -11,9 +11,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Copy env file
-        run: |
-          cp .env.dist .env
       - name: Run tests
         run: |
           yarn --frozen-lockfile
