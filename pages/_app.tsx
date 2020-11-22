@@ -50,7 +50,8 @@ const MyApp = ({ Component, pageProps }: AppProps): ReactNode => {
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
       redirectUri={redirectUri}
-      scope="read:current_user read:current_user_metadata update:current_user_metadata"
+      audience={`https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`}
+      scope="read:current_user read:current_user_metadata update:current_user_metadata read:roles"
     >
       <StylesProvider>
         <ThemeProvider theme={theme}>
