@@ -64,7 +64,8 @@ const useStyles = makeStyles(
     img: {
       width: '100%',
     },
-  })
+  }),
+  { name: 'RanLabEditBusinessesCard' },
 );
 
 const EditBusinessCard = (): ReactElement => {

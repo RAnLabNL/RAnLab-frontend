@@ -56,7 +56,8 @@ const useStyles = makeStyles(
         outline: 'none',
       },
     },
-  })
+  }),
+  { name: 'RanLabUserMenu' },
 );
 
 const UserMenu = (): ReactElement => {

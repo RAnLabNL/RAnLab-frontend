@@ -78,7 +78,8 @@ const useStyles = makeStyles(
         marginLeft: theme.spacing(1),
       },
     };
-  }
+  },
+  { name: 'RanLabBusinesses' },
 );
 
 const Businesses = (): ReactElement => {

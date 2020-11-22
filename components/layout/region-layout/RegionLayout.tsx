@@ -137,7 +137,8 @@ const useStyles = makeStyles(
       }),
       marginLeft: 0,
     },
-  })
+  }),
+  { name: 'RanLabRegionLayout' },
 );
 
 const RegionLayout = ({ children, title }: Props): ReactElement => {

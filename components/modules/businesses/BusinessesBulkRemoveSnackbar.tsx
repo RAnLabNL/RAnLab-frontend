@@ -42,7 +42,8 @@ const useStyles = makeStyles(
     buttonRemove: {
       marginLeft: theme.spacing(1.5),
     },
-  })
+  }),
+  { name: 'RanLabBusinessesBulkRemoveSnackbar' },
 );
 
 const BusinessesBulkRemoveSnackbar = (props: Props): ReactElement => {

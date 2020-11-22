@@ -19,7 +19,8 @@ const useStyles = makeStyles(
         fontSize: '0.65em',
       },
     },
-  })
+  }),
+  { name: 'RanLabRegion' },
 );
 
 const Region = (): ReactElement => {

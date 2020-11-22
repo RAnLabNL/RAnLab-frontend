@@ -48,7 +48,8 @@ const useStyles = makeStyles(
     filterTextFieldName: {
       maxWidth: '100%',
     },
-  })
+  }),
+  { name: 'RanLabBusinessesFilters' },
 );
 
 const Businesses = (props: Props): ReactElement => {

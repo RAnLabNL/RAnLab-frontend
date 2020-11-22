@@ -28,7 +28,8 @@ const useStyles = makeStyles(
       background: theme.palette.background.paper,
       padding: '6px 25px 6px 14px;',
     },
-  })
+  }),
+  { name: 'RanLabFilterSelect' },
 );
 
 const componentName = (props: Props): ReactElement => {

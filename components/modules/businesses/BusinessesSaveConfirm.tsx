@@ -29,7 +29,8 @@ const useStyles = makeStyles(
     tableCellRemove: {
       color: theme.palette.text.disabled,
     },
-  })
+  }),
+  { name: 'RanLabBusinessesSaveConfirm' },
 );
 
 const BusinessesSaveConfirm = (props: Props): ReactElement => {

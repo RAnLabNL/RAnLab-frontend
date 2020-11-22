@@ -27,7 +27,8 @@ const useStyles = makeStyles(
     containerTour: {
       display: 'inline-block',
     },
-  })
+  }),
+  { name: 'RanLabRegionTourButton' },
 );
 
 const RegionWalkthroughButton = (): ReactElement => {

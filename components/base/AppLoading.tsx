@@ -20,7 +20,8 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(1),
       textTransform: 'uppercase',
     },
-  })
+  }),
+  { name: 'RanLabAppLoading' },
 );
 
 const AppLoading = (): ReactElement => {
