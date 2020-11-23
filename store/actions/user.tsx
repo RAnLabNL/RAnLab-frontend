@@ -80,7 +80,7 @@ export const setUserProfile = (profile: UserProfile): UserThunkResult => {
           body: JSON.stringify({ user_metadata: profile }),
         };
 
-        const userByIdUrl = `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${user.id}`;
+        const userByIdUrl = `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/users/${user.id}`;
         await fetch(userByIdUrl, fetchSettings);
 
         dispatch(setUserProfileSuccess(profile));
