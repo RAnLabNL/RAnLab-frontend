@@ -3,18 +3,22 @@ import { combineReducers, AnyAction } from 'redux';
 
 import {
   Auth0State,
+  InfoDialogState,
   UserState,
 } from '../types';
 import auth0 from './auth0';
+import infoDialog from './infoDialog';
 import user from './user';
 
 const combinedReducer = combineReducers({
   auth0,
+  infoDialog,
   user,
 });
 
 export type RootState = {
   auth0: Auth0State,
+  infoDialog: InfoDialogState,
   user: UserState,
 };
 
