@@ -13,7 +13,7 @@ export const fetchInfoDialogById = (id: string): InfoDialogThunkResult => {
   return async (dispatch: InfoDialogThunkDispatch) => {
     dispatch(fetchInfoDialogByIdStarted());
 
-    Prismic.api('https://ranlab.cdn.prismic.io/api/v2').then(
+    Prismic.api(`https://${process.env.NEXT_PUBLIC_PRISMIC_REPO}.cdn.prismic.io/api/v2`).then(
       api => {
         const query = Prismic.Predicates.at('my.info_dialog.uid', id);
         api.query(query).then(
