@@ -1,12 +1,22 @@
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import FlagIcon from '@material-ui/icons/Flag';
-import { ReactElement, useState } from 'react';
+import { Document } from 'prismic-javascript/types/documents';
+import { RichText } from 'prismic-reactjs';
+import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Step } from 'react-joyride';
+import { useDispatch, useSelector } from  'react-redux';
 
+import { RootState } from '../../../store';
+import { fetchTourById } from '../../../store/actions/tour';
+import { filterById } from '../../../store/helpers/prismic';
+import { TourStep } from '../../../store/types/tour';
 import { fade } from '../../../styles/helpers/color';
 import Button from '../../base/Button';
 import Tour from '../../base/Tour';
+
+const PRISMIC_TOUR_ID = 'main-tour';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -34,8 +44,55 @@ const useStyles = makeStyles(
 const RegionWalkthroughButton = (): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const tour = useSelector((state: RootState) => state.tour);
+  const [mainTour, setMainTour] = useState<Document | null>(null);
   const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
+  const [steps, setSteps] = useState<Step[]>([]);
+
+  // Sets tour to current state result
+  useEffect(
+    () => {
+      if (tour && tour.tours && !tour.loading) {
+        setMainTour(filterById(PRISMIC_TOUR_ID, tour.tours));
+      }
+    },
+    [tour],
+  );
+
+  // Fetches tour if not already in state
+  useEffect(
+    () => {
+      if (!mainTour) {
+        dispatch(fetchTourById(PRISMIC_TOUR_ID));
+      }
+      else {
+        setMainTourSteps();
+      }
+    },
+    [mainTour],
+  );
+
+  /**
+   * Set steps of main tour
+   */
+  const setMainTourSteps = () => {
+    if (mainTour) {
+      const mainTourSteps: Step[] = [];
+      mainTour.data.step.forEach(
+        (step: TourStep) => {
+          mainTourSteps.push({
+            disableBeacon: true,
+            hideCloseButton: true,
+            target: `#main-tour-step-${step.step_id}`,
+            content: <RichText render={step.description} />,
+          });
+        }
+      );
+      setSteps(mainTourSteps);
+    }
+  };
 
   const handleTourButtonClick = () => {
     setIsTourOpen(true);
@@ -45,51 +102,12 @@ const RegionWalkthroughButton = (): ReactElement => {
     setIsTourOpen(false);
   };
 
-  const [steps] = useState([
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-1',
-      content: 'Select a region by using this dropdown.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-2',
-      content: 'Get an overview of your selected region on your home screen.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-3',
-      content: 'View and request edits for your regions businesses here.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-4',
-      content: 'Download your customized report at any time.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-5',
-      content: 'Edit your personal profile using this menu.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#region-tour-step-6',
-      content: 'Look for this icon on other screens to get more help using the app.',
-    },
-  ]);
-
   return (
     <>
       <Button
         className={classes.button}
         color="inverted"
-        id="region-tour-step-6"
+        id="main-tour-step-show-walkthrough"
         onClick={handleTourButtonClick}
         startIcon={
           <FlagIcon fontSize="small" />

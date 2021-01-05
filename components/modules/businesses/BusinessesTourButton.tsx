@@ -1,11 +1,22 @@
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import FlagIcon from '@material-ui/icons/Flag';
+import { Document } from 'prismic-javascript/types/documents';
+import { RichText } from 'prismic-reactjs';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Step } from 'react-joyride';
+import { useDispatch, useSelector } from  'react-redux';
 
+import { RootState } from '../../../store';
+import { fetchTourById } from '../../../store/actions/tour';
+import { filterById } from '../../../store/helpers/prismic';
+import { TourStep } from '../../../store/types/tour';
 import { fade } from '../../../styles/helpers/color';
 import Tour from '../../base/Tour';
+
+const PRISMIC_TOUR_ID = 'businesses-tour';
+const PRISMIC_TOUR_ID_EDIT_MODE = 'businesses-tour-edit-mode';
 
 type Props = {
   editingEnabled: boolean;
@@ -27,8 +38,84 @@ const componentName = (props: Props): ReactElement => {
   } = props;
   const { t } = useTranslation('components');
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const tour = useSelector((state: RootState) => state.tour);
+  const [businessesTour, setBusinessesTour] = useState<Document | null>(null);
+  const [editTour, setEditTour] = useState<Document | null>(null);
   const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
+  const [defaultSteps, setDefaultSteps] = useState<Step[]>([]);
+  const [editingSteps, setEditingSteps] = useState<Step[]>([]);
+  const [steps, setSteps] = useState<Step[]>([]);
+
+  // Sets tours to current state result
+  useEffect(
+    () => {
+      if (tour && tour.tours && !tour.loading) {
+        const stateBusinessesTour = filterById(PRISMIC_TOUR_ID, tour.tours);
+        if (stateBusinessesTour) {
+          setBusinessesTour(stateBusinessesTour);
+        }
+
+        const stateEditTour = filterById(PRISMIC_TOUR_ID_EDIT_MODE, tour.tours);
+        if (stateEditTour) {
+          setEditTour(stateEditTour);
+        }
+      }
+    },
+    [tour],
+  );
+
+  const getSteps = (steps: TourStep[]): Step[] => {
+    const joyrideSteps: Step[] = [];
+    steps.forEach(
+      (step: TourStep) => {
+        joyrideSteps.push({
+          disableBeacon: true,
+          hideCloseButton: true,
+          target: `#businesses-tour-step-${step.step_id}`,
+          content: <RichText render={step.description} />,
+        });
+      }
+    );
+    return joyrideSteps;
+  };
+
+  // Fetches business tour if not already in state
+  useEffect(
+    () => {
+      if (!businessesTour) {
+        dispatch(fetchTourById(PRISMIC_TOUR_ID));
+      }
+      else {
+        setDefaultSteps(getSteps(businessesTour.data.step));
+      }
+    },
+    [businessesTour],
+  );
+
+  // Fetches edit mode tour if not already in state
+  useEffect(
+    () => {
+      if (!editTour) {
+        dispatch(fetchTourById(PRISMIC_TOUR_ID_EDIT_MODE));
+      }
+      else {
+        setEditingSteps(getSteps(editTour.data.step));
+      }
+    },
+    [editTour],
+  );
+
+  // Set proper default steps once both tours loaded
+  useEffect(
+    () => {
+      if (defaultSteps.length && editingSteps.length) {
+        setSteps(editingEnabled ? editingSteps : defaultSteps);
+      }
+    },
+    [defaultSteps, editingSteps]
+  );
 
   const handleTourButtonClick = () => {
     setIsTourOpen(true);
@@ -37,44 +124,6 @@ const componentName = (props: Props): ReactElement => {
   const handleTourClose = () => {
     setIsTourOpen(false);
   };
-
-  const defaultSteps = [
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#business-tour-step-1',
-      content: 'Filter businesses by Year, Industry, or search by name.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#business-tour-step-2',
-      content: 'Start adding, upating and removing businesses by clicking here.',
-    },
-  ];
-
-  const editingSteps = [
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#business-tour-editing-step-1',
-      content: 'Add businesses by entering your information in the top row. You can update any business by double-clicking the cell. Remove businesses by using the icon on the right, or select multiple and use the bulk remove tool.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#business-tour-editing-step-2',
-      content: 'When you are satisfied with your changes, click here to confirm.',
-    },
-    {
-      disableBeacon: true,
-      hideCloseButton: true,
-      target: '#business-tour-editing-step-3',
-      content: 'You can cancel editing and any time and reset your changes back to the original data by clicking here.',
-    },
-  ];
-
-  const [steps, setSteps] = useState(editingEnabled ? editingSteps : defaultSteps);
 
   useEffect(
     () => {

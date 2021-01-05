@@ -520,7 +520,7 @@ const BusinessesTable = (props: Props): ReactElement => {
             [classes.saving]: saving,
           }
         )}
-        id="business-tour-editing-step-1"
+        id="businesses-tour-step-add-business"
       >
         <AgGridReact
           onCellValueChanged={handleCellValueChanged}

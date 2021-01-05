@@ -100,7 +100,7 @@ const UserMenu = (): ReactElement => {
             [classes.iconButtonActive]: Boolean(anchorEl),
           },
         )}
-        id="region-tour-step-5"
+        id="main-tour-step-user-menu"
         onClick={handleClick}
       >
         <PersonIcon fontSize="small" />

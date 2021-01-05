@@ -253,7 +253,7 @@ const Businesses = (): ReactElement => {
                               <Button
                                 className={classes.buttonEdit}
                                 color={'primary'}
-                                id="business-tour-step-2"
+                                id="businesses-tour-step-edit"
                                 onClick={handleEditBusinesses}
                                 size="small"
                                 startIcon={<EditIcon fontSize="small" />}
@@ -270,7 +270,7 @@ const Businesses = (): ReactElement => {
                               <>
                                 <Button
                                   className={classes.buttonEdit}
-                                  id="business-tour-editing-step-3"
+                                  id="businesses-tour-step-cancel-edits"
                                   onClick={handleCancelBusinessEdits}
                                   size="small"
                                   startIcon={
@@ -284,7 +284,7 @@ const Businesses = (): ReactElement => {
                                   className={classes.buttonEdit}
                                   color={'highlight'}
                                   disabled={getSaveDisabled()}
-                                  id="business-tour-editing-step-2"
+                                  id="businesses-tour-step-confirm-changes"
                                   onClick={handleSaveBusinesses}
                                   size="small"
                                   startIcon={<SaveIcon fontSize="small" />}
