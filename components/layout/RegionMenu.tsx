@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,10 +8,14 @@ import PlaceIcon from '@material-ui/icons/Place';
 import {
   ChangeEvent,
   ReactElement,
+  useEffect,
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from  'react-redux';
 
+import { RootState } from '../../store';
+import { fetchRegions, setSelectedRegion } from '../../store/actions/region';
 import createShadow from '../../styles/helpers/createShadow';
 
 const useStyles = makeStyles(
@@ -92,33 +97,60 @@ type Props = {
 };
 
 const componentName = ({ type = 'region' }: Props): ReactElement => {
+  const { user } = useAuth0();
+  const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
-  const [region, setRegion] = useState<number | null>(0);
+  const defaultRegion = type === 'admin' ? 'all' : '';
+  const [region, setRegion] = useState<string>(defaultRegion);
+  const regionState = useSelector((state: RootState) => state.region);
+
+  useEffect(
+    () => {
+      if (
+        regionState.selectedRegion
+        && regionState.selectedRegion.id !== region
+      ) {
+        setRegion(regionState.selectedRegion.id);
+      }
+    },
+    [regionState.selectedRegion]
+  );
+
+  useEffect(
+    () => {
+      if (!regionState.regions) {
+        dispatch(fetchRegions(user.email));
+      }
+      if (
+        !regionState.selectedRegion
+        && regionState.regions
+        && regionState.regions.length
+      ) {
+        setRegion(regionState.regions[0].id);
+        dispatch(setSelectedRegion(regionState.regions[0]));
+      }
+    },
+    [regionState.regions]
+  );
 
   /**
    * Fired on region select change
    * @param e Target event
    */
-  const handleChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setRegion(e.target.value as number | null);
+  const handleChange = (
+    e: ChangeEvent<{ value: unknown }>
+  ) => {
+    setRegion(e.target.value as string);
+    if (regionState.regions) {
+      const regionFromList = regionState.regions.filter(region => {
+        return region.id == e.target.value;
+      });
+      dispatch(setSelectedRegion(regionFromList[0]));
+    }
   };
 
-  const testData: string[] = [
-    'Bay Bulls',
-    'Holyrood',
-    'Mount Pearl',
-    'Petty Harbour',
-    'Paradise',
-    'Portugal Cove-St. Phillip\'s',
-    'St. John\'s',
-    'Torbay',
-    'Witless Bay',
-  ];
-
-  if (type === 'admin') {
-    testData.unshift('');
-  }
+  console.log('region', region);
 
   return (
     <FormControl fullWidth>
@@ -150,14 +182,25 @@ const componentName = ({ type = 'region' }: Props): ReactElement => {
         variant="filled"
       >
         {
-          testData.map((region, index) => (
-            <MenuItem
-              key={region}
-              value={index}
-            >
-              {region.length ? region : 'All Regions'}
-            </MenuItem>
-          ))
+          type === 'admin'
+            ? (
+              <MenuItem value="all">
+                All Regions
+              </MenuItem>
+            )
+            : null
+        }
+        {
+          regionState.regions
+            ? regionState.regions.map((stateRegion) => (
+              <MenuItem
+                key={stateRegion.id}
+                value={stateRegion.id}
+              >
+                {stateRegion.name}
+              </MenuItem>
+            ))
+            : null
         }
       </Select>
     </FormControl>
