@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../../store';
 import { fetchInfoDialogById } from '../../../store/actions/infoDialog';
-import { findDialog } from '../../../store/helpers/infoDialog';
+import { filterById } from '../../../store/helpers/prismic';
 import Button from '../../base/Button';
 
 const PRISMIC_INFO_DIALOG_ID = 'download-report-card-learn-more';
@@ -39,7 +39,7 @@ const DownloadReportLearnMoreDialog = (props: DialogProps): ReactElement => {
   useEffect(
     () => {
       if (infoDialog && infoDialog.dialogs && !infoDialog.loading) {
-        setDownloadReportDialog(findDialog(PRISMIC_INFO_DIALOG_ID, infoDialog.dialogs));
+        setDownloadReportDialog(filterById(PRISMIC_INFO_DIALOG_ID, infoDialog.dialogs));
       }
     },
     [infoDialog],

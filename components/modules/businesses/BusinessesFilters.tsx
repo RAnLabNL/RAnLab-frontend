@@ -85,7 +85,7 @@ const Businesses = (props: Props): ReactElement => {
   return (
     <fieldset
       className={classes.root}
-      id="business-tour-step-1"
+      id="businesses-tour-step-filters"
     >
       <Grid
         alignItems="center"
