@@ -34,6 +34,7 @@ interface SetUserSuccessAction {
     id: string,
     role: UserRole,
     profile: UserProfile,
+    regionIds: number[],
   };
 }
 
@@ -80,5 +81,6 @@ export interface UserState {
   id?: string | null;
   role?: UserRole | null;
   profile?: UserProfile | null;
+  regionIds?: number[] | null;
 }
 

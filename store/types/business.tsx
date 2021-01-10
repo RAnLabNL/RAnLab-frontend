@@ -70,7 +70,7 @@ export interface BusinessState {
 export interface Business {
   name: string;
   year_added: number;
-  region: string;
+  region: number;
   employees: number;
   location: number[];
 }

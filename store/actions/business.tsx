@@ -18,11 +18,12 @@ export const addBusinessByRegionId = (id: number, business: Business): BusinessT
     try {
       const response = await fetch(api, {
         method: 'POST',
-        headers: {
+        headers: new Headers({
           Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
           Authorization: `Bearer ${auth0.apiToken}`,
           'Content-Type': 'application/json',
-        },
+        }),
         body: JSON.stringify(business),
       });
 
