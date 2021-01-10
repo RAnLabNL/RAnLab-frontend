@@ -87,17 +87,21 @@ const useStyles = makeStyles(
   { name: 'RanLabRegionMenu' },
 );
 
-const componentName = (): ReactElement => {
+type Props = {
+  type?: 'region' | 'admin',
+};
+
+const componentName = ({ type = 'region' }: Props): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
-  const [region, setRegion] = useState(0);
+  const [region, setRegion] = useState<number | null>(0);
 
   /**
    * Fired on region select change
    * @param e Target event
    */
   const handleChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setRegion(e.target.value as number);
+    setRegion(e.target.value as number | null);
   };
 
   const testData: string[] = [
@@ -112,6 +116,10 @@ const componentName = (): ReactElement => {
     'Witless Bay',
   ];
 
+  if (type === 'admin') {
+    testData.unshift('');
+  }
+
   return (
     <FormControl fullWidth>
       <InputLabel
@@ -119,6 +127,7 @@ const componentName = (): ReactElement => {
           focused: classes.inputLabelFocused,
         }}
         className={classes.inputLabel}
+        htmlFor="region-menu"
         id="region-menu-label"
       >
         {t('region-menu-label')}
@@ -146,7 +155,7 @@ const componentName = (): ReactElement => {
               key={region}
               value={index}
             >
-              {region}
+              {region.length ? region : 'All Regions'}
             </MenuItem>
           ))
         }

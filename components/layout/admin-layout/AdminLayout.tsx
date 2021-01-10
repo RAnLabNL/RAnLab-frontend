@@ -15,10 +15,10 @@ import { fade } from '../../../styles/helpers/color';
 
 import MainLayout from '../MainLayout';
 import UserToolbar from '../UserToolbar';
-import RegionSidebar from './RegionSidebar';
+import AdminSidebar from './AdminSidebar';
 
 type Props = {
-  children?: ReactNode,
+  children?: ReactNode
   title?: string
 };
 
@@ -27,12 +27,7 @@ const drawerWidthMdEm = 22;
 
 const useStyles = makeStyles(
   (theme) => ({
-    root: {
-      display: 'block',
-      [theme.breakpoints.up('sm')]: {
-        display: 'flex',
-      },
-    },
+    root: {},
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
@@ -121,11 +116,10 @@ const useStyles = makeStyles(
       }),
       marginLeft: 0,
     },
-  }),
-  { name: 'RanLabRegionLayout' },
+  })
 );
 
-const RegionLayout = ({ children, title }: Props): ReactElement => {
+const AdminLayout = ({ children, title }: Props): ReactElement => {
   const classes = useStyles();
   const { width } = useViewport();
 
@@ -154,6 +148,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
         >
           <UserToolbar
             onMenuButtonClick={toggleDrawerOpen}
+            type="admin"
           />
         </AppBar>
         <Drawer
@@ -166,7 +161,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
           anchor="left"
           open={open}
         >
-          <RegionSidebar />
+          <AdminSidebar />
         </Drawer>
         <main
           className={classNames(
@@ -183,4 +178,4 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
   );
 };
 
-export default RegionLayout;
+export default AdminLayout;

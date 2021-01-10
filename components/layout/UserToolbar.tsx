@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { MouseEvent, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Logo from '../../base/Logo';
-import UserMenu from '../UserMenu';
-import RegionTourButton from './RegionTourButton';
+import Logo from '../base/Logo';
+import UserMenu from './UserMenu';
+import RegionTourButton from './region-layout/RegionTourButton';
 
 type Props = {
   onMenuButtonClick: (e: MouseEvent<HTMLButtonElement>) => void,
+  type?: 'region' | 'admin',
 };
 
 const useStyles = makeStyles(
@@ -51,10 +52,10 @@ const useStyles = makeStyles(
       },
     },
   }),
-  { name: 'RanLabRegionToolbar' },
+  { name: 'RanLabUserToolbar' },
 );
 
-const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
+const UserToolbar = ({ onMenuButtonClick, type = 'region' }: Props): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
 
@@ -76,7 +77,11 @@ const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
           </div>
         </div>
         <div className={classes.actionsContainer}>
-          <RegionTourButton />
+          {
+            type === 'region'
+              ? <RegionTourButton />
+              : <div />
+          }
           <UserMenu />
         </div>
       </div>
@@ -84,4 +89,4 @@ const RegionToolbar = ({ onMenuButtonClick }: Props): ReactElement => {
   );
 };
 
-export default RegionToolbar;
+export default UserToolbar;

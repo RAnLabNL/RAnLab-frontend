@@ -1,4 +1,5 @@
 {
+  "admin-title": "Admin Home",
   "businesses-confirm-back": "Back",
   "businesses-confirm-body": "Please verify the changes you've made to your region's businesses data before sending your request.",
   "businesses-confirm-heading": "Confirm Business Updates",
@@ -12,5 +13,5 @@
   "businesses-title": "Edit Businesses",
   "index-link-region-dashboard": "Region Dashboard",
   "profile-title": "Edit Profile",
-  "region-title": "Region Homepage"
+  "region-title": "Region Home"
 }
