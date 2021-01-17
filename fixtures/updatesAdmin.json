@@ -1,0 +1,82 @@
+[
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Declined"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Amended"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "St. John's",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "Bay Bulls",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  },
+  {
+    "region": "Mount Pearl",
+    "submittedBy": "Jane Smith",
+    "dateSubmitted": "February 5, 2021 3:19PM",
+    "dateReviewed": "February 12, 2021 3:45PM",
+    "reviewer": "Lesley Chard",
+    "reviewStatus": "Approved"
+  }
+]

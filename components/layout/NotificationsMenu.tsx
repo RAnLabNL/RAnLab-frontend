@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import Link from 'next/link';
 import {
   MouseEvent,
   ReactElement,
@@ -208,12 +209,15 @@ const NotificationsMenu = (): ReactElement => {
           >
             {t('notifications-menu-heading')}
           </Typography>
-          <Button
-            size="small"
-            variant="outlined"
-          >
-            {t('notifications-menu-view-all')}
-          </Button>
+          <Link href="/updates">
+            <Button
+              component="a"
+              size="small"
+              variant="outlined"
+            >
+              {t('notifications-menu-view-all')}
+            </Button>
+          </Link>
         </div>
         <div className={classes.containerMenuItems}>
           {
