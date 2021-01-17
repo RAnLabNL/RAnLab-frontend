@@ -7,6 +7,7 @@ import { MouseEvent, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Logo from '../base/Logo';
+import NotificationsMenu from './NotificationsMenu';
 import UserMenu from './UserMenu';
 import RegionTourButton from './region-layout/RegionTourButton';
 
@@ -82,7 +83,10 @@ const UserToolbar = ({ onMenuButtonClick, type = 'region' }: Props): ReactElemen
               ? <RegionTourButton />
               : <div />
           }
-          <UserMenu />
+          <div>
+            <NotificationsMenu />
+            <UserMenu />
+          </div>
         </div>
       </div>
     </Toolbar>
