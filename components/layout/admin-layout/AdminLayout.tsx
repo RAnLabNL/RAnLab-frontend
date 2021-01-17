@@ -27,7 +27,12 @@ const drawerWidthMdEm = 22;
 
 const useStyles = makeStyles(
   (theme) => ({
-    root: {},
+    root: {
+      display: 'block',
+      [theme.breakpoints.up('sm')]: {
+        display: 'flex',
+      },
+    },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
