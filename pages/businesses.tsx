@@ -16,6 +16,7 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from  'react-redux';
 
 import BusinessesDataSourcesDialog from '../components/modules/businesses/BusinessesDataSourcesDialog';
 import BusinessesFilters from '../components/modules/businesses/BusinessesFilters';
@@ -28,6 +29,7 @@ import RegionLayout from '../components/layout/region-layout/RegionLayout';
 import AlertDialog from '../components/base/AlertDialog';
 import BusinessesSaveSuccess from '../components/modules/businesses/BusinessesSaveSuccess';
 import BusinessesTourButton from '../components/modules/businesses/BusinessesTourButton';
+import { RootState } from '../store';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -85,6 +87,7 @@ const useStyles = makeStyles(
 const Businesses = (): ReactElement => {
   const { t } = useTranslation('pages');
   const classes = useStyles();
+  const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
 
   // Data Sources Dialog
 
@@ -218,7 +221,7 @@ const Businesses = (): ReactElement => {
               >
                 <Link href="/region">
                   <a className={classes.linkBreadcrumb}>
-                    St. John&rsquo;s
+                    {selectedRegion && selectedRegion.name}
                   </a>
                 </Link>
                 <Typography>

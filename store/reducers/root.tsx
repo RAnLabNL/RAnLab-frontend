@@ -3,25 +3,33 @@ import { combineReducers, AnyAction } from 'redux';
 
 import {
   Auth0State,
+  BusinessState,
   InfoDialogState,
+  RegionState,
   TourState,
   UserState,
 } from '../types';
 import auth0 from './auth0';
+import business from './business';
 import infoDialog from './infoDialog';
+import region from './region';
 import tour from './tour';
 import user from './user';
 
 const combinedReducer = combineReducers({
   auth0,
+  business,
   infoDialog,
+  region,
   tour,
   user,
 });
 
 export type RootState = {
   auth0: Auth0State,
+  business: BusinessState,
   infoDialog: InfoDialogState,
+  region: RegionState,
   tour: TourState,
   user: UserState,
 };

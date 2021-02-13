@@ -15,6 +15,7 @@ const initialState: UserState = {
   id: null,
   role: null,
   profile: null,
+  regionIds: [],
 };
 
 const userReducer = (state = initialState, action: UserActionTypes): UserState => {
@@ -32,6 +33,7 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
         id: action.payload.id,
         role: action.payload.role,
         profile: action.payload.profile,
+        regionIds: action.payload.regionIds,
       };
     case SET_USER_FAILURE:
       return {

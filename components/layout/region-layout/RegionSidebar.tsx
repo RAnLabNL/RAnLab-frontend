@@ -8,11 +8,14 @@ import WorkIcon from '@material-ui/icons/Work';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from  'react-redux';
 
 import Button from '../../base/Button';
 import Logo from '../../base/Logo';
 import TermsMenu from '../../base/TermsMenu';
+import Typography from '../../base/Typography';
 import RegionMenu from '../RegionMenu';
+import { RootState } from '../../../store';
 import { fade } from '../../../styles/helpers/color';
 import createShadow from '../../../styles/helpers/createShadow';
 import { fontSmoothOn } from '../../../styles/helpers/extend';
@@ -64,6 +67,10 @@ const useStyles = makeStyles(
         color: 'inherit',
       },
     },
+    typographyWarning: {
+      marginTop: theme.spacing(1),
+      textAlign: 'center',
+    },
     containerBottom: {
       bottom: 0,
       left: 0,
@@ -111,6 +118,7 @@ const useStyles = makeStyles(
 const RegionSidebar = (): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
+  const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
 
   const handleDownloadReportClick = () => {
     window.open('/assets/fixture/test-report.pdf');
@@ -125,55 +133,75 @@ const RegionSidebar = (): ReactElement => {
         <RegionMenu />
       </div>
 
-      <MenuList className={classes.menuList}>
-        <MenuItem className={classes.menuItem}>
-          <Link href="/region">
-            <a
-              className={classes.listItemLink}
-              id="main-tour-step-nav-region-home"
+      {
+        selectedRegion
+          ? (
+            <MenuList className={classes.menuList}>
+              <MenuItem className={classes.menuItem}>
+                <Link href="/region">
+                  <a
+                    className={classes.listItemLink}
+                    id="main-tour-step-nav-region-home"
+                  >
+                    <ListItemIcon className={classes.listItemIcon}>
+                      <HomeIcon />
+                    </ListItemIcon>
+                    {t('region-sidebar-home')}
+                  </a>
+                </Link>
+              </MenuItem>
+              <MenuItem className={classes.menuItem}>
+                <Link href="/businesses">
+                  <a
+                    className={classes.listItemLink}
+                    id="main-tour-step-nav-businesses"
+                  >
+                    <ListItemIcon className={classes.listItemIcon}>
+                      <WorkIcon />
+                    </ListItemIcon>
+                    {t('region-sidebar-businesses')}
+                  </a>
+                </Link>
+              </MenuItem>
+            </MenuList>
+          )
+          : (
+            <Typography
+              className={classes.typographyWarning}
+              color="error"
+              variant="subtitle2"
             >
-              <ListItemIcon className={classes.listItemIcon}>
-                <HomeIcon />
-              </ListItemIcon>
-              {t('region-sidebar-home')}
-            </a>
-          </Link>
-        </MenuItem>
-        <MenuItem className={classes.menuItem}>
-          <Link href="/businesses">
-            <a
-              className={classes.listItemLink}
-              id="main-tour-step-nav-businesses"
-            >
-              <ListItemIcon className={classes.listItemIcon}>
-                <WorkIcon />
-              </ListItemIcon>
-              {t('region-sidebar-businesses')}
-            </a>
-          </Link>
-        </MenuItem>
-      </MenuList>
+              {t('region-sidebar-select-warning')}
+            </Typography>
+          )
+      }
 
       <div className={classes.containerBottom}>
-        <div className={classes.containerDownloadReport}>
-          <Button
-            className={classes.buttonDownloadReport}
-            component="a"
-            color="highlight"
-            fullWidth
-            endIcon={
-              <GetAppIcon
-                fontSize="small"
-              />
-            }
-            id="main-tour-step-sidebar-report"
-            onClick={handleDownloadReportClick}
-            variant="contained"
-            
-          >
-            {t('region-sidebar-download-report')}
-          </Button>
-        </div>
+        {
+          selectedRegion
+            ? (
+              <div className={classes.containerDownloadReport}>
+                <Button
+                  className={classes.buttonDownloadReport}
+                  component="a"
+                  color="highlight"
+                  fullWidth
+                  endIcon={
+                    <GetAppIcon
+                      fontSize="small"
+                    />
+                  }
+                  id="main-tour-step-sidebar-report"
+                  onClick={handleDownloadReportClick}
+                  variant="contained"
+                  
+                >
+                  {t('region-sidebar-download-report')}
+                </Button>
+              </div>
+            )
+            : null
+        }
         <div className={classes.containerTermsMenu}>
           <TermsMenu isMenu />
         </div>

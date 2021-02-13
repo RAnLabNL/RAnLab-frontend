@@ -29,8 +29,9 @@ export const setUser = (userId: string): UserThunkResult => {
 
         const userProfile = user_metadata || null;
         const userRole = app_metadata && app_metadata.role ? app_metadata.role : 'region';
+        const regionIds = app_metadata && app_metadata.manages ? app_metadata.manages : [];
 
-        dispatch(setUserSuccess(userId, userProfile, userRole));
+        dispatch(setUserSuccess(userId, userProfile, userRole, regionIds));
       }
       catch (e) {
         dispatch(setUserFailure(e));
@@ -47,12 +48,13 @@ const setUserStarted = () => ({
   type: SET_USER_STARTED,
 });
 
-const setUserSuccess = (id: string, profile: UserProfile, role: UserRole) => ({
+const setUserSuccess = (id: string, profile: UserProfile, role: UserRole, regionIds: number[]) => ({
   type: SET_USER_SUCCESS,
   payload: {
     id,
     role,
     profile,
+    regionIds,
   },
 });
 
