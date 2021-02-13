@@ -10,8 +10,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Business } from '../../../store/types/business';
 import { lighten } from '../../../styles/helpers/color';
-import { BusinessRow, UpdateTransaction } from './BusinessesTable';
+import { UpdateTransaction } from './BusinessesTable';
 
 type Props = {
   transactions: UpdateTransaction;
@@ -50,7 +51,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
     tCommon('businesses-location'),
   ];
 
-  const renderBodyCells = (row: BusinessRow, type?: 'remove') => {
+  const renderBodyCells = (row: Business, type?: 'remove') => {
     const bodyCells = [
       'year',
       'name',
@@ -99,7 +100,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
           </TableHead>
           <TableBody>
             {
-              transactions.add.map((row: BusinessRow) => (
+              transactions.add.map((row: Business) => (
                 <TableRow
                   className={classes.tableRowAdd}
                   key={row.id}
@@ -112,7 +113,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
               ))
             }
             {
-              transactions.update.map((row: BusinessRow) => (
+              transactions.update.map((row: Business) => (
                 <TableRow key={row.id}>
                   <TableCell>
                     {t('businesses-save-confirm-action-updated')}
@@ -122,7 +123,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
               ))
             }
             {
-              transactions.remove.map((row: BusinessRow) => (
+              transactions.remove.map((row: Business) => (
                 <TableRow key={row.id}>
                   <TableCell className={classes.tableCellRemove}>
                     {t('businesses-save-confirm-action-removed')}

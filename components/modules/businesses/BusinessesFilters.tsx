@@ -9,14 +9,20 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import {
+  IndustryFilter,
+  YearFilter,
+} from '../../../store/types/business';
 import FilterSelect from '../../base/FilterSelect';
 import FilterTextField from '../../base/FilterTextField';
 import Typography from '../../base/Typography';
 
 type Props = {
+  industries: IndustryFilter[],
   setBusinessIndustryFilter: (industry: string) => void,
   setBusinessNameFilter: (name: string) => void,
   setBusinessYearFilter: (year: number) => void,
+  years: YearFilter[],
 };
 
 const useStyles = makeStyles(
@@ -54,9 +60,11 @@ const useStyles = makeStyles(
 
 const Businesses = (props: Props): ReactElement => {
   const {
+    industries,
     setBusinessIndustryFilter,
     setBusinessNameFilter,
     setBusinessYearFilter,
+    years,
   } = props;
   const { t } = useTranslation('components');
   const { t: tCommon } = useTranslation('common');
@@ -122,18 +130,16 @@ const Businesses = (props: Props): ReactElement => {
             <MenuItem value="">
               --
             </MenuItem>
-            <MenuItem value="2020">
-              2020
-            </MenuItem>
-            <MenuItem value="2019">
-              2019
-            </MenuItem>
-            <MenuItem value="2018">
-              2018
-            </MenuItem>
-            <MenuItem value="2017">
-              2017
-            </MenuItem>
+            {
+              years && years.map(yearFilter => (
+                <MenuItem
+                  key={yearFilter.year}
+                  value={yearFilter.year}
+                >
+                  {yearFilter.year}
+                </MenuItem>
+              ))
+            }
           </FilterSelect>
         </Grid>
         <Grid item xs={4} md="auto">
@@ -157,15 +163,16 @@ const Businesses = (props: Props): ReactElement => {
             <MenuItem value="">
               --
             </MenuItem>
-            <MenuItem value="Air transportation">
-              Air transportation
-            </MenuItem>
-            <MenuItem value="Construction">
-              Construction
-            </MenuItem>
-            <MenuItem value="Building material and garden equipment and supplies dealers">
-              Building material and garden equipment and supplies dealers
-            </MenuItem>
+            {
+              industries && industries.map(industryFilter => (
+                <MenuItem
+                  key={industryFilter.industry}
+                  value={industryFilter.industry}
+                >
+                  {industryFilter.industry}
+                </MenuItem>
+              ))
+            }
           </FilterSelect>
         </Grid>
         <Grid item xs={5} md="auto">

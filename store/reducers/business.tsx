@@ -56,7 +56,10 @@ const businessReducer = (
         error: null,
         businesses: {
           ...prevBusinesses,
-          [action.payload.regionId]: action.payload.businesses,
+          [action.payload.regionId]: {
+            businesses: action.payload.businesses,
+            filters: action.payload.filters,
+          },
         },
       };
     case FETCH_BUSINESSES_BY_REGION_ID_FAILURE:

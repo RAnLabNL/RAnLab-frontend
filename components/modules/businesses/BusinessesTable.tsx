@@ -20,13 +20,14 @@ import {
 } from 'ag-grid-community';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 
-import fixtureData from '../../../fixtures/businesses.json';
+import { Business } from '../../../store/types/business';
 
 import BusinessesActionCell from './BusinessesActionCell';
 import BusinessesAddCell from './BusinessesAddCell';
 import BusinessesBulkRemoveSnackbar from './BusinessesBulkRemoveSnackbar';
 
 type Props = {
+  businesses: Business[],
   editingEnabled: boolean,
   industryFilter?: string | null,
   nameFilter?: string | null,
@@ -63,6 +64,7 @@ const useStyles = makeStyles(
 
 const BusinessesTable = (props: Props): ReactElement => {
   const {
+    businesses,
     editingEnabled,
     industryFilter,
     nameFilter,
@@ -77,8 +79,8 @@ const BusinessesTable = (props: Props): ReactElement => {
   // Grid Config
 
   // Clone original data so it can be accessed when creating transaction records
-  const originalData = JSON.parse(JSON.stringify(fixtureData));
-  const [rowData] = useState<BusinessRow[]>(fixtureData);
+  const originalData = JSON.parse(JSON.stringify(businesses));
+  const [rowData] = useState<Business[]>(businesses);
 
   const [gridApi, setGridApi] = useState<GridOptions['api']>(null);
   const [columnApi, setColumnApi] = useState<GridOptions['columnApi']>(null);
@@ -101,7 +103,7 @@ const BusinessesTable = (props: Props): ReactElement => {
     // Default to editing mode
     let editable = editingEnabled;
     // Disable editing for the add data row
-    if (params.data.year === 0) {
+    if (params.data.id === 'add') {
       editable = false;
     }
     return editable;
@@ -113,7 +115,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    */
   const getRowHeight = (params: IsColumnFuncParams) => {
     // Make the add row taller than default
-    if (params.data.year === 0) {
+    if (params.data.id === 'add') {
       return 55;
     }
   };
@@ -125,25 +127,18 @@ const BusinessesTable = (props: Props): ReactElement => {
   const getCellClass = (params: CellClassParams) => {
     let cellClass = '';
     // Add row that isn't the action cell
-    if (params.data.year === 0 && params.colDef.field !== 'actions') {
+    if (params.data.id === 'add' && params.colDef.field !== 'actions') {
       cellClass = classes.cellAdd;
     }
     // Add row action cell
-    if (params.data.year === 0 && params.colDef.field === 'actions') {
+    if (params.data.id === 'add' && params.colDef.field === 'actions') {
       cellClass = classes.cellActionsAdd;
     }
     // Standard row action cell
-    if (params.data.year !== 0 && params.colDef.field === 'actions') {
+    if (params.data.id !== 'add' && params.colDef.field === 'actions') {
       cellClass = classes.cellActions;
     }
     return cellClass;
-  };
-
-  // Filtering
-
-  // TODO this needs to be fed in from API
-  const editYearParams = {
-    values: [2019, 2020],
   };
 
   // TODO this needs to be fed in from API
@@ -184,7 +179,7 @@ const BusinessesTable = (props: Props): ReactElement => {
     let yearPass = true;
 
     if (industry !== null && industry !== undefined && industry !== '') {
-      industryPass = node.data.industry.toLowerCase().includes(industry.toLowerCase());
+      industryPass = node.data.industry === industry;
     }
 
     if (name !== null && name !== undefined && name !== '') {
@@ -192,7 +187,7 @@ const BusinessesTable = (props: Props): ReactElement => {
     }
 
     if (year !== null && year !== undefined && year !== 0) {
-      yearPass = node.data.year === year;
+      yearPass = node.data.year_added === year;
     }
 
     return industryPass && namePass && yearPass;
@@ -220,9 +215,10 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be added
    * @returns New transaction record
    */
-  const addTransaction = (row: BusinessRow): UpdateTransaction => {
+  const addTransaction = (row: Business): UpdateTransaction => {
     const add = transactions.add;
-    add.push(row);
+
+    add.push(row as Business);
 
     return {
       add,
@@ -236,7 +232,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be removed
    * @returns New transaction record
    */
-  const removeTransaction = (row: BusinessRow): UpdateTransaction => {
+  const removeTransaction = (row: Business): UpdateTransaction => {
     const remove = transactions.remove;
 
     // Checks if row was updated, and removes row from update record
@@ -263,7 +259,7 @@ const BusinessesTable = (props: Props): ReactElement => {
     if (!addMatchedRow.length) {
       // We want to push the original row to the remove array
       const originalRow = originalData.filter(
-        (origRow: BusinessRow) => origRow.id === row.id
+        (origRow: Business) => origRow.id === row.id
       );
       remove.push(originalRow[0]);
     }
@@ -280,7 +276,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be updated
    * @returns New transaction record
    */
-  const updateTransaction = (row: BusinessRow): UpdateTransaction => {
+  const updateTransaction = (row: Business): UpdateTransaction => {
     const matchedRow = transactions.update.filter(
       transRow => transRow.id === row.id
     );
@@ -315,11 +311,13 @@ const BusinessesTable = (props: Props): ReactElement => {
   // Editing
 
   const defaultAddRow = {
-    year: 0,
+    id: 'add',
+    year_added: 0,
     name: 'add',
     industry: 'add',
-    employment: 0,
+    employees: 0,
     location: 'add',
+    regionId: businesses.length ? businesses[0].regionId : '',
   };
   const pinnedAddData = [defaultAddRow];
   const [removeSnackbarOpen, setRemoveSnackbarOpen] = useState<boolean>(false);
@@ -347,7 +345,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    */
   const handleBulkRowRemove = () => {
     if (gridApi) {
-      const rowData: BusinessRow[] = [];
+      const rowData: Business[] = [];
       selectedRows.forEach(row => {
         rowData.push(row.data);
       });
@@ -374,7 +372,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Given row
    * @param e Click event
    */
-  const handleSingleRowRemove = (row: BusinessRow, e: MouseEvent) => {
+  const handleSingleRowRemove = (row: Business, e: MouseEvent) => {
     e.preventDefault();
     if (gridApi) {
       const gridResponse = gridApi.applyTransaction({
@@ -392,15 +390,19 @@ const BusinessesTable = (props: Props): ReactElement => {
   };
 
   // Default values for adding a cell
-  const defaultValues: BusinessRow = {
-    id: -1,
-    year: 2020,
+  const defaultValues: Business = {
+    id: 'add',
+    year_added: 2020,
     name: '',
     industry: '',
-    employment: 0,
-    location: '',
+    employees: 0,
+    location: [],
+    regionId: '',
   };
-  const addValuesRef = useRef(defaultValues);
+  const addValuesRef = useRef({
+    business: defaultValues,
+    valid: false,
+  });
 
   /**
    * Updates values to be added on inner component change
@@ -408,10 +410,17 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param newValue New value
    */
   const updateAddValues = (field: string, newValue: string | number) => {
-    addValuesRef.current = {
-      ...addValuesRef.current,
+    addValuesRef.current.business = {
+      ...addValuesRef.current.business,
       [field]: newValue,
     };
+
+    addValuesRef.current.valid = Boolean(
+      addValuesRef.current.business.industry
+      && addValuesRef.current.business.location
+      && addValuesRef.current.business.name
+      && addValuesRef.current.business.year_added > 1900
+    );
   };
 
   /**
@@ -424,33 +433,72 @@ const BusinessesTable = (props: Props): ReactElement => {
     }
   };
 
+  const isLocation = (location: string | number[]) => {
+    let valid = true;
+    if (!Array.isArray(location)) {
+      valid = /^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$/.test(location);
+    }
+    return valid;
+  };
+
+  const parseLocation = (location: string | number[]) => { 
+    const locationArray: number[] = Array.isArray(location) ? location : [];
+    if (!Array.isArray(location)) {
+      const locationStringArray = location.split(',');
+      locationStringArray.forEach((locationItem) => {
+        locationArray.push(parseFloat(locationItem));
+      });
+    }
+    return locationArray;
+  };
+
   /**
    * Adds the current values to the table
    */
   const handleRowAdd = () => {
     if (gridApi) {
-      const gridResponse = gridApi.applyTransaction({
-        add: [addValuesRef.current],
-      });
+      const {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        id,
+        location,
+        ...other
+      } = addValuesRef.current.business;
 
-      // Update ID for next addition and reset values
-      const addId = addValuesRef.current.id;
-      addValuesRef.current = {
-        ...defaultValues,
-        id: addId - 1,
-      };
-      resetPinnedRow();
+      // If no location error
+      if (isLocation(location)) {
+        const add = [{
+          id: 'added-row',
+          location: parseLocation(location),
+          ...other,
+        }];
 
-      // Alert user of addition
-      setAlertInfo({
-        message: t('businesses-table-add-success'),
-        severity: 'success',
-      });
-      setAlertSnackbarOpen(true);
+        const gridResponse = gridApi.applyTransaction({ add });
 
-      // Update transaction record
-      const newTransactions = addTransaction(gridResponse.add[0].data);
-      setTransactions(newTransactions);
+        // Update ID for next addition and reset values
+        addValuesRef.current.business = defaultValues;
+        addValuesRef.current.valid = false;
+        resetPinnedRow();
+
+        // Alert user of addition
+        setAlertInfo({
+          message: t('businesses-table-add-success'),
+          severity: 'success',
+        });
+        setAlertSnackbarOpen(true);
+
+        // Update transaction record
+        const newTransactions = addTransaction(gridResponse.add[0].data);
+        setTransactions(newTransactions);
+      }
+
+      // Show error if location is unparseable
+      if (!isLocation(location)) {
+        setAlertInfo({
+          message: t('businesses-table-location-invalid'),
+          severity: 'error',
+        });
+        setAlertSnackbarOpen(true);
+      }
     }
   };
 
@@ -463,17 +511,22 @@ const BusinessesTable = (props: Props): ReactElement => {
   const addRowRenderer = (params: any) => {
     let renderedValue = params.value;
 
-    if (params.data.year === 0) {
+    if (params.data.id === 'add') {
       const label = params.columnApi.getDisplayNameForColumn(params.column, null);
       const field: string = params.column.colId;
       renderedValue = (
         <BusinessesAddCell
-          defaultValue={addValuesRef.current[field]}
+          defaultValue={addValuesRef.current.business[field]}
           field={field}
           handleChange={updateAddValues}
           label={label}
         />
       );
+    }
+    else {
+      if (params.colDef.field === 'location' && Array.isArray(params.value)) {
+        renderedValue = `${params.value[0].toFixed(4)}, ${params.value[1].toFixed(4)}`;
+      }
     }
 
     return renderedValue;
@@ -485,9 +538,10 @@ const BusinessesTable = (props: Props): ReactElement => {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actionsCellRenderer = (params: any) => {
-    const type = params.data.year === 0 ? 'add' : 'default';
+    const type = params.data.id === 'add' ? 'add' : 'default';
     return (
       <BusinessesActionCell
+        disabled={!addValuesRef.current.valid}
         handleAddClick={handleRowAdd}
         handleRemoveClick={(e) => handleSingleRowRemove(params.data, e)}
         type={type}
@@ -552,11 +606,10 @@ const BusinessesTable = (props: Props): ReactElement => {
           />
           <AgGridColumn
             cellClass={getCellClass}
-            cellEditor="agSelectCellEditor"
-            cellEditorParams={editYearParams}
             cellRendererFramework={addRowRenderer}
             editable={getEditable}
-            field="year"
+            field="year_added"
+            headerName="Year"
             resizable={true}
             sortable={true}
             width={editingEnabled ? 110 : 80}
@@ -584,7 +637,7 @@ const BusinessesTable = (props: Props): ReactElement => {
             cellClass={getCellClass}
             cellRendererFramework={addRowRenderer}
             editable={getEditable}
-            field="employment"
+            field="employees"
             resizable={true}
             sortable={true}
             width={editingEnabled ? 150 : 100}
@@ -635,24 +688,10 @@ interface AlertInfo {
   severity?: 'error' | 'info' | 'success' | 'warning';
 }
 
-// Needed to dynamically key in a BusinessRow
-interface BusinessField {
-  [key: string]: string | number;
-}
-
-export interface BusinessRow extends BusinessField {
-  id: number;
-  year: number;
-  name: string;
-  industry: string;
-  employment: number;
-  location: string;
-}
-
 export interface UpdateTransaction {
-  add: BusinessRow[];
-  remove: BusinessRow[];
-  update: BusinessRow[];
+  add: Business[];
+  remove: Business[];
+  update: Business[];
 }
 
 export default BusinessesTable;

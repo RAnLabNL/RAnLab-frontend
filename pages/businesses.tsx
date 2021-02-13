@@ -16,12 +16,13 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from  'react-redux';
+import { useDispatch, useSelector } from  'react-redux';
 
 import BusinessesDataSourcesDialog from '../components/modules/businesses/BusinessesDataSourcesDialog';
 import BusinessesFilters from '../components/modules/businesses/BusinessesFilters';
 import BusinessesSaveConfirm from '../components/modules/businesses/BusinessesSaveConfirm';
 import BusinessesTable, { UpdateTransaction } from '../components/modules/businesses/BusinessesTable';
+import AppLoading from '../components/base/AppLoading';
 import Button from '../components/base/Button';
 import DataSources from '../components/base/DataSourcesButton';
 import Typography from '../components/base/Typography';
@@ -30,6 +31,7 @@ import AlertDialog from '../components/base/AlertDialog';
 import BusinessesSaveSuccess from '../components/modules/businesses/BusinessesSaveSuccess';
 import BusinessesTourButton from '../components/modules/businesses/BusinessesTourButton';
 import { RootState } from '../store';
+import { fetchBusinessesByRegionId } from '../store/actions/business';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -79,15 +81,37 @@ const useStyles = makeStyles(
       buttonEdit: {
         marginLeft: theme.spacing(1),
       },
+      typographyEmpty: {
+        marginTop: theme.spacing(1),
+      },
     };
   },
   { name: 'RanLabBusinesses' },
 );
 
 const Businesses = (): ReactElement => {
+  const dispatch = useDispatch();
   const { t } = useTranslation('pages');
   const classes = useStyles();
   const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
+  const businessState = useSelector((state: RootState) => state.business);
+
+  useEffect(
+    () => {
+      if (
+        !businessState.businesses
+        || (
+          selectedRegion
+          && !businessState.businesses[selectedRegion.id]
+        )
+      ) {
+        if (selectedRegion) {
+          dispatch(fetchBusinessesByRegionId(selectedRegion.id));
+        }
+      }
+    },
+    [selectedRegion]
+  );
 
   // Data Sources Dialog
 
@@ -367,9 +391,25 @@ const Businesses = (): ReactElement => {
                       )
                       : (
                         <BusinessesFilters
+                          industries={
+                            businessState.businesses
+                            && selectedRegion
+                            && businessState.businesses[selectedRegion.id]
+                            && businessState.businesses[selectedRegion.id].filters
+                              ? businessState.businesses[selectedRegion.id].filters.industries
+                              : []
+                          }
                           setBusinessIndustryFilter={setBusinessIndustryFilter}
                           setBusinessNameFilter={setBusinessNameFilter}
                           setBusinessYearFilter={setBusinessYearFilter}
+                          years={
+                            businessState.businesses
+                            && selectedRegion
+                            && businessState.businesses[selectedRegion.id]
+                            && businessState.businesses[selectedRegion.id].filters
+                              ? businessState.businesses[selectedRegion.id].filters.years
+                              : []
+                          }
                         />
                       )
                   }
@@ -395,16 +435,46 @@ const Businesses = (): ReactElement => {
               </Grid>
             )
         }
-
-        <BusinessesTable
-          editingEnabled={businessEditingEnabled}
-          industryFilter={businessIndustryFilter}
-          nameFilter={businessNameFilter}
-          saving={showConfirmation || showSuccess}
-          setTransactions={setTransactions}
-          transactions={transactions}
-          yearFilter={businessYearFilter}
-        />
+        {
+          businessState.loading
+            ? <AppLoading />
+            : null
+        }
+        {
+          businessState
+          && !businessState.loading
+          && selectedRegion
+          && businessState.businesses
+          && businessState.businesses[selectedRegion.id]
+          && businessState.businesses[selectedRegion.id].businesses.length
+            ? (
+              <BusinessesTable
+                businesses={businessState.businesses[selectedRegion.id].businesses}
+                editingEnabled={businessEditingEnabled}
+                industryFilter={businessIndustryFilter}
+                nameFilter={businessNameFilter}
+                saving={showConfirmation || showSuccess}
+                setTransactions={setTransactions}
+                transactions={transactions}
+                yearFilter={businessYearFilter}
+              />
+            )
+            : null
+        }
+        {
+          businessState
+          && !businessState.loading
+          && selectedRegion
+          && businessState.businesses
+          && businessState.businesses[selectedRegion.id]
+          && !businessState.businesses[selectedRegion.id].businesses.length
+            ? (
+              <Typography className={classes.typographyEmpty}>
+                {t('businesses-empty-table')}
+              </Typography>
+            )
+            : null
+        }
         <AlertDialog
           content={t('businesses-leave-edits-content')}
           onClose={handleLeaveEditsAlertClose}

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../base/Button';
 
 type Props = {
+  disabled?: boolean;
   handleAddClick?: (e: MouseEvent) => void;
   handleRemoveClick?: (e: MouseEvent) => void;
   type?: 'add' | 'default';
@@ -14,6 +15,7 @@ type Props = {
 
 const BusinessesActionCell = (props: Props): ReactElement => {
   const {
+    disabled,
     handleAddClick,
     handleRemoveClick,
     type,
@@ -23,6 +25,7 @@ const BusinessesActionCell = (props: Props): ReactElement => {
   if (type === 'add') {
     return (
       <Button
+        disabled={disabled}
         color="primary"
         onClick={handleAddClick}
         size="small"
