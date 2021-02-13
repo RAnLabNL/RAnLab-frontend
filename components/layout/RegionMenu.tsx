@@ -150,8 +150,6 @@ const componentName = ({ type = 'region' }: Props): ReactElement => {
     }
   };
 
-  console.log('region', region);
-
   return (
     <FormControl fullWidth>
       <InputLabel
