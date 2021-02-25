@@ -38,6 +38,7 @@ interface FetchBusinessesByRegionIdSuccessAction {
   type: typeof FETCH_BUSINESSES_BY_REGION_ID_SUCCESS;
   payload: {
     businesses: Business[],
+    filters: Filters,
     regionId: string,
   };
 }
@@ -65,17 +66,42 @@ export interface BusinessState {
   error?: Error | null;
   loading: boolean;
   businesses?: RegionBusiness | null;
+  filters?: Filters | null;
 }
 
-export interface Business {
+// Needed to dynamically key in a Business
+interface BusinessField {
+  [key: string]: string | number | number[];
+}
+
+export interface Business extends BusinessField {
+  id: string;
   name: string;
   year_added: number;
-  region: string;
+  regionId: string;
   employees: number;
   industry: string;
-  location: number[];
+  location: number[] | string;
+}
+
+export interface IndustryFilter {
+  count: number;
+  industry: string;
+}
+
+export interface YearFilter {
+  count: number;
+  year: number;
+}
+
+export interface Filters {
+  industries: IndustryFilter[],
+  years: YearFilter[],
 }
 
 export interface RegionBusiness {
-  [regionId: string]: Business[];
+  [regionId: string]: {
+    businesses: Business[];
+    filters: Filters;
+  }
 }

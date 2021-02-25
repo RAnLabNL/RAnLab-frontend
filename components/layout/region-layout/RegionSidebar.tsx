@@ -163,6 +163,18 @@ const RegionSidebar = (): ReactElement => {
                   </a>
                 </Link>
               </MenuItem>
+              <MenuItem className={classes.menuItem}>
+                <Link href="/testing">
+                  <a
+                    className={classes.listItemLink}
+                  >
+                    <ListItemIcon className={classes.listItemIcon}>
+                      <WorkIcon />
+                    </ListItemIcon>
+                    Testing
+                  </a>
+                </Link>
+              </MenuItem>
             </MenuList>
           )
           : (

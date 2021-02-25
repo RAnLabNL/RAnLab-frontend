@@ -9,13 +9,14 @@ import {
   Business,
   BusinessThunkResult,
   BusinessThunkDispatch,
+  Filters,
 } from '../types/business';
 
 export const addBusinessByRegionId = (id: string, business: Business): BusinessThunkResult => {
   return async (dispatch: BusinessThunkDispatch, getState) => {
     dispatch(addBusinessByRegionIdStarted());
     const { auth0 } = getState();
-    const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/businesses`;
+    const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/regions/${id}/businesses`;
     try {
       const response = await fetch(api, {
         method: 'POST',
@@ -23,8 +24,7 @@ export const addBusinessByRegionId = (id: string, business: Business): BusinessT
         body: JSON.stringify(business),
       });
 
-      const data = await response.json();
-      console.log('add business success', data);
+      await response.json();
       dispatch(addBusinessByRegionIdSuccess(business, id));
     }
     catch (e) {
@@ -54,7 +54,7 @@ const addBusinessByRegionIdFailure = (error: Error) => ({
   },
 });
 
-export const fetchBusinessesByRegionId = (id: number): BusinessThunkResult => {
+export const fetchBusinessesByRegionId = (id: string): BusinessThunkResult => {
   return async (dispatch: BusinessThunkDispatch, getState) => {
     dispatch(fetchBusinessesByRegionIdStarted());
     const { auth0 } = getState();
@@ -66,8 +66,11 @@ export const fetchBusinessesByRegionId = (id: number): BusinessThunkResult => {
       });
 
       const data = await response.json();
-      dispatch(fetchBusinessesByRegionIdSuccess(data, id));
-      console.log(data);
+      dispatch(fetchBusinessesByRegionIdSuccess(
+        data.businesses,
+        data.filters,
+        id,
+      ));
     }
     catch (e) {
       dispatch(fetchBusinessesByRegionIdFailure(e));
@@ -79,11 +82,16 @@ const fetchBusinessesByRegionIdStarted = () => ({
   type: FETCH_BUSINESSES_BY_REGION_ID_STARTED,
 });
 
-const fetchBusinessesByRegionIdSuccess = (businesses: Business[], regionId: number) => {
+const fetchBusinessesByRegionIdSuccess = (
+  businesses: Business[],
+  filters: Filters,
+  regionId: string
+) => {
   return {
     type: FETCH_BUSINESSES_BY_REGION_ID_SUCCESS,
     payload: {
       businesses,
+      filters,
       regionId,
     },
   };
