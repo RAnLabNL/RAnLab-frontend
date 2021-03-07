@@ -88,7 +88,7 @@ export interface RegionState {
   error?: Error | null;
   loading: boolean;
   regions?: Region[];
-  selectedRegion?: Region;
+  selectedRegion?: Region | 'all';
 }
 
 export interface Region {

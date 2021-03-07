@@ -102,10 +102,11 @@ const Businesses = (): ReactElement => {
         !businessState.businesses
         || (
           selectedRegion
+          && selectedRegion !== 'all'
           && !businessState.businesses[selectedRegion.id]
         )
       ) {
-        if (selectedRegion) {
+        if (selectedRegion && selectedRegion !== 'all') {
           dispatch(fetchBusinessesByRegionId(selectedRegion.id));
         }
       }
@@ -245,7 +246,7 @@ const Businesses = (): ReactElement => {
               >
                 <Link href="/region">
                   <a className={classes.linkBreadcrumb}>
-                    {selectedRegion && selectedRegion.name}
+                    {selectedRegion && selectedRegion !== 'all' && selectedRegion.name}
                   </a>
                 </Link>
                 <Typography>
@@ -394,6 +395,7 @@ const Businesses = (): ReactElement => {
                           industries={
                             businessState.businesses
                             && selectedRegion
+                            && selectedRegion !== 'all'
                             && businessState.businesses[selectedRegion.id]
                             && businessState.businesses[selectedRegion.id].filters
                               ? businessState.businesses[selectedRegion.id].filters.industries
@@ -405,6 +407,7 @@ const Businesses = (): ReactElement => {
                           years={
                             businessState.businesses
                             && selectedRegion
+                            && selectedRegion !== 'all'
                             && businessState.businesses[selectedRegion.id]
                             && businessState.businesses[selectedRegion.id].filters
                               ? businessState.businesses[selectedRegion.id].filters.years
@@ -444,6 +447,7 @@ const Businesses = (): ReactElement => {
           businessState
           && !businessState.loading
           && selectedRegion
+          && selectedRegion !== 'all'
           && businessState.businesses
           && businessState.businesses[selectedRegion.id]
           && businessState.businesses[selectedRegion.id].businesses.length
@@ -465,6 +469,7 @@ const Businesses = (): ReactElement => {
           businessState
           && !businessState.loading
           && selectedRegion
+          && selectedRegion !== 'all'
           && businessState.businesses
           && businessState.businesses[selectedRegion.id]
           && !businessState.businesses[selectedRegion.id].businesses.length

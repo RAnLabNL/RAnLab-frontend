@@ -232,13 +232,13 @@ const ProfileForm = (): ReactElement => {
                     variant="outlined"
                     error={Boolean(touched.province && errors.province)}
                   >
-                    <InputLabel htmlFor="province-label">
+                    <InputLabel htmlFor="province">
                       {t('profile-form-province')}
                     </InputLabel>
                     <Field
                       component={Select}
                       inputProps={{
-                        id: 'province-label',
+                        id: 'province',
                       }}
                       name="province"
                       required
