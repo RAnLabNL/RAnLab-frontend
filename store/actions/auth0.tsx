@@ -2,9 +2,6 @@ import {
   SET_TOKEN_SUCCESS,
   SET_TOKEN_STARTED,
   SET_TOKEN_FAILURE,
-  SET_API_TOKEN_SUCCESS,
-  SET_API_TOKEN_STARTED,
-  SET_API_TOKEN_FAILURE,
   Auth0ThunkResult,
   Auth0ThunkDispatch,
 } from '../types/auth0';
