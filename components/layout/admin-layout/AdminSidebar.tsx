@@ -2,6 +2,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import BuildIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
 import Link from 'next/link';
 import { ReactElement } from 'react';
@@ -115,7 +116,7 @@ const AdminSidebar = (): ReactElement => {
         <Logo className={classes.logo} />
       </Link>
       <div>
-        <RegionMenu type="admin" />
+        <RegionMenu />
       </div>
 
       <MenuList className={classes.menuList}>
@@ -126,6 +127,16 @@ const AdminSidebar = (): ReactElement => {
                 <HomeIcon />
               </ListItemIcon>
               {t('admin-sidebar-home')}
+            </a>
+          </Link>
+        </MenuItem>
+        <MenuItem className={classes.menuItem}>
+          <Link href="/management">
+            <a className={classes.listItemLink}>
+              <ListItemIcon className={classes.listItemIcon}>
+                <BuildIcon />
+              </ListItemIcon>
+              {t('admin-sidebar-management')}
             </a>
           </Link>
         </MenuItem>

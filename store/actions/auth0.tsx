@@ -41,36 +41,3 @@ const setTokenFailure = (error: Error) => ({
     error,
   },
 });
-
-export const setApiToken = (token: string | Error): Auth0ThunkResult => {
-  return async (dispatch: Auth0ThunkDispatch) => {
-    dispatch(setApiTokenStarted());
-
-    if (typeof token === 'string') {
-      dispatch(setApiTokenSuccess(token));
-    }
-    else {
-      dispatch(setApiTokenFailure(token));
-    }
-  };
-};
-
-const setApiTokenStarted = () => ({
-  type: SET_API_TOKEN_STARTED,
-});
-
-const setApiTokenSuccess = (apiToken: string) => {
-  return {
-    type: SET_API_TOKEN_SUCCESS,
-    payload: {
-      apiToken,
-    },
-  };
-};
-
-const setApiTokenFailure = (error: Error) => ({
-  type: SET_API_TOKEN_FAILURE,
-  payload: {
-    error,
-  },
-});

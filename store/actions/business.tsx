@@ -20,7 +20,7 @@ export const addBusinessByRegionId = (id: string, business: Business): BusinessT
     try {
       const response = await fetch(api, {
         method: 'POST',
-        headers: getHeaders(auth0.apiToken),
+        headers: getHeaders(auth0.token),
         body: JSON.stringify(business),
       });
 
@@ -62,7 +62,7 @@ export const fetchBusinessesByRegionId = (id: string): BusinessThunkResult => {
     try {
       const response = await fetch(api, {
         method: 'GET',
-        headers: getHeaders(auth0.apiToken),
+        headers: getHeaders(auth0.token),
       });
 
       const data = await response.json();

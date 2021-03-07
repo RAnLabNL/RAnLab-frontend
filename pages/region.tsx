@@ -35,19 +35,30 @@ const useStyles = makeStyles(
 const Region = (): ReactElement => {
   const { t } = useTranslation('pages');
   const classes = useStyles();
-  const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
+  const regionState = useSelector((state: RootState) => state.region);
 
   return (
     <RegionLayout title={t('region-title')}>
       {
-        selectedRegion
+        regionState.loading
+          ? (
+            <div className={classes.containerLoading}>
+              <AppLoading />
+            </div>
+          )
+          : null
+      }
+      {
+        !regionState.loading
+        && regionState.selectedRegion
+        && regionState.selectedRegion !== 'all'
           ? (
             <>
               <Typography
                 className={classes.typographyH1}
                 variant="h1"
               >
-                <small>{selectedRegion.name}</small>
+                <small>{regionState.selectedRegion.name}</small>
                 {t('region-title')}
               </Typography>
 
@@ -65,11 +76,24 @@ const Region = (): ReactElement => {
               </Grid>
             </>
           )
-          : (
-            <div className={classes.containerLoading}>
-              <AppLoading />
-            </div>
+          : null
+      }
+      {
+        !regionState.loading && regionState.regions && !regionState.regions.length
+          ? (
+            <>
+              <Typography
+                className={classes.typographyH1}
+                variant="h1"
+              >
+                {t('region-title-no-regions')}
+              </Typography>
+              <Typography>
+                {t('region-body-no-regions')}
+              </Typography>
+            </>
           )
+          : null
       }
     </RegionLayout>
   );

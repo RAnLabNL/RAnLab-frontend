@@ -118,7 +118,7 @@ const useStyles = makeStyles(
 const RegionSidebar = (): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
-  const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
+  const regionState = useSelector((state: RootState) => state.region);
 
   const handleDownloadReportClick = () => {
     window.open('/assets/fixture/test-report.pdf');
@@ -134,7 +134,7 @@ const RegionSidebar = (): ReactElement => {
       </div>
 
       {
-        selectedRegion
+        regionState.selectedRegion
           ? (
             <MenuList className={classes.menuList}>
               <MenuItem className={classes.menuItem}>
@@ -163,21 +163,14 @@ const RegionSidebar = (): ReactElement => {
                   </a>
                 </Link>
               </MenuItem>
-              <MenuItem className={classes.menuItem}>
-                <Link href="/testing">
-                  <a
-                    className={classes.listItemLink}
-                  >
-                    <ListItemIcon className={classes.listItemIcon}>
-                      <WorkIcon />
-                    </ListItemIcon>
-                    Testing
-                  </a>
-                </Link>
-              </MenuItem>
             </MenuList>
           )
-          : (
+          : null
+      }
+
+      {
+        regionState.regions && regionState.regions.length && !regionState.selectedRegion
+          ? (
             <Typography
               className={classes.typographyWarning}
               color="error"
@@ -186,11 +179,12 @@ const RegionSidebar = (): ReactElement => {
               {t('region-sidebar-select-warning')}
             </Typography>
           )
+          : null
       }
 
       <div className={classes.containerBottom}>
         {
-          selectedRegion
+          regionState.selectedRegion
             ? (
               <div className={classes.containerDownloadReport}>
                 <Button

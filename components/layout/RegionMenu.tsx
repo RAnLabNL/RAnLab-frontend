@@ -1,10 +1,10 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import PlaceIcon from '@material-ui/icons/Place';
+import { useRouter } from 'next/router';
 import {
   ChangeEvent,
   ReactElement,
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from  'react-redux';
 
 import { RootState } from '../../store';
 import { fetchRegions, setSelectedRegion } from '../../store/actions/region';
+import { Region } from '../../store/types/region';
 import createShadow from '../../styles/helpers/createShadow';
 
 const useStyles = makeStyles(
@@ -92,26 +93,29 @@ const useStyles = makeStyles(
   { name: 'RanLabRegionMenu' },
 );
 
-type Props = {
-  type?: 'region' | 'admin',
-};
-
-const componentName = ({ type = 'region' }: Props): ReactElement => {
-  const { user } = useAuth0();
+const componentName = (): ReactElement => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
-  const defaultRegion = type === 'admin' ? 'all' : '';
-  const [region, setRegion] = useState<string>(defaultRegion);
+  const [region, setRegion] = useState<string>('');
   const regionState = useSelector((state: RootState) => state.region);
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(
     () => {
       if (
         regionState.selectedRegion
+        && regionState.selectedRegion !== 'all'
         && regionState.selectedRegion.id !== region
       ) {
         setRegion(regionState.selectedRegion.id);
+      }
+      if (
+        regionState.selectedRegion
+        && regionState.selectedRegion === 'all'
+      ) {
+        setRegion(regionState.selectedRegion);
       }
     },
     [regionState.selectedRegion]
@@ -120,15 +124,25 @@ const componentName = ({ type = 'region' }: Props): ReactElement => {
   useEffect(
     () => {
       if (!regionState.regions) {
-        dispatch(fetchRegions(user.email));
+        dispatch(fetchRegions());
       }
+
       if (
         !regionState.selectedRegion
         && regionState.regions
         && regionState.regions.length
       ) {
-        setRegion(regionState.regions[0].id);
-        dispatch(setSelectedRegion(regionState.regions[0]));
+        if (user.role === 'admin') {
+          if (router.pathname !== 'admin' && router.pathname !== 'management') {
+            router.push('/admin');
+          }
+          setRegion('all');
+          dispatch(setSelectedRegion('all'));
+        }
+        else {
+          setRegion(regionState.regions[0].id);
+          dispatch(setSelectedRegion(regionState.regions[0]));
+        }
       }
     },
     [regionState.regions]
@@ -141,14 +155,48 @@ const componentName = ({ type = 'region' }: Props): ReactElement => {
   const handleChange = (
     e: ChangeEvent<{ value: unknown }>
   ) => {
-    setRegion(e.target.value as string);
-    if (regionState.regions) {
+    const { value } = e.target;
+    let selectedRegion: Region | 'all' = 'all';
+
+    setRegion(value as string);
+
+    if (regionState.regions && value !== 'all') {
       const regionFromList = regionState.regions.filter(region => {
-        return region.id == e.target.value;
+        return region.id == value;
       });
-      dispatch(setSelectedRegion(regionFromList[0]));
+      selectedRegion = regionFromList[0];
+    }
+    dispatch(setSelectedRegion(selectedRegion));
+    navigateToPage(selectedRegion);
+  };
+
+  const navigateToPage = (selectedRegion: Region | 'all') => {
+    if (
+      user.role === 'admin'
+      && selectedRegion !== 'all'
+      && router.pathname !== '/region'
+      && router.pathname !== '/businesses'
+    ) {
+      router.push('/region');
+    }
+
+    if (
+      user.role === 'admin'
+      && selectedRegion === 'all'
+      && router.pathname !== '/management'
+      && router.pathname !== '/admin'
+    ) {
+      router.push('/admin');
     }
   };
+
+  if (!regionState.loading && regionState.regions && !regionState.regions.length) {
+    return (
+      <div>
+        {t('region-menu-no-regions-error')}
+      </div>
+    );
+  }
 
   return (
     <FormControl fullWidth>
@@ -180,10 +228,10 @@ const componentName = ({ type = 'region' }: Props): ReactElement => {
         variant="filled"
       >
         {
-          type === 'admin'
+          user.role === 'admin'
             ? (
               <MenuItem value="all">
-                All Regions
+                {t('region-menu-all-regions')}
               </MenuItem>
             )
             : null

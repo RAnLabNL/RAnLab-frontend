@@ -13,7 +13,13 @@
   "businesses-leave-edits-title": "Are you sure you want to lose changes?",
   "businesses-title": "Edit Businesses",
   "index-link-region-dashboard": "Region Dashboard",
+  "management-add-business": "Add Business",
+  "management-add-region": "Add Region",
+  "management-set-manager": "Set Manager",
+  "management-tabs-label": "Management navigation",
   "profile-title": "Edit Profile",
+  "region-body-no-regions": "Looks like we haven't set up your account completely. Please contact us with the name of the regions you manage and we will configure your account.",
   "region-title": "Region Home",
+  "region-title-no-regions": "You do not manage any regions",
   "updates-title": "Business Update Requests"
 }

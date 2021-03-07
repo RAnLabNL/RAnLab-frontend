@@ -25,7 +25,7 @@ export const addRegion = (
     try {
       const response = await fetch(api, {
         method: 'POST',
-        headers: getHeaders(auth0.apiToken),
+        headers: getHeaders(auth0.token),
         body: JSON.stringify({ name, manager }),
       });
 
@@ -58,22 +58,28 @@ const addRegionFailure = (error: Error) => ({
   },
 });
 
-export const fetchRegions = (userId: string): RegionThunkResult => {
+export const fetchRegions = (): RegionThunkResult => {
   return async (dispatch: RegionThunkDispatch, getState) => {
     dispatch(fetchRegionsStarted());
-    const { auth0 } = getState();
-    const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/regions/manager/${userId}`;
-    try {
-      const response = await fetch(api, {
-        method: 'GET',
-        headers: getHeaders(auth0.apiToken),
-      });
+    const { auth0, user } = getState();
+    if (user && user.id) {
+      const userId = user.id.split('auth0|')[1];
+      const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/regions/manager/${userId}`;
+      try {
+        const response = await fetch(api, {
+          method: 'GET',
+          headers: getHeaders(auth0.token),
+        });
 
-      const data = await response.json();
-      dispatch(fetchRegionsSuccess(data.regions));
+        const data = await response.json();
+        dispatch(fetchRegionsSuccess(data.regions));
+      }
+      catch (e) {
+        dispatch(fetchRegionsFailure(e));
+      }
     }
-    catch (e) {
-      dispatch(fetchRegionsFailure(e));
+    else {
+      dispatch(fetchRegionsFailure(new Error('User ID not found')));
     }
   };
 };
@@ -98,25 +104,31 @@ const fetchRegionsFailure = (error: Error) => ({
   },
 });
 
-export const setSelectedRegion = (selectedRegion: Region): RegionThunkResult => {
+export const setSelectedRegion = (selectedRegion: Region | 'all'): RegionThunkResult => {
   return async (dispatch: RegionThunkDispatch, getState) => {
     dispatch(setSelectedRegionStarted());
     const { region: regionState } = getState();
+    console.log(selectedRegion);
 
-    if (regionState.regions) {
-      const validRegion = regionState.regions.filter((region: Region) => {
-        return region.id === selectedRegion.id;
-      });
-
-      if (validRegion.length) {
-        dispatch(setSelectedRegionSuccess(selectedRegion));
-      }
-      else {
-        dispatch(setSelectedRegionFailure(new Error('Selected region does not exist.')));
-      }
+    if (selectedRegion === 'all') {
+      dispatch(setSelectedRegionSuccess('all'));
     }
     else {
-      dispatch(setSelectedRegionFailure(new Error('User-managed regions unknown.')));
+      if (regionState.regions) {
+        const validRegion = regionState.regions.filter((region: Region) => {
+          return region.id === selectedRegion.id;
+        });
+  
+        if (validRegion.length) {
+          dispatch(setSelectedRegionSuccess(selectedRegion));
+        }
+        else {
+          dispatch(setSelectedRegionFailure(new Error('Selected region does not exist.')));
+        }
+      }
+      else {
+        dispatch(setSelectedRegionFailure(new Error('User-managed regions unknown.')));
+      }
     }
   };
 };
@@ -125,7 +137,7 @@ const setSelectedRegionStarted = () => ({
   type: SET_SELECTED_REGION_STARTED,
 });
 
-const setSelectedRegionSuccess = (selectedRegion: Region) => {
+const setSelectedRegionSuccess = (selectedRegion: Region | 'all') => {
   return {
     type: SET_SELECTED_REGION_SUCCESS,
     payload: {

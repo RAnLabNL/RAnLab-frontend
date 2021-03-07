@@ -43,6 +43,9 @@ const useStyles = makeStyles(
         background: fade(theme.palette.background.paper, 0.9),
       },
     },
+    textInverted: {
+      color: theme.palette.background.paper,
+    },
   }),
   { name: 'RanLabButton' },
 );
@@ -71,6 +74,7 @@ const Button = (props: ButtonProps): ReactElement => {
           [classes.containedHighlight]: color === 'highlight' && variant === 'contained',
           [classes.containedInverted]: color === 'inverted' && variant === 'contained',
           [classes.outlinedInverted]: color === 'inverted' && variant === 'outlined',
+          [classes.textInverted]: color === 'inverted' && variant === 'text',
         }
       )}
       classes={{
