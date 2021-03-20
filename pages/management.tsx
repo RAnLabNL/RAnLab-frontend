@@ -23,7 +23,7 @@ const useStyles = makeStyles(
 const management = (): ReactElement => {
   const { t } = useTranslation('pages');
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState<number>(2);
   const tabId = 'management-tabpanel';
 
   // eslint-disable-next-line @typescript-eslint/ban-types

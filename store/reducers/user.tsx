@@ -5,6 +5,9 @@ import {
   SET_USER_PROFILE_SUCCESS,
   SET_USER_PROFILE_STARTED,
   SET_USER_PROFILE_FAILURE,
+  SET_USER_MANAGER_BY_ID_SUCCESS,
+  SET_USER_MANAGER_BY_ID_STARTED,
+  SET_USER_MANAGER_BY_ID_FAILURE,
   FETCH_ALL_USERS_SUCCESS,
   FETCH_ALL_USERS_STARTED,
   FETCH_ALL_USERS_FAILURE,
@@ -30,6 +33,7 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
   switch (action.type) {
     case SET_USER_STARTED:
     case SET_USER_PROFILE_STARTED:
+    case SET_USER_MANAGER_BY_ID_STARTED:
     case FETCH_ALL_USERS_STARTED:
     case FETCH_USER_BY_ID_STARTED:
       return {
@@ -38,6 +42,7 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
       };
     case SET_USER_FAILURE:
     case SET_USER_PROFILE_FAILURE:
+    case SET_USER_MANAGER_BY_ID_FAILURE:
     case FETCH_ALL_USERS_FAILURE:
     case FETCH_USER_BY_ID_FAILURE:
       return {
@@ -61,6 +66,19 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
         loading: false,
         error: null,
         profile: action.payload.profile,
+      };
+    case SET_USER_MANAGER_BY_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        allUsers: {
+          ...prevAllUsers,
+          [action.payload.userId]: {
+            ...prevAllUsers[action.payload.userId],
+            manages: action.payload.manages,
+          },
+        },
       };
     case FETCH_ALL_USERS_SUCCESS:
       return {

@@ -10,6 +10,10 @@ export const SET_USER_PROFILE_STARTED = 'SET_USER_PROFILE_STARTED';
 export const SET_USER_PROFILE_SUCCESS = 'SET_USER_PROFILE_SUCCESS';
 export const SET_USER_PROFILE_FAILURE = 'SET_USER_PROFILE_FAILURE';
 
+export const SET_USER_MANAGER_BY_ID_STARTED = 'SET_USER_MANAGER_BY_ID_STARTED';
+export const SET_USER_MANAGER_BY_ID_SUCCESS = 'SET_USER_MANAGER_BY_ID_SUCCESS';
+export const SET_USER_MANAGER_BY_ID_FAILURE = 'SET_USER_MANAGER_BY_ID_FAILURE';
+
 export const FETCH_ALL_USERS_STARTED = 'FETCH_ALL_USERS_STARTED';
 export const FETCH_ALL_USERS_SUCCESS = 'FETCH_ALL_USERS_SUCCESS';
 export const FETCH_ALL_USERS_FAILURE = 'FETCH_ALL_USERS_FAILURE';
@@ -19,6 +23,7 @@ export const FETCH_USER_BY_ID_SUCCESS = 'FETCH_USER_BY_ID_SUCCESS';
 export const FETCH_USER_BY_ID_FAILURE = 'FETCH_USER_BY_ID_FAILURE';
 
 export interface UserProfile {
+  id?: string;
   city?: string;
   email?: string;
   firstName?: string;
@@ -29,6 +34,8 @@ export interface UserProfile {
   postalCode?: string;
   province?: string;
   streetAddress?: string;
+  manages?: string[];
+  role?: string[],
 }
 
 export type UserRole = 'region' | 'admin';
@@ -67,6 +74,25 @@ interface SetUserProfileSuccessAction {
 
 interface SetUserProfileFailureAction {
   type: typeof SET_USER_PROFILE_FAILURE;
+  payload: {
+    error: Error,
+  };
+}
+
+interface SetUserManagerByIdStartedAction {
+  type: typeof SET_USER_MANAGER_BY_ID_STARTED;
+}
+
+interface SetUserManagerByIdSuccessAction {
+  type: typeof SET_USER_MANAGER_BY_ID_SUCCESS;
+  payload: {
+    userId: string,
+    manages: string[],
+  };
+}
+
+interface SetUserManagerByIdFailureAction {
+  type: typeof SET_USER_MANAGER_BY_ID_FAILURE;
   payload: {
     error: Error,
   };
@@ -116,6 +142,9 @@ export type UserActionTypes =
   | SetUserProfileStartedAction
   | SetUserProfileSuccessAction
   | SetUserProfileFailureAction
+  | SetUserManagerByIdStartedAction
+  | SetUserManagerByIdSuccessAction
+  | SetUserManagerByIdFailureAction
   | FetchAllUsersStartedAction
   | FetchAllUsersSuccessAction
   | FetchAllUsersFailureAction
