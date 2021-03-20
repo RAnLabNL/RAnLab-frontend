@@ -133,9 +133,9 @@ const componentName = (): ReactElement => {
         && regionState.regions.length
       ) {
         if (user.role === 'admin') {
-          if (router.pathname !== 'admin' && router.pathname !== 'management') {
-            router.push('/admin');
-          }
+          // if (router.pathname !== 'admin' && router.pathname !== 'management') {
+          //   router.push('/admin');
+          // }
           setRegion('all');
           dispatch(setSelectedRegion('all'));
         }

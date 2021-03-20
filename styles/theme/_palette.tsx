@@ -15,6 +15,8 @@ export const highlight = '#3ABEDF';
 export const highlightDark = darken(highlight, 0.15);
 export const lowlight = '#0052CC';
 
+export const amend = '#FFAB52';
+
 const palette = {
   background: {
     default: background,
@@ -52,6 +54,7 @@ const palette = {
     hover: fade(primaryDark, 0.96),
     selected: fade(primaryDark, 0.92),
   },
+  amend,
 };
 
 export default palette;

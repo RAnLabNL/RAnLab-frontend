@@ -8,18 +8,31 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { useRouter } from 'next/router';
 import {
   MouseEvent,
   ReactElement,
   useState,
+  useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
+import { RootState } from '../../../store';
+import { fetchRegions } from '../../../store/actions/region';
+import { fetchUserById } from '../../../store/actions/user';
+import { getRegionNameById } from '../../../store/helpers/region';
+import { Business } from '../../../store/types/business';
+import { BusinessEdit, Status } from '../../../store/types/businessEdit';
 import { fade } from '../../../styles/helpers/color';
+import AppLoading from '../../base/AppLoading';
+
+const DATE_FORMAT = 'MMM D, YYYY h:mmA';
 
 type Props = {
   admin?: boolean,
-  dataSet: DataRow[],
+  businessEdits: BusinessEdit[],
 };
 
 const useStyles = makeStyles(
@@ -29,12 +42,13 @@ const useStyles = makeStyles(
       fontWeight: theme.typography.fontWeightBold,
     },
     tableRowBody: {
-      cursor: 'pointer',
       '&:hover': {
         background: fade(theme.palette.divider, 0.8),
       },
     },
-    tableCellBody: {},
+    tableCellBody: {
+      cursor: 'pointer',
+    },
     tableCellBodyInProgress: {
       background: fade(theme.palette.highlight.main, 0.9),
     },
@@ -50,18 +64,49 @@ const useStyles = makeStyles(
   })
 );
 
-const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
+const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
   const [page, setPage] = useState<number>(0);
   const rowsPerPage = admin ? 5 : 10;
+  const regionState = useSelector((state: RootState) => state.region);
+  const userState = useSelector((state: RootState) => state.user);
+
+  useEffect(
+    () => {
+      if (!regionState.loading && regionState.regions && !regionState.regions.length) {
+        dispatch(fetchRegions());
+      }
+    },
+    [regionState],
+  );
+
+  useEffect(
+    () => {
+      businessEdits.forEach(edit => {
+        if (
+          userState
+          && userState.allUsers
+          && edit.submitter
+          // TODO remove this after data cleanup
+          && edit.submitter !== 'first'
+          && edit.submitter !== 'second'
+          && !userState.allUsers[edit.submitter]
+        ) {
+          dispatch(fetchUserById(edit.submitter));
+        }
+      });
+    },
+    [],
+  );
 
   const adminHeadings = [
     'business-update-request-heading-region',
     'business-update-request-heading-submitted-by',
     'business-update-request-heading-date-submitted',
     'business-update-request-heading-date-reviewed',
-    'business-update-request-heading-reviewer',
     'business-update-request-heading-review-status',
   ];
 
@@ -74,27 +119,31 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
 
   const headings = admin ? adminHeadings : regionHeadings;
 
-  const regionKeys = [
-    'region',
+  const regionKeys: string[] = [
+    'regionId',
     'dateSubmitted',
     'dateUpdated',
-    'reviewStatus',
+    'status',
   ];
 
-  const adminKeys = [
-    'region',
-    'submittedBy',
+  const adminKeys: string[] = [
+    'regionId',
+    'submitter',
     'dateSubmitted',
-    'dateReviewed',
-    'reviewer',
-    'reviewStatus',
+    'dateUpdated',
+    'status',
   ];
 
-  const dataKeys = admin ? adminKeys : regionKeys;
+  const dataKeys: string[] = admin ? adminKeys : regionKeys;
 
-  const handleRowClick = () => {
-    // TODO navigate to business update request on row click
-    console.log('click');
+  /**
+   * Navigates to edit request page on row click
+   * @param event Target event
+   */
+  const handleRowClick = (event: MouseEvent) => {
+    const target = event.target as HTMLTableCellElement;
+    const { dataset } = target;
+    router.push(`/edits/request?id=${dataset.id}`);
   };
 
   const handleChangePage = (
@@ -103,6 +152,45 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
   ) => {
     setPage(newPage);
   };
+
+  const getRowValue = (
+    key: string,
+    value: string | Business[] | undefined,
+    status: Status | undefined
+  ) => {
+    if (typeof value === 'string') {
+      switch (key) {
+        case 'regionId':
+          if (!regionState.loading && regionState.regions) {
+            return getRegionNameById(value, regionState.regions);
+          }
+          break;
+        case 'submitter':
+          if (
+            value
+            // TODO remove after data cleanup
+            && value !== 'first'
+            && value !== 'second'
+            && !userState.loading
+            && userState.allUsers
+            && userState.allUsers[value]
+          ) {
+            return `${userState.allUsers[value].firstName} ${userState.allUsers[value].lastName}`;
+          }
+          break;
+        case 'dateSubmitted':
+          return moment(value).format(DATE_FORMAT);
+        case 'dateUpdated':
+          return status === Status.PENDING ? null : moment(value).format(DATE_FORMAT);
+        default:
+          return value;
+      }
+    }
+  };
+
+  if (userState.loading) {
+    return <AppLoading />;
+  }
 
   return (
     <Paper className={classes.root}>
@@ -124,7 +212,7 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
           </TableHead>
           <TableBody>
             {
-              dataSet
+              businessEdits
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
                   <TableRow
@@ -138,15 +226,16 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
                           className={classNames(
                             classes.tableCellBody,
                             {
-                              [classes.tableCellBodyInProgress]: row.reviewStatus === 'In Progress',
-                              [classes.tableCellBodyApproved]: row.reviewStatus === 'Approved',
-                              [classes.tableCellBodyDeclined]: row.reviewStatus === 'Declined',
-                              [classes.tableCellBodyAmended]: row.reviewStatus === 'Amended',
+                              [classes.tableCellBodyInProgress]: row.status === Status.CLAIMED,
+                              [classes.tableCellBodyApproved]: row.status === Status.APPROVED,
+                              [classes.tableCellBodyDeclined]: row.status === Status.DECLINED,
+                              [classes.tableCellBodyAmended]: row.status === Status.AMENDED,
                             }
                           )}
+                          data-id={row.id}
                           key={key}
                         >
-                          {row[key]}
+                          {getRowValue(key, row[key], row.status)}
                         </TableCell>
                       ))
                     }
@@ -155,7 +244,7 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
             }
             <TableRow>
               <TablePagination
-                count={dataSet.length}
+                count={businessEdits.length}
                 page={page}
                 rowsPerPage={rowsPerPage}
                 rowsPerPageOptions={[rowsPerPage]}
@@ -168,20 +257,5 @@ const UpdateRequestTable = ({ admin, dataSet }: Props): ReactElement => {
     </Paper>
   );
 };
-
-// Needed to dynamically key in a DataRow
-interface DataField {
-  [key: string]: string | undefined;
-}
-
-export interface DataRow extends DataField {
-  region: string;
-  submittedBy?: string;
-  dateSubmitted: string;
-  dateReviewed?: string;
-  dateUpdated?: string;
-  reviewer?: string;
-  reviewStatus: string;
-}
 
 export default UpdateRequestTable;

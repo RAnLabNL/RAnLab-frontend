@@ -5,18 +5,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   MouseEvent,
   ReactElement,
+  useEffect,
   useState,
 } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { RootState } from '../../store';
+import { fetchAllBusinessEdits } from '../../store/actions/businessEdit';
+import { getRegionNameById } from '../../store/helpers/region';
 import Button from '../base/Button';
 import Typography from '../base/Typography';
 import { fade } from '../../styles/helpers/color';
 import createShadow from '../../styles/helpers/createShadow';
+import { BusinessEdit, Status } from '../../store/types/businessEdit';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -74,6 +82,9 @@ const useStyles = makeStyles(
       fontSize: '1em',
       fontWeight: theme.typography.fontWeightBold,
       padding: theme.spacing(2),
+      '& *': {
+        pointerEvents: 'none',
+      },
       '&:not(:last-of-type)': {
         borderBottom: `1px solid ${theme.palette.divider}`,
       },
@@ -95,51 +106,43 @@ const useStyles = makeStyles(
   })
 );
 
+const DATE_FORMAT = 'MMM D, YYYY';
+
 const NotificationsMenu = (): ReactElement => {
   const { t } = useTranslation('components');
   const { t: tCommon } = useTranslation('common');
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const businessEditState = useSelector((state: RootState) => state.businessEdit);
+  const regionState = useSelector((state: RootState) => state.region);
+  const [notifications, setNotifications] = useState<BusinessEdit[]>([]);
+  const [unreadCount, setUnreadCount] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const testCount = 12;
-  const testNotifications = [
-    {
-      id: 1,
-      region: 'St. John\'s',
-      submittedDate: 'Jun 20, 2020',
-      updatedDate: 'Jul 2, 2020',
-      read: false,
+  useEffect(
+    () => {
+      if (businessEditState && !businessEditState.loading && !businessEditState.fetched) {
+        dispatch(fetchAllBusinessEdits());
+      }
     },
-    {
-      id: 2,
-      region: 'St. John\'s',
-      submittedDate: 'Jun 20, 2020',
-      updatedDate: 'Jul 2, 2020',
-      read: false,
+    []
+  );
+
+  useEffect(
+    () => {
+      if (
+        businessEditState
+        && !businessEditState.loading
+        && businessEditState.fetched
+        && businessEditState.businessEdits
+      ) {
+        setNotifications(businessEditState.businessEdits[Status.PENDING].slice(0, 6));
+        setUnreadCount(formatUnreadCount(businessEditState.businessEdits[Status.PENDING].length));
+      }
     },
-    {
-      id: 3,
-      region: 'St. John\'s',
-      submittedDate: 'Jun 20, 2020',
-      updatedDate: 'Jul 2, 2020',
-      read: true,
-    },
-    {
-      id: 4,
-      region: 'St. John\'s',
-      submittedDate: 'Jun 20, 2020',
-      updatedDate: 'Jul 2, 2020',
-      read: true,
-    },
-    {
-      id: 5,
-      region: 'St. John\'s',
-      submittedDate: 'Jun 20, 2020',
-      updatedDate: 'Jul 2, 2020',
-      read: true,
-    },
-  ];
+    [businessEditState]
+  );
 
   /**
    * Fired on user menu icon button click
@@ -159,8 +162,18 @@ const NotificationsMenu = (): ReactElement => {
   /**
    * Returns rendered unread notification count
    */
-  const getUnreadCount = (): string => {
-    return testCount >= 100 ? '99+' : `${testCount}`;
+  const formatUnreadCount = (count: number): string => {
+    return count >= 100 ? '99+' : `${count}`;
+  };
+
+  /**
+   * Navigates to edit request page on row click
+   * @param event Target event
+   */
+  const handleMenuItemClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    const { dataset } = target;
+    router.push(`/edits/request?id=${dataset.id}`);
   };
 
   return (
@@ -180,7 +193,7 @@ const NotificationsMenu = (): ReactElement => {
         <NotificationsIcon fontSize="small" />
         <div className={classes.containerCount}>
           <span>{t('notifications-menu-unread')}</span>
-          {getUnreadCount()}
+          {unreadCount}
         </div>
       </IconButton>
       <Menu
@@ -209,7 +222,7 @@ const NotificationsMenu = (): ReactElement => {
           >
             {t('notifications-menu-heading')}
           </Typography>
-          <Link href="/updates">
+          <Link href="/edits">
             <Button
               component="a"
               size="small"
@@ -221,39 +234,55 @@ const NotificationsMenu = (): ReactElement => {
         </div>
         <div className={classes.containerMenuItems}>
           {
-            testNotifications.map(notification => (
+            notifications.map(notification => (
               <MenuItem
                 className={classNames(
                   classes.menuItem,
-                  {
-                    [classes.menuItemUnread]: !notification.read,
-                  }
+                  // {
+                  //   [classes.menuItemUnread]: !notification.read,
+                  // }
                 )}
+                onClick={handleMenuItemClick}
                 key={notification.id}
+                data-id={notification.id}
               >
+                {
+                  regionState
+                  && regionState.regions
+                  && notification.regionId
+                    ? (
+                      <div>
+                        <small>
+                          <Trans
+                            i18nKey="notifications-menu-submitted"
+                            ns="components"
+                            values={{
+                              date: moment(notification.dateSubmitted).format(DATE_FORMAT),
+                            }}
+                          />
+                        </small>
+                        {getRegionNameById(notification.regionId, regionState.regions)}
+                      </div>
+                    )
+                    : <div />
+                }
                 <div>
-                  <small>
-                    <Trans
-                      i18nKey="notifications-menu-submitted"
-                      ns="components"
-                      values={{
-                        date: notification.submittedDate,
-                      }}
-                    />
-                  </small>
-                  {notification.region}
-                </div>
-                <div>
-                  <small>
-                    <Trans
-                      i18nKey="notifications-menu-updated"
-                      ns="components"
-                      values={{
-                        date: notification.updatedDate,
-                      }}
-                    />
-                  </small>
-                  {tCommon('business-update-request-status-in-progress')}
+                  {
+                    notification.dateSubmitted !== notification.dateUpdated
+                      ? (
+                        <small>
+                          <Trans
+                            i18nKey="notifications-menu-updated"
+                            ns="components"
+                            values={{
+                              date: moment(notification.dateUpdated).format(DATE_FORMAT),
+                            }}
+                          />
+                        </small>
+                      )
+                      : null
+                  }
+                  {tCommon('business-update-request-status-pending')}
                 </div>
                 <div>
                   <KeyboardArrowRightIcon />

@@ -108,7 +108,6 @@ export const setSelectedRegion = (selectedRegion: Region | 'all'): RegionThunkRe
   return async (dispatch: RegionThunkDispatch, getState) => {
     dispatch(setSelectedRegionStarted());
     const { region: regionState } = getState();
-    console.log(selectedRegion);
 
     if (selectedRegion === 'all') {
       dispatch(setSelectedRegionSuccess('all'));

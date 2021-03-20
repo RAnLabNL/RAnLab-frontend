@@ -1,4 +1,5 @@
 export type { Auth0State } from './auth0';
+export type { BusinessEditState } from './businessEdit';
 export type { BusinessState } from './business';
 export type { InfoDialogState } from './infoDialog';
 export type { RegionState } from './region';

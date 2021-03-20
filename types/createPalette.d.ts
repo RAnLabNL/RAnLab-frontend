@@ -9,10 +9,12 @@ declare module '@material-ui/core/styles/createPalette' {
   interface PaletteOptions {
     highlight?: PaletteColorOptions;
     lowlight?: PaletteColorOptions;
+    amend?: string;
   }
 
   interface Palette {
     highlight: PaletteColor;
     lowlight: PaletteColor;
+    amend: string;
   }
 }

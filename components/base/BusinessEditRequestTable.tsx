@@ -10,12 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Business } from '../../../store/types/business';
-import { lighten } from '../../../styles/helpers/color';
-import { UpdateTransaction } from './BusinessesTable';
+import { Business } from '../../store/types/business';
+import { lighten } from '../../styles/helpers/color';
+import { BusinessEditTransactions } from '../../store/types/businessEdit';
 
 type Props = {
-  transactions: UpdateTransaction;
+  transactions: BusinessEditTransactions;
 };
 
 const useStyles = makeStyles(
@@ -31,10 +31,10 @@ const useStyles = makeStyles(
       color: theme.palette.text.disabled,
     },
   }),
-  { name: 'RanLabBusinessesSaveConfirm' },
+  { name: 'RanLabBusinessEditRequestTable' },
 );
 
-const BusinessesSaveConfirm = (props: Props): ReactElement => {
+const BusinessEditRequestTable = (props: Props): ReactElement => {
   const {
     transactions,
   } = props;
@@ -53,12 +53,21 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
 
   const renderBodyCells = (row: Business, type?: 'remove') => {
     const bodyCells = [
-      'year',
+      'year_added',
       'name',
       'industry',
-      'employment',
+      'employees',
       'location',
     ];
+
+    const renderValue = (cell: string, value: string | number | number[] | undefined) => {
+      if (cell === 'location' && value && typeof value !== 'string' && typeof value !== 'number') {
+        return value.join(', ');
+      }
+      else {
+        return value;
+      }
+    };
 
     return (
       <>
@@ -70,7 +79,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
               })}
               key={cell}
             >
-              {row[cell]}
+              {renderValue(cell, row[cell])}
             </TableCell>
           ))
         }
@@ -100,7 +109,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
           </TableHead>
           <TableBody>
             {
-              transactions.add.map((row: Business) => (
+              transactions.adds.map((row: Business) => (
                 <TableRow
                   className={classes.tableRowAdd}
                   key={row.id}
@@ -113,7 +122,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
               ))
             }
             {
-              transactions.update.map((row: Business) => (
+              transactions.updates.map((row: Business) => (
                 <TableRow key={row.id}>
                   <TableCell>
                     {t('businesses-save-confirm-action-updated')}
@@ -123,7 +132,7 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
               ))
             }
             {
-              transactions.remove.map((row: Business) => (
+              transactions.deletes.map((row: Business) => (
                 <TableRow key={row.id}>
                   <TableCell className={classes.tableCellRemove}>
                     {t('businesses-save-confirm-action-removed')}
@@ -139,4 +148,4 @@ const BusinessesSaveConfirm = (props: Props): ReactElement => {
   );
 };
 
-export default BusinessesSaveConfirm;
+export default BusinessEditRequestTable;

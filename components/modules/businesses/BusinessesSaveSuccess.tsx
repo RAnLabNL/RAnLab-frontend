@@ -2,9 +2,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactElement } from 'react';
+import Link from 'next/link';
+import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../../../store';
 import Button from '../../base/Button';
 import Typography from '../../base/Typography';
 
@@ -45,6 +48,21 @@ const useStyles = makeStyles(
 const BusinessesSaveSuccess = ({ handleBack }: Props): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
+  const businessEditState = useSelector((state: RootState) => state.businessEdit);
+  const [businessEditId, setBusinessEditId] = useState<string | undefined>();
+
+  useEffect(
+    () => {
+      if (
+        businessEditState
+        && !businessEditState.loading
+        && businessEditState.singleBusinessEdit
+      ) {
+        setBusinessEditId(businessEditState.singleBusinessEdit.id);
+      }
+    },
+    []
+  );
 
   return (
     <Card>
@@ -72,13 +90,15 @@ const BusinessesSaveSuccess = ({ handleBack }: Props): ReactElement => {
               {t('businesses-save-success-body')}
             </Typography>
             <div className={classes.containerActions}>
-              <Button
-                className={classes.buttonAction}
-                onClick={handleBack}
-                variant="outlined"
-              >
-                {t('businesses-save-success-action-view-request')}
-              </Button>
+              <Link href={`/edits/request?id=${businessEditId}`}>
+                <Button
+                  className={classes.buttonAction}
+                  component="a"
+                  variant="outlined"
+                >
+                  {t('businesses-save-success-action-view-request')}
+                </Button>
+              </Link>
               <Button
                 className={classes.buttonAction}
                 color="secondary"

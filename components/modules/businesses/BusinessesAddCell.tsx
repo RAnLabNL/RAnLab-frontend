@@ -5,7 +5,7 @@ import FilterTextField from '../../base/FilterTextField';
 import FilterSelect from '../../base/FilterSelect';
 
 type Props = {
-  defaultValue: number | number[] | string;
+  defaultValue?: number | number[] | string;
   field: string;
   handleChange: (
     field: string,
@@ -25,7 +25,7 @@ const BusinessesAddCell = (props: Props): ReactElement => {
   // Used for id and name
   const id = `add-business-${field}`;
 
-  const [value, setValue] = useState<string | number | number[]>(defaultValue);
+  const [value, setValue] = useState<string | number | number[] | undefined>(defaultValue);
 
   /**
    * Handles changes of field values, sends value change to parent component.

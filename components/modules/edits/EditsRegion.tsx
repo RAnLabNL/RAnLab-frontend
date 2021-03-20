@@ -2,9 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import fixtureData from '../../../fixtures/updatesRegion.json';
 import Typography from '../../base/Typography';
-import UpdateRequestTable from './UpdateRequestsTable';
+import UpdateRequestTable from './EditRequestsTable';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -30,9 +29,7 @@ const UpdatesRegion = (): ReactElement => {
       >
         {t('updates-region-heading')}
       </Typography>
-      <UpdateRequestTable
-        dataSet={fixtureData}
-      />
+      <UpdateRequestTable businessEdits={[]} />
     </div>
   );
 };

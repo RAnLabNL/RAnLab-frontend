@@ -71,11 +71,11 @@ export interface BusinessState {
 
 // Needed to dynamically key in a Business
 interface BusinessField {
-  [key: string]: string | number | number[];
+  [key: string]: string | number | number[] | undefined;
 }
 
 export interface Business extends BusinessField {
-  id: string;
+  id?: string;
   name: string;
   year_added: number;
   regionId: string;

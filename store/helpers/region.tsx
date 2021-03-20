@@ -19,3 +19,24 @@ export const getNewRegions = (
   }
   return newRegions;
 };
+
+/**
+ * Gets a region's name by an ID
+ * @param id Region ID
+ * @param regions All regions from state
+ * @returns Region name
+ */
+export const getRegionNameById = (
+  id: string,
+  regions: Region[]
+): string => {
+  const filteredRegions = regions.filter(region => {
+    return region.id === id;
+  });
+
+  if (!filteredRegions.length) {
+    console.error(new Error(`Region ID ${id} does not exist`));
+  }
+
+  return filteredRegions.length ? filteredRegions[0].name : '';
+};

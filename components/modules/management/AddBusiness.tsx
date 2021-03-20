@@ -54,7 +54,6 @@ const AddBusiness = (): ReactElement => {
     industry: string,
   }) => {
     const business: Business = {
-      id: 'test',
       name,
       year_added,
       regionId,

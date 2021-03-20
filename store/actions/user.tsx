@@ -1,3 +1,4 @@
+import { getHeaders } from '../helpers/headers';
 import {
   SET_USER_SUCCESS,
   SET_USER_STARTED,
@@ -5,6 +6,12 @@ import {
   SET_USER_PROFILE_SUCCESS,
   SET_USER_PROFILE_STARTED,
   SET_USER_PROFILE_FAILURE,
+  FETCH_ALL_USERS_SUCCESS,
+  FETCH_ALL_USERS_STARTED,
+  FETCH_ALL_USERS_FAILURE,
+  FETCH_USER_BY_ID_SUCCESS,
+  FETCH_USER_BY_ID_STARTED,
+  FETCH_USER_BY_ID_FAILURE,
   UserProfile,
   UserRole,
   UserThunkResult,
@@ -18,13 +25,14 @@ export const setUser = (userId: string): UserThunkResult => {
 
     if (auth0.token !== null) {
       try {
-        const headers = {
-          authorization: `Bearer ${auth0.token}`,
-        };
-
         //Fetch user profile
         const userByIdUrl = `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/users/${userId}`;
-        const userProfileResponse = await fetch(userByIdUrl, { headers });
+        const userProfileResponse = await fetch(
+          userByIdUrl,
+          {
+            headers: getHeaders(auth0.token),
+          }
+        );
         const { app_metadata, user_metadata } = await userProfileResponse.json();
 
         const userProfile = user_metadata || null;
@@ -75,10 +83,7 @@ export const setUserProfile = (profile: UserProfile): UserThunkResult => {
       try {
         const fetchSettings = {
           method: 'PATCH',
-          headers: {
-            authorization: `Bearer ${auth0.token}`,
-            'content-type': 'application/json',
-          },
+          headers: getHeaders(auth0.token),
           body: JSON.stringify({ user_metadata: profile }),
         };
 
@@ -111,6 +116,115 @@ const setUserProfileSuccess = (profile: UserProfile) => ({
 
 const setUserProfileFailure = (error: Error) => ({
   type: SET_USER_PROFILE_FAILURE,
+  payload: {
+    error,
+  },
+});
+
+export const fetchAllUsers = (): UserThunkResult => {
+  return async (dispatch: UserThunkDispatch, getState) => {
+    dispatch(fetchAllUsersStarted());
+    const { auth0 } = getState();
+
+    if (auth0.token !== null) {
+      try {
+        //Fetch user profile
+        const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/users`;
+        const usersResponse = await fetch(
+          api,
+          {
+            method: 'GET',
+            headers: getHeaders(auth0.token),
+          }
+        );
+        const data = await usersResponse.json();
+
+        console.log('users', data);
+
+        // const userProfile = user_metadata || null;
+        // const userRole = app_metadata && app_metadata.role ? app_metadata.role : 'region';
+        // const regionIds = app_metadata && app_metadata.manages ? app_metadata.manages : [];
+
+        // dispatch(setUserSuccess(userId, userProfile, userRole, regionIds));
+      }
+      catch (e) {
+        dispatch(fetchUserByIdFailure(e));
+      }
+    }
+    else {
+      const noTokenError = new Error('Auth0 access token not set.');
+      dispatch(setUserFailure(noTokenError));
+    }
+  };
+};
+
+const fetchAllUsersStarted = () => ({
+  type: FETCH_ALL_USERS_STARTED,
+});
+
+const fetchAllUsersSuccess = (users: UserProfile[]) => ({
+  type: FETCH_ALL_USERS_SUCCESS,
+  payload: {
+    users,
+  },
+});
+
+const fetchAllUsersFailure = (error: Error) => ({
+  type: FETCH_ALL_USERS_FAILURE,
+  payload: {
+    error,
+  },
+});
+
+export const fetchUserById = (id: string): UserThunkResult => {
+  return async (dispatch: UserThunkDispatch, getState) => {
+    dispatch(fetchUserByIdStarted());
+    const { auth0 } = getState();
+
+    if (auth0.token !== null) {
+      try {
+        //Fetch user profile
+        const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/users/${id}`;
+        const usersResponse = await fetch(
+          api,
+          {
+            method: 'GET',
+            headers: getHeaders(auth0.token),
+          }
+        );
+        const data = await usersResponse.json();
+        const profile = {
+          firstName: data.userInfo.user_metadata.firstName,
+          lastName: data.userInfo.user_metadata.lastName,
+          email: data.userInfo.email,
+        };
+        dispatch(fetchUserByIdSuccess(id, profile));
+      }
+      catch (e) {
+        dispatch(fetchUserByIdFailure(e));
+      }
+    }
+    else {
+      const noTokenError = new Error('Auth0 access token not set.');
+      dispatch(setUserFailure(noTokenError));
+    }
+  };
+};
+
+const fetchUserByIdStarted = () => ({
+  type: FETCH_USER_BY_ID_STARTED,
+});
+
+const fetchUserByIdSuccess = (id: string, profile: UserProfile) => ({
+  type: FETCH_USER_BY_ID_SUCCESS,
+  payload: {
+    id,
+    profile,
+  },
+});
+
+const fetchUserByIdFailure = (error: Error) => ({
+  type: FETCH_USER_BY_ID_FAILURE,
   payload: {
     error,
   },
