@@ -23,9 +23,17 @@ const businessReducer = (
   const prevBusinesses = state.businesses ? state.businesses : {};
   switch (action.type) {
     case ADD_BUSINESS_BY_REGION_ID_STARTED:
+    case FETCH_BUSINESSES_BY_REGION_ID_STARTED:
       return {
         ...state,
         loading: true,
+      };
+    case ADD_BUSINESS_BY_REGION_ID_FAILURE:
+    case FETCH_BUSINESSES_BY_REGION_ID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
       };
     case ADD_BUSINESS_BY_REGION_ID_SUCCESS:
       return {
@@ -37,17 +45,6 @@ const businessReducer = (
           action.payload.regionId,
           action.payload.business,
         ),
-      };
-    case ADD_BUSINESS_BY_REGION_ID_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error,
-      };
-    case FETCH_BUSINESSES_BY_REGION_ID_STARTED:
-      return {
-        ...state,
-        loading: true,
       };
     case FETCH_BUSINESSES_BY_REGION_ID_SUCCESS:
       return {
@@ -61,12 +58,6 @@ const businessReducer = (
             filters: action.payload.filters,
           },
         },
-      };
-    case FETCH_BUSINESSES_BY_REGION_ID_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error,
       };
     default:
       return state;

@@ -1,6 +1,8 @@
 import classNames from 'classnames';
+import Alert from '@material-ui/lab/Alert';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import CheckIcon from '@material-ui/icons/Check';
@@ -20,9 +22,9 @@ import { useDispatch, useSelector } from  'react-redux';
 
 import BusinessesDataSourcesDialog from '../components/modules/businesses/BusinessesDataSourcesDialog';
 import BusinessesFilters from '../components/modules/businesses/BusinessesFilters';
-import BusinessesSaveConfirm from '../components/modules/businesses/BusinessesSaveConfirm';
-import BusinessesTable, { UpdateTransaction } from '../components/modules/businesses/BusinessesTable';
+import BusinessesTable from '../components/modules/businesses/BusinessesTable';
 import AppLoading from '../components/base/AppLoading';
+import BusinessEditRequestTable from '../components/base/BusinessEditRequestTable';
 import Button from '../components/base/Button';
 import DataSources from '../components/base/DataSourcesButton';
 import Typography from '../components/base/Typography';
@@ -31,7 +33,9 @@ import AlertDialog from '../components/base/AlertDialog';
 import BusinessesSaveSuccess from '../components/modules/businesses/BusinessesSaveSuccess';
 import BusinessesTourButton from '../components/modules/businesses/BusinessesTourButton';
 import { RootState } from '../store';
+import { addBusinessEdit } from '../store/actions/businessEdit';
 import { fetchBusinessesByRegionId } from '../store/actions/business';
+import { BusinessEditTransactions } from '../store/types/businessEdit';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -95,6 +99,7 @@ const Businesses = (): ReactElement => {
   const classes = useStyles();
   const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
   const businessState = useSelector((state: RootState) => state.business);
+  const businessEditState = useSelector((state: RootState) => state.businessEdit);
 
   useEffect(
     () => {
@@ -177,10 +182,10 @@ const Businesses = (): ReactElement => {
 
   // Transaction Record
 
-  const [transactions, setTransactions] = useState<UpdateTransaction>({
-    add: [],
-    remove: [],
-    update: [],
+  const [transactions, setTransactions] = useState<BusinessEditTransactions>({
+    adds: [],
+    deletes: [],
+    updates: [],
   });
 
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
@@ -195,18 +200,16 @@ const Businesses = (): ReactElement => {
 
   const getSaveDisabled = (): boolean => {
     return (
-      !transactions.add.length
-      && !transactions.remove.length
-      && !transactions.update.length
+      !transactions.adds.length
+      && !transactions.deletes.length
+      && !transactions.updates.length
     );
   };
 
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   const handleConfirmBusinessUpdates = () => {
-    // TODO send transactions to API
-    setShowConfirmation(false);
-    setShowSuccess(true);
+    dispatch(addBusinessEdit({ ...transactions }));
   };
 
   const handleSaveSuccessBack = () => {
@@ -220,6 +223,29 @@ const Businesses = (): ReactElement => {
     },
     [transactions]
   );
+
+  useEffect(
+    () => {
+      if (showConfirmation && !businessEditState.loading) {
+        if (businessEditState.error) {
+          setErrorSnackbarOpen(true);
+        }
+        else {
+          setShowConfirmation(false);
+          setShowSuccess(true);
+          setErrorSnackbarOpen(false);
+        }
+      }
+    },
+    [businessEditState]
+  );
+
+  // Error Handling
+
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState<boolean>(false);
+  const handleErrorSnackbarClose = () => {
+    setErrorSnackbarOpen(false);
+  };
 
   return (
     <RegionLayout title={t('businesses-title')}>
@@ -490,13 +516,26 @@ const Businesses = (): ReactElement => {
         {
           showConfirmation
             ? (
-              <BusinessesSaveConfirm
+              <BusinessEditRequestTable
                 transactions={transactions}
               />
             )
             : null
         }
       </div>
+      <Snackbar
+        autoHideDuration={3000}
+        open={errorSnackbarOpen}
+        onClose={handleErrorSnackbarClose}
+      >
+        <Alert
+          onClose={handleErrorSnackbarClose}
+          severity="error"
+          variant="filled"
+        >
+          {t('businesses-error-confirm')}
+        </Alert>
+      </Snackbar>
     </RegionLayout>
   );
 };

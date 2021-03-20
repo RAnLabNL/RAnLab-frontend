@@ -25,6 +25,7 @@ import { Business } from '../../../store/types/business';
 import BusinessesActionCell from './BusinessesActionCell';
 import BusinessesAddCell from './BusinessesAddCell';
 import BusinessesBulkRemoveSnackbar from './BusinessesBulkRemoveSnackbar';
+import { BusinessEditTransactions } from '../../../store/types/businessEdit';
 
 type Props = {
   businesses: Business[],
@@ -32,8 +33,8 @@ type Props = {
   industryFilter?: string | null,
   nameFilter?: string | null,
   saving: boolean,
-  setTransactions: (transactions: UpdateTransaction) => void;
-  transactions: UpdateTransaction;
+  setTransactions: (transactions: BusinessEditTransactions) => void;
+  transactions: BusinessEditTransactions;
   yearFilter?: number | null,
 };
 
@@ -215,15 +216,15 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be added
    * @returns New transaction record
    */
-  const addTransaction = (row: Business): UpdateTransaction => {
-    const add = transactions.add;
+  const addTransaction = (row: Business): BusinessEditTransactions => {
+    const adds = transactions.adds;
 
-    add.push(row as Business);
+    adds.push(row as Business);
 
     return {
-      add,
-      remove: transactions.remove,
-      update: transactions.update,
+      adds,
+      deletes: transactions.deletes,
+      updates: transactions.updates,
     };
   };
 
@@ -232,27 +233,27 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be removed
    * @returns New transaction record
    */
-  const removeTransaction = (row: Business): UpdateTransaction => {
-    const remove = transactions.remove;
+  const removeTransaction = (row: Business): BusinessEditTransactions => {
+    const deletes = transactions.deletes;
 
     // Checks if row was updated, and removes row from update record
-    const update = transactions.update;
-    const updateMatchedRow = transactions.update.filter(
+    const updates = transactions.updates;
+    const updateMatchedRow = transactions.updates.filter(
       transRow => transRow.id === row.id
     );
     if (updateMatchedRow.length) {
-      const matchedIndex = transactions.update.indexOf(updateMatchedRow[0]);
-      update.splice(matchedIndex, 1);
+      const matchedIndex = transactions.updates.indexOf(updateMatchedRow[0]);
+      updates.splice(matchedIndex, 1);
     }
 
     // Checks if row was added, and removes row from add record
-    const add = transactions.add;
-    const addMatchedRow = transactions.add.filter(
+    const adds = transactions.adds;
+    const addMatchedRow = transactions.adds.filter(
       transRow => transRow.id === row.id
     );
     if (addMatchedRow.length) {
-      const matchedIndex = transactions.add.indexOf(addMatchedRow[0]);
-      add.splice(matchedIndex, 1);
+      const matchedIndex = transactions.adds.indexOf(addMatchedRow[0]);
+      adds.splice(matchedIndex, 1);
     }
 
     // Adds row to remove record if it isn't a fresh add
@@ -261,13 +262,13 @@ const BusinessesTable = (props: Props): ReactElement => {
       const originalRow = originalData.filter(
         (origRow: Business) => origRow.id === row.id
       );
-      remove.push(originalRow[0]);
+      deletes.push(originalRow[0]);
     }
 
     return {
-      add,
-      remove,
-      update,
+      adds,
+      deletes,
+      updates,
     };
   };
 
@@ -276,26 +277,26 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Row to be updated
    * @returns New transaction record
    */
-  const updateTransaction = (row: Business): UpdateTransaction => {
-    const matchedRow = transactions.update.filter(
+  const BusinessEditTransactions = (row: Business): BusinessEditTransactions => {
+    const matchedRow = transactions.updates.filter(
       transRow => transRow.id === row.id
     );
-    const update = transactions.update;
+    const updates = transactions.updates;
 
     // No current record of this row being updated
     if (!matchedRow.length) {
-      update.push(row);
+      updates.push(row);
     }
     // Row has already been updated
     else {
-      const matchedIndex = transactions.update.indexOf(matchedRow[0]);
-      update[matchedIndex] = row;
+      const matchedIndex = transactions.updates.indexOf(matchedRow[0]);
+      updates[matchedIndex] = row;
     }
 
     return {
-      add: transactions.add,
-      remove: transactions.remove,
-      update,
+      adds: transactions.adds,
+      deletes: transactions.deletes,
+      updates,
     };
   };
 
@@ -304,7 +305,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param e Cell changed event
    */
   const handleCellValueChanged = (e: CellValueChangedEvent) => {
-    const newTransactions = updateTransaction(e.data);
+    const newTransactions = BusinessEditTransactions(e.data);
     setTransactions(newTransactions);
   };
 
@@ -686,12 +687,6 @@ const BusinessesTable = (props: Props): ReactElement => {
 interface AlertInfo {
   message?: string;
   severity?: 'error' | 'info' | 'success' | 'warning';
-}
-
-export interface UpdateTransaction {
-  add: Business[];
-  remove: Business[];
-  update: Business[];
 }
 
 export default BusinessesTable;

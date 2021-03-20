@@ -3,6 +3,7 @@ import { combineReducers, AnyAction } from 'redux';
 
 import {
   Auth0State,
+  BusinessEditState,
   BusinessState,
   InfoDialogState,
   RegionState,
@@ -10,6 +11,7 @@ import {
   UserState,
 } from '../types';
 import auth0 from './auth0';
+import businessEdit from './businessEdit';
 import business from './business';
 import infoDialog from './infoDialog';
 import region from './region';
@@ -18,6 +20,7 @@ import user from './user';
 
 const combinedReducer = combineReducers({
   auth0,
+  businessEdit,
   business,
   infoDialog,
   region,
@@ -27,6 +30,7 @@ const combinedReducer = combineReducers({
 
 export type RootState = {
   auth0: Auth0State,
+  businessEdit: BusinessEditState,
   business: BusinessState,
   infoDialog: InfoDialogState,
   region: RegionState,
