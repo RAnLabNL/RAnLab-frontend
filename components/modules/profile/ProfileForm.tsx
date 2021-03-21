@@ -111,7 +111,14 @@ const ProfileForm = (): ReactElement => {
 
   const getDefaultValue = (key: Extract<keyof UserProfile, string>): string => {
     let defaultVal: string | undefined = '';
-    if (user.profile !== null && user.profile !== undefined && !isProfileEmpty) {
+    if (
+      user.profile !== null
+      && user.profile !== undefined
+      && !isProfileEmpty
+      && !Array.isArray(user.profile[key])
+    ) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       defaultVal = user.profile[key];
     }
 
