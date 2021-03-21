@@ -95,7 +95,7 @@ const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
           && edit.submitter !== 'second'
           && !userState.allUsers[edit.submitter]
         ) {
-          dispatch(fetchUserById(edit.submitter));
+          // dispatch(fetchUserById(edit.submitter));
         }
       });
     },
@@ -175,7 +175,7 @@ const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
             && userState.allUsers
             && userState.allUsers[value]
           ) {
-            return `${userState.allUsers[value].firstName} ${userState.allUsers[value].lastName}`;
+            // return `${userState.allUsers[value].firstName} ${userState.allUsers[value].lastName}`;
           }
           break;
         case 'dateSubmitted':

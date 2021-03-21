@@ -15,9 +15,6 @@ const useStyles = makeStyles(
     root: {},
     containerDataset: {
       margin: `${theme.spacing(3)}px 0 ${theme.spacing(6)}px`,
-      '&:last-of-type': {
-        marginBottom: 0,
-      },
     },
     typographyH2: {
       marginBottom: theme.spacing(3),
@@ -33,7 +30,9 @@ const UpdatesAdmin = (): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
+
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
+  const userState = useSelector((state: RootState) => state.user);
 
   useEffect(
     () => {
@@ -41,8 +40,12 @@ const UpdatesAdmin = (): ReactElement => {
         businessEditState
         && !businessEditState.loading
         && !businessEditState.fetched
+        && userState
+        && userState.role
       ) {
-        dispatch(fetchAllBusinessEdits());
+        if (userState.role === 'admin') {
+          dispatch(fetchAllBusinessEdits());
+        }
       }
     },
     [],

@@ -17,6 +17,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from  'react-redux';
 
@@ -35,7 +36,8 @@ import BusinessesTourButton from '../components/modules/businesses/BusinessesTou
 import { RootState } from '../store';
 import { addBusinessEdit } from '../store/actions/businessEdit';
 import { fetchBusinessesByRegionId } from '../store/actions/business';
-import { BusinessEditTransactions } from '../store/types/businessEdit';
+import { fetchSingleBusinessEdit } from '../store/actions/businessEdit';
+import { BusinessEditTransactions, BusinessEdit } from '../store/types/businessEdit';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -97,9 +99,42 @@ const Businesses = (): ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation('pages');
   const classes = useStyles();
+  const router = useRouter();
+
   const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
   const businessState = useSelector((state: RootState) => state.business);
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
+
+  const [amendId, setAmendId] = useState<string | undefined>();
+  const [businessEdit, setBusinessEdit] = useState<BusinessEdit | undefined>();
+
+  useEffect(
+    () => {
+      if (router.query.amendId && !Array.isArray(router.query.amendId)) {
+        setAmendId(router.query.amendId);
+        dispatch(fetchSingleBusinessEdit(router.query.amendId));
+      }
+    },
+    [],
+  );
+
+  useEffect(
+    () => {
+      if (
+        !businessEditState.loading
+        && businessEditState.singleBusinessEdit
+      ) {
+        setBusinessEdit(businessEditState.singleBusinessEdit);
+        setTransactions({
+          adds: businessEditState.singleBusinessEdit.adds,
+          updates: businessEditState.singleBusinessEdit.updates,
+          deletes: businessEditState.singleBusinessEdit.deletes,
+        });
+        dispatch(fetchBusinessesByRegionId(businessEditState.singleBusinessEdit.regionId));
+      }
+    },
+    [businessEditState.singleBusinessEdit],
+  );
 
   useEffect(
     () => {
@@ -118,6 +153,19 @@ const Businesses = (): ReactElement => {
     },
     [selectedRegion]
   );
+
+  const getRegionId = (): string => {
+    let regionId = '';
+
+    if (selectedRegion === 'all' && businessEditState.singleBusinessEdit) {
+      regionId = businessEditState.singleBusinessEdit.regionId;
+    }
+    if (selectedRegion !== 'all' && selectedRegion) {
+      regionId = selectedRegion.id;
+    }
+
+    return regionId;
+  };
 
   // Data Sources Dialog
 
@@ -264,21 +312,31 @@ const Businesses = (): ReactElement => {
             justify="space-between"
           >
             <Grid item>
-              <Breadcrumbs
-                aria-label="breadcrumb"
-                separator={
-                  <NavigateNextIcon fontSize="small" />
-                }
-              >
-                <Link href="/region">
-                  <a className={classes.linkBreadcrumb}>
-                    {selectedRegion && selectedRegion !== 'all' && selectedRegion.name}
-                  </a>
-                </Link>
-                <Typography>
-                  {t('businesses-heading')}
-                </Typography>
-              </Breadcrumbs>
+              {
+                amendId
+                  ? (
+                    <Typography>
+                      Amend Business Edit Request
+                    </Typography>
+                  )
+                  : (
+                    <Breadcrumbs
+                      aria-label="breadcrumb"
+                      separator={
+                        <NavigateNextIcon fontSize="small" />
+                      }
+                    >
+                      <Link href="/region">
+                        <a className={classes.linkBreadcrumb}>
+                          {selectedRegion && selectedRegion !== 'all' && selectedRegion.name}
+                        </a>
+                      </Link>
+                      <Typography>
+                        {t('businesses-heading')}
+                      </Typography>
+                    </Breadcrumbs>
+                  )
+              }
             </Grid>
             {
               showSuccess
@@ -420,11 +478,9 @@ const Businesses = (): ReactElement => {
                         <BusinessesFilters
                           industries={
                             businessState.businesses
-                            && selectedRegion
-                            && selectedRegion !== 'all'
-                            && businessState.businesses[selectedRegion.id]
-                            && businessState.businesses[selectedRegion.id].filters
-                              ? businessState.businesses[selectedRegion.id].filters.industries
+                            && businessState.businesses[getRegionId()]
+                            && businessState.businesses[getRegionId()].filters
+                              ? businessState.businesses[getRegionId()].filters.industries
                               : []
                           }
                           setBusinessIndustryFilter={setBusinessIndustryFilter}
@@ -432,11 +488,9 @@ const Businesses = (): ReactElement => {
                           setBusinessYearFilter={setBusinessYearFilter}
                           years={
                             businessState.businesses
-                            && selectedRegion
-                            && selectedRegion !== 'all'
-                            && businessState.businesses[selectedRegion.id]
-                            && businessState.businesses[selectedRegion.id].filters
-                              ? businessState.businesses[selectedRegion.id].filters.years
+                            && businessState.businesses[getRegionId()]
+                            && businessState.businesses[getRegionId()].filters
+                              ? businessState.businesses[getRegionId()].filters.years
                               : []
                           }
                         />
@@ -472,14 +526,13 @@ const Businesses = (): ReactElement => {
         {
           businessState
           && !businessState.loading
-          && selectedRegion
-          && selectedRegion !== 'all'
           && businessState.businesses
-          && businessState.businesses[selectedRegion.id]
-          && businessState.businesses[selectedRegion.id].businesses.length
+          && businessState.businesses[getRegionId()]
+          && businessState.businesses[getRegionId()].businesses
+          && businessState.businesses[getRegionId()].businesses.length
             ? (
               <BusinessesTable
-                businesses={businessState.businesses[selectedRegion.id].businesses}
+                businesses={businessState.businesses[getRegionId()].businesses}
                 editingEnabled={businessEditingEnabled}
                 industryFilter={businessIndustryFilter}
                 nameFilter={businessNameFilter}
@@ -494,11 +547,12 @@ const Businesses = (): ReactElement => {
         {
           businessState
           && !businessState.loading
-          && selectedRegion
-          && selectedRegion !== 'all'
           && businessState.businesses
-          && businessState.businesses[selectedRegion.id]
-          && !businessState.businesses[selectedRegion.id].businesses.length
+          && businessState.businesses[getRegionId()]
+          && (
+            !businessState.businesses[getRegionId()].businesses
+            || !businessState.businesses[getRegionId()].businesses.length
+          )
             ? (
               <Typography className={classes.typographyEmpty}>
                 {t('businesses-empty-table')}

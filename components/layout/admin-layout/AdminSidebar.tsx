@@ -121,7 +121,7 @@ const AdminSidebar = (): ReactElement => {
 
       <MenuList className={classes.menuList}>
         <MenuItem className={classes.menuItem}>
-          <Link href="/admin">
+          <Link href="/edits">
             <a className={classes.listItemLink}>
               <ListItemIcon className={classes.listItemIcon}>
                 <HomeIcon />

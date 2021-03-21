@@ -21,11 +21,12 @@ import {
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 
 import { Business } from '../../../store/types/business';
+import { fade } from '../../../styles/helpers/color';
 
 import BusinessesActionCell from './BusinessesActionCell';
 import BusinessesAddCell from './BusinessesAddCell';
 import BusinessesBulkRemoveSnackbar from './BusinessesBulkRemoveSnackbar';
-import { BusinessEditTransactions } from '../../../store/types/businessEdit';
+import { BusinessEditTransactions, EditTransactionStatus } from '../../../store/types/businessEdit';
 
 type Props = {
   businesses: Business[],
@@ -39,7 +40,7 @@ type Props = {
 };
 
 const useStyles = makeStyles(
-  () => ({
+  (theme) => ({
     root: {
       width: '100%',
       height: '100%',
@@ -58,6 +59,15 @@ const useStyles = makeStyles(
     },
     cellActions: {
       textAlign: 'right',
+    },
+    'cellAmendmentDeleted': {
+      opacity: 0.5,
+    },
+    'cellAmendmentAdded': {
+      background: fade(theme.palette.success.light, 0.75),
+    },
+    'cellAmendmentUpdated': {
+      background: fade(theme.palette.amend, 0.75),
     },
   }),
   { name: 'RanLabBusinessesTable' },
@@ -81,7 +91,7 @@ const BusinessesTable = (props: Props): ReactElement => {
 
   // Clone original data so it can be accessed when creating transaction records
   const originalData = JSON.parse(JSON.stringify(businesses));
-  const [rowData] = useState<Business[]>(businesses);
+  const [rowData, setRowData] = useState<Business[]>(businesses);
 
   const [gridApi, setGridApi] = useState<GridOptions['api']>(null);
   const [columnApi, setColumnApi] = useState<GridOptions['columnApi']>(null);
@@ -94,6 +104,59 @@ const BusinessesTable = (props: Props): ReactElement => {
   ) => {
     setGridApi(api);
     setColumnApi(columnApi);
+    setAmendmentTransactions();
+  };
+
+  useEffect(
+    () => {
+      if (gridApi) {
+        setAmendmentTransactions();
+      }
+    },
+    [gridApi]
+  );
+
+  const setAmendmentTransactions = () => {
+    if (gridApi) {
+      const newRowData = rowData;
+
+      if (transactions.adds.length) {
+        transactions.adds.forEach(transaction => {
+          newRowData.unshift({
+            ...transaction,
+            editStatus: EditTransactionStatus.ADDED,
+          });
+        });
+      }
+
+      if (transactions.deletes.length) {
+        // TODO refactor this once deletes updated to array of Businesses
+        // eslint-disable-next-line
+        // @ts-ignore
+        transactions.deletes.forEach((transaction: string) => {
+          rowData.forEach((row, key) => {
+            console.log('row id', row);
+            console.log('t id', transaction);
+            if (row.id === transaction) {
+              newRowData[key].editStatus = EditTransactionStatus.DELETED;
+            }
+          });
+        });
+      }
+
+      if (transactions.updates.length) {
+        transactions.updates.forEach(transaction => {
+          rowData.forEach((row, key) => {
+            if (row.id === transaction.id) {
+              newRowData[key].editStatus = EditTransactionStatus.UPDATED;
+            }
+          });
+        });
+      }
+
+      console.log('new', newRowData);
+      gridApi.setRowData(newRowData);
+    }
   };
 
   /**
@@ -138,6 +201,18 @@ const BusinessesTable = (props: Props): ReactElement => {
     // Standard row action cell
     if (params.data.id !== 'add' && params.colDef.field === 'actions') {
       cellClass = classes.cellActions;
+    }
+    // Amendment classes
+    if (params.data.editStatus) {
+      if (params.data.editStatus === EditTransactionStatus.ADDED) {
+        cellClass = classes.cellAmendmentAdded;
+      }
+      if (params.data.editStatus === EditTransactionStatus.DELETED) {
+        cellClass = classes.cellAmendmentDeleted;
+      }
+      if (params.data.editStatus === EditTransactionStatus.UPDATED) {
+        cellClass = classes.cellAmendmentUpdated;
+      }
     }
     return cellClass;
   };

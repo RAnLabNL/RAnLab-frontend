@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import AppLoading from '../../components/base/AppLoading';
 import AdminLayout from '../../components/layout/admin-layout/AdminLayout';
 import RegionLayout from '../../components/layout/region-layout/RegionLayout';
-import EditsAdmin from '../../components/modules/edits/EditsAdmin';
-import EditsRegion from '../../components/modules/edits/EditsRegion';
+import AllEditsByStatusTables from '../../components/modules/edits/AllEditsByStatusTables';
 import { RootState } from '../../store';
 
 const Edits = (): ReactElement => {
@@ -16,7 +15,7 @@ const Edits = (): ReactElement => {
   if (user && user.role === 'admin') {
     return (
       <AdminLayout title={t('edits-title')}>
-        <EditsAdmin />
+        <AllEditsByStatusTables />
       </AdminLayout>
     );
   }
@@ -24,7 +23,7 @@ const Edits = (): ReactElement => {
   if (user && user.role !== 'admin') {
     return (
       <RegionLayout title={t('edits-title')}>
-        <EditsRegion />
+        <AllEditsByStatusTables />
       </RegionLayout>
     );
   }
