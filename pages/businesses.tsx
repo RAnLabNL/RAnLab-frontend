@@ -123,6 +123,7 @@ const Businesses = (): ReactElement => {
       if (
         !businessEditState.loading
         && businessEditState.singleBusinessEdit
+        && router.query.amendId
       ) {
         setBusinessEdit(businessEditState.singleBusinessEdit);
         setTransactions({

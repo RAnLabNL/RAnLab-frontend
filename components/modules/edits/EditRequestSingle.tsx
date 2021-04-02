@@ -20,6 +20,7 @@ import BusinessEditRequestTable from '../../base/BusinessEditRequestTable';
 import EditRequestAdminActions from './EditRequestAdminActions';
 import { setBusinessEditStatus } from '../../../store/actions/businessEdit';
 import AlertDialog from '../../base/AlertDialog';
+import AppLoading from '../../base/AppLoading';
 
 const DATE_FORMAT = 'MMM D, YYYY h:mmA';
 
@@ -169,6 +170,10 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
     setActionStatus(null);
     setActionDialogOpen(false);
   };
+
+  if (businessEditState && businessEditState.loading) {
+    return <AppLoading />;
+  }
 
   return (
     <div className={classes.root}>
