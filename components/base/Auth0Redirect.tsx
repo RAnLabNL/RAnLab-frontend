@@ -42,7 +42,7 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
     if (auth0.token !== null && user.profile === null && !user.loading && auth0User) {
       dispatch(setUser(auth0User.sub));
     }
-  }, [auth0.token]);
+  }, [auth0.token, auth0User]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
