@@ -184,9 +184,9 @@ const componentName = (): ReactElement => {
       user.role === 'admin'
       && selectedRegion === 'all'
       && router.pathname !== '/management'
-      && router.pathname !== '/admin'
+      && router.pathname !== '/edits'
     ) {
-      router.push('/admin');
+      router.push('/edits');
     }
   };
 

@@ -1,8 +1,8 @@
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from  'react-redux';
+import { useSelector, useDispatch } from  'react-redux';
 
 import RegionLayout from '../components/layout/region-layout/RegionLayout';
 import DownloadReportCard from '../components/modules/region-home/DownloadReportCard';
@@ -10,6 +10,7 @@ import EditBusinessCard from '../components/modules/region-home/EditBusinessCard
 import AppLoading from '../components/base/AppLoading';
 import Typography from '../components/base/Typography';
 import { RootState } from '../store';
+import { setSelectedRegion } from '../store/actions/region';
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -36,6 +37,20 @@ const Region = (): ReactElement => {
   const { t } = useTranslation('pages');
   const classes = useStyles();
   const regionState = useSelector((state: RootState) => state.region);
+  const dispatch = useDispatch();
+
+  useEffect(
+    () => {
+      if (
+        regionState.selectedRegion === 'all'
+        && regionState.regions
+        && regionState.regions.length
+      ) {
+        dispatch(setSelectedRegion(regionState.regions[0]));
+      }
+    },
+    [regionState]
+  );
 
   return (
     <RegionLayout title={t('region-title')}>

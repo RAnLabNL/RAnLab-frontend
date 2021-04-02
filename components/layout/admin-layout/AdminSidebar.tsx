@@ -112,7 +112,7 @@ const AdminSidebar = (): ReactElement => {
 
   return (
     <div className={classes.root}>
-      <Link href="/admin">
+      <Link href="/edits">
         <Logo className={classes.logo} />
       </Link>
       <div>
