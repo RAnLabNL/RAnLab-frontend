@@ -41,8 +41,9 @@ import { BusinessEditTransactions, BusinessEdit } from '../store/types/businessE
 
 const useStyles = makeStyles(
   (theme) => {
-    const getCalculatedHeight = (spacing: number): string => {
-      return `calc(100vh - 3.5rem - ${theme.spacing(spacing) * 2}px)`;
+    const getCalculatedHeight = (spacing: number, admin = false): string => {
+      const topOffset = admin ? 5.5 : 3.5;
+      return `calc(100vh - ${topOffset}rem - ${theme.spacing(spacing) * 2}px)`;
     };
 
     return {
@@ -57,6 +58,15 @@ const useStyles = makeStyles(
         },
         [theme.breakpoints.up('md')]: {
           height: getCalculatedHeight(4),
+        },
+      },
+      tableVisibleAdmin: {
+        height: getCalculatedHeight(2, true),
+        [theme.breakpoints.up('sm')]: {
+          height: getCalculatedHeight(3, true),
+        },
+        [theme.breakpoints.up('md')]: {
+          height: getCalculatedHeight(4, true),
         },
       },
       containerNavigation: {
@@ -104,6 +114,7 @@ const Businesses = (): ReactElement => {
   const selectedRegion = useSelector((state: RootState) => state.region.selectedRegion);
   const businessState = useSelector((state: RootState) => state.business);
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
+  const user = useSelector((state: RootState) => state.user);
 
   const [amendId, setAmendId] = useState<string | undefined>();
   const [businessEdit, setBusinessEdit] = useState<BusinessEdit | undefined>();
@@ -302,7 +313,8 @@ const Businesses = (): ReactElement => {
         className={classNames(
           classes.root,
           {
-            [classes.tableVisible]: !showConfirmation,
+            [classes.tableVisible]: !showConfirmation && user && user.role !== 'admin',
+            [classes.tableVisibleAdmin]: !showConfirmation && user && user.role === 'admin',
           }
         )}
       >
