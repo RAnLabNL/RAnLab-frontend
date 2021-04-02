@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppLoading from '../../components/base/AppLoading';
 import AdminLayout from '../../components/layout/admin-layout/AdminLayout';
 import RegionLayout from '../../components/layout/region-layout/RegionLayout';
-import EditRequestAdmin from '../../components/modules/edits/EditRequestAdmin';
-import EditRequestRegion from '../../components/modules/edits/EditRequestRegion';
+import EditRequestSingle from '../../components/modules/edits/EditRequestSingle';
 import { RootState } from '../../store';
 import { BusinessEdit } from '../../store/types/businessEdit';
 import { fetchSingleBusinessEdit } from '../../store/actions/businessEdit';
@@ -77,7 +76,7 @@ const Request = (): ReactElement => {
         {warnings}
         {
           businessEdit
-            ? <EditRequestAdmin businessEdit={businessEdit} />
+            ? <EditRequestSingle businessEdit={businessEdit} />
             : null
         }
       </AdminLayout>
@@ -90,7 +89,7 @@ const Request = (): ReactElement => {
         {warnings}
         {
           businessEdit
-            ? <EditRequestRegion businessEdit={businessEdit} />
+            ? <EditRequestSingle businessEdit={businessEdit} />
             : null
         }
       </RegionLayout>

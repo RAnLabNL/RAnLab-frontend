@@ -6,12 +6,14 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
+import Link from 'next/link';
 
 import { Status } from '../../../store/types/businessEdit';
 import { darken } from '../../../styles/helpers/color';
 import Button from '../../base/Button';
 
 type Props = {
+  businessEditId?: string;
   handleActionClick?: (e: MouseEvent) => void;
   handleDownloadClick?: (e: MouseEvent) => void;
 };
@@ -55,6 +57,7 @@ const EditRequestAdminActions = (props: Props): ReactElement => {
   const { t } = useTranslation('components');
   const classes = useStyles();
   const {
+    businessEditId,
     handleActionClick,
     handleDownloadClick,
   } = props;
@@ -86,21 +89,22 @@ const EditRequestAdminActions = (props: Props): ReactElement => {
       >
         {t('edit-request-admin-action-decline')}
       </Button>
-      <Button
-        className={classNames(
-          classes.button,
-          classes.buttonAmend
-        )}
-        startIcon={
-          <EditIcon />
-        }
-        color="primary"
-        variant="contained"
-        onClick={handleActionClick}
-        data-action={Status.AMENDED}
-      >
-        {t('edit-request-admin-action-amend')}
-      </Button>
+      <Link href={`/businesses?amendId=${businessEditId}`}>
+        <Button
+          className={classNames(
+            classes.button,
+            classes.buttonAmend
+          )}
+          component="a"
+          startIcon={
+            <EditIcon />
+          }
+          color="primary"
+          variant="contained"
+        >
+          {t('edit-request-admin-action-amend')}
+        </Button>
+      </Link>
       <Button
         className={classNames(
           classes.button,

@@ -128,13 +128,13 @@ const setUserProfileFailure = (error: Error) => ({
 export const setUserManagerById = (userId: string, manages: string[]): UserThunkResult => {
   return async (dispatch: UserThunkDispatch, getState) => {
     dispatch(setUserManagerByIdStarted());
-    const { auth0, user: userState } = getState();
+    const { auth0, user: userState, region: regionState } = getState();
 
     if (auth0.token !== null) {
-      if (userState.allUsers) {
+      if (userState.allUsers && regionState.regions) {
         try {
           const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/users/${userId}`;
-          const usersResponse = await fetch(
+          const auth0Response = await fetch(
             api,
             {
               method: 'POST',
@@ -147,8 +147,27 @@ export const setUserManagerById = (userId: string, manages: string[]): UserThunk
               }),
             }
           );
-  
-          await usersResponse.json();
+          await auth0Response.json();
+
+          // TODO support multiple region managers
+          const regionName = regionState.regions.filter(region => {
+            return region.id === manages[0];
+          });
+          const regionApi = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/regions/${manages[0]}`;
+          const regionResponse = await fetch(
+            regionApi,
+            {
+              method: 'POST',
+              headers: getHeaders(auth0.token),
+              body: JSON.stringify({
+                id: manages[0],
+                manager: userId,
+                name: regionName[0].name,
+              }),
+            }
+          );
+          await regionResponse.json();
+
           dispatch(setUserManagerByIdSuccess(userId, manages));
         }
         catch (e) {

@@ -12,6 +12,10 @@ export const FETCH_ALL_BUSINESS_EDITS_STARTED = 'FETCH_ALL_BUSINESS_EDITS_STARTE
 export const FETCH_ALL_BUSINESS_EDITS_SUCCESS = 'FETCH_ALL_BUSINESS_EDITS_SUCCESS';
 export const FETCH_ALL_BUSINESS_EDITS_FAILURE = 'FETCH_ALL_BUSINESS_EDITS_FAILURE';
 
+export const FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED = 'FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED';
+export const FETCH_BUSINESS_EDITS_BY_REGION_ID_SUCCESS = 'FETCH_BUSINESS_EDITS_BY_REGION_ID_SUCCESS';
+export const FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE = 'FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE';
+
 export const FETCH_SINGLE_BUSINESS_EDIT_STARTED = 'FETCH_SINGLE_BUSINESS_EDIT_STARTED';
 export const FETCH_SINGLE_BUSINESS_EDIT_SUCCESS = 'FETCH_SINGLE_BUSINESS_EDIT_SUCCESS';
 export const FETCH_SINGLE_BUSINESS_EDIT_FAILURE = 'FETCH_SINGLE_BUSINESS_EDIT_FAILURE';
@@ -53,6 +57,25 @@ interface FetchAllBusinessEditsSuccessAction {
 
 interface FetchAllBusinessEditsFailureAction {
   type: typeof FETCH_ALL_BUSINESS_EDITS_FAILURE;
+  payload: {
+    error: Error,
+  };
+}
+
+interface FetchBusinessEditsByRegionIdStartedAction {
+  type: typeof FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED;
+}
+
+interface FetchBusinessEditsByRegionIdSuccessAction {
+  type: typeof FETCH_BUSINESS_EDITS_BY_REGION_ID_SUCCESS;
+  payload: {
+    businessEdits: BusinessEdit[],
+    status: Status,
+  };
+}
+
+interface FetchBusinessEditsByRegionIdFailureAction {
+  type: typeof FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE;
   payload: {
     error: Error,
   };
@@ -104,6 +127,9 @@ export type BusinessEditActionTypes =
   | FetchAllBusinessEditsStartedAction
   | FetchAllBusinessEditsSuccessAction
   | FetchAllBusinessEditsFailureAction
+  | FetchBusinessEditsByRegionIdStartedAction
+  | FetchBusinessEditsByRegionIdSuccessAction
+  | FetchBusinessEditsByRegionIdFailureAction
   | FetchSingleBusinessEditStartedAction
   | FetchSingleBusinessEditSuccessAction
   | FetchSingleBusinessEditFailureAction
@@ -154,3 +180,9 @@ export enum Status {
 export type StatusBusinessEdit = {
   [key in Status]: BusinessEdit[];
 };
+
+export enum EditTransactionStatus {
+  ADDED = 'added',
+  DELETED = 'deleted',
+  UPDATED = 'updated',
+}

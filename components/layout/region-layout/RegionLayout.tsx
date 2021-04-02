@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 import {
   ReactNode,
   ReactElement,
@@ -144,6 +145,7 @@ const useStyles = makeStyles(
 const RegionLayout = ({ children, title }: Props): ReactElement => {
   const classes = useStyles();
   const { width } = useViewport();
+  const router = useRouter();
   const user = useSelector((state: RootState) => state.user);
 
   const fixedNavBreakpoint = 600;
@@ -157,10 +159,14 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
     setOpen(!open);
   };
 
+  const showBackToAll = () => {
+    return user.role === 'admin' && !router.query.amendId;
+  };
+
   return (
     <MainLayout title={title}>
       {
-        user.role === 'admin'
+        showBackToAll()
           ? <AdminBackToAll />
           : null
       }
@@ -168,7 +174,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
         className={classNames(
           classes.root,
           {
-            [classes.adminBack]: user.role === 'admin',
+            [classes.adminBack]: showBackToAll(),
           }
         )}
       >
@@ -178,7 +184,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
             classes.appBar,
             {
               [classes.appBarShift]: open,
-              [classes.appBarAdminBack]: user.role === 'admin',
+              [classes.appBarAdminBack]: showBackToAll(),
             },
           )}
         >
@@ -192,7 +198,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
             paper: classNames(
               classes.drawerPaper,
               {
-                [classes.appBarAdminBack]: user.role === 'admin',
+                [classes.appBarAdminBack]: showBackToAll(),
               },
             ),
             paperAnchorDockedLeft: classes.drawerPaperAnchorDockedLeft,

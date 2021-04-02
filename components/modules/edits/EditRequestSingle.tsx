@@ -108,9 +108,9 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
   useEffect(
     () => {
       if (!userState.loading && userState.allUsers && !userState.allUsers[businessEdit.submitter]) {
-        dispatch(fetchUserById(businessEdit.submitter));
+        // dispatch(fetchUserById(businessEdit.submitter));
       }
-      setSubmitterNameFromEdit();
+      // setSubmitterNameFromEdit();
     },
     [userState]
   );
@@ -127,7 +127,7 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
   useEffect(
     () => {
       setRegionNameFromEdit();
-      setSubmitterNameFromEdit();
+      // setSubmitterNameFromEdit();
     },
     [businessEdit]
   );
@@ -223,6 +223,7 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
         >
           {
             businessEdit.status === Status.PENDING
+            && userState.role === 'admin'
               ? (
                 <div
                   className={classNames(
@@ -233,6 +234,7 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
                   )}
                 >
                   <EditRequestAdminActions
+                    businessEditId={businessEdit.id}
                     handleActionClick={handleActionClick}
                   />
                 </div>

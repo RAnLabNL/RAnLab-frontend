@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 
 import { RootState } from '../reducers/root';
+import { EditTransactionStatus } from './businessEdit';
 
 export const ADD_BUSINESS_BY_REGION_ID_STARTED = 'ADD_BUSINESS_BY_REGION_ID_STARTED';
 export const ADD_BUSINESS_BY_REGION_ID_SUCCESS = 'ADD_BUSINESS_BY_REGION_ID_SUCCESS';
@@ -82,6 +83,7 @@ export interface Business extends BusinessField {
   employees: number;
   industry: string;
   location: number[] | string;
+  editStatus?: EditTransactionStatus;
 }
 
 export interface IndustryFilter {

@@ -18,7 +18,10 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../store';
-import { fetchAllBusinessEdits } from '../../store/actions/businessEdit';
+import {
+  fetchAllBusinessEdits,
+  fetchBusinessEditsByRegionId,
+} from '../../store/actions/businessEdit';
 import { getRegionNameById } from '../../store/helpers/region';
 import Button from '../base/Button';
 import Typography from '../base/Typography';
@@ -114,16 +117,27 @@ const NotificationsMenu = (): ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
   const regionState = useSelector((state: RootState) => state.region);
+  const userState = useSelector((state: RootState) => state.user);
+
   const [notifications, setNotifications] = useState<BusinessEdit[]>([]);
   const [unreadCount, setUnreadCount] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   useEffect(
     () => {
-      if (businessEditState && !businessEditState.loading && !businessEditState.fetched) {
-        dispatch(fetchAllBusinessEdits());
+      if (
+        businessEditState
+        && !businessEditState.loading
+        && !businessEditState.fetched
+        && userState
+        && userState.role
+      ) {
+        if (userState.role === 'admin') {
+          dispatch(fetchAllBusinessEdits());
+        }
       }
     },
     []
@@ -134,10 +148,32 @@ const NotificationsMenu = (): ReactElement => {
       if (
         businessEditState
         && !businessEditState.loading
+        && !businessEditState.fetched
+        && userState
+        && userState.role
+        && userState.role === 'region'
+        && regionState.selectedRegion
+      ) {
+        if (regionState && regionState.selectedRegion && regionState.selectedRegion !== 'all') {
+          dispatch(fetchBusinessEditsByRegionId(regionState.selectedRegion.id));
+        }
+      }
+    },
+    [regionState.selectedRegion]
+  );
+
+  useEffect(
+    () => {
+      if (
+        businessEditState
+        && !businessEditState.loading
         && businessEditState.fetched
         && businessEditState.businessEdits
       ) {
-        setNotifications(businessEditState.businessEdits[Status.PENDING].slice(0, 6));
+        const displayedNotifications = businessEditState.businessEdits[Status.PENDING].length > 6
+          ? businessEditState.businessEdits[Status.PENDING].slice(0, 6)
+          : businessEditState.businessEdits[Status.PENDING];
+        setNotifications(displayedNotifications);
         setUnreadCount(formatUnreadCount(businessEditState.businessEdits[Status.PENDING].length));
       }
     },
@@ -191,10 +227,16 @@ const NotificationsMenu = (): ReactElement => {
         onClick={handleClick}
       >
         <NotificationsIcon fontSize="small" />
-        <div className={classes.containerCount}>
-          <span>{t('notifications-menu-unread')}</span>
-          {unreadCount}
-        </div>
+        {
+          unreadCount && unreadCount !== '0'
+            ? (
+              <div className={classes.containerCount}>
+                <span>{t('notifications-menu-unread')}</span>
+                {unreadCount}
+              </div>
+            )
+            : null
+        }
       </IconButton>
       <Menu
         MenuListProps={{

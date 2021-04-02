@@ -15,7 +15,7 @@ export const getNewBusinessEdits = (
   const returnedBusinessEdits: StatusBusinessEdit = prevBusinessEdits;
   let prevBusinessEditIndex = -1;
 
-  if (newBusinessEdits.length === 1) {
+  if (newBusinessEdits.length === 1 && status) {
     prevBusinessEdits[status].forEach((edit, index) => {
       if (edit.id === newBusinessEdits[0].id) {
         prevBusinessEditIndex = index;

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { getHeaders } from '../helpers/headers';
 import { Business } from '../types/business';
 import {
@@ -7,6 +9,9 @@ import {
   FETCH_ALL_BUSINESS_EDITS_SUCCESS,
   FETCH_ALL_BUSINESS_EDITS_STARTED,
   FETCH_ALL_BUSINESS_EDITS_FAILURE,
+  FETCH_BUSINESS_EDITS_BY_REGION_ID_SUCCESS,
+  FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED,
+  FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE,
   FETCH_SINGLE_BUSINESS_EDIT_SUCCESS,
   FETCH_SINGLE_BUSINESS_EDIT_STARTED,
   FETCH_SINGLE_BUSINESS_EDIT_FAILURE,
@@ -28,6 +33,7 @@ export const addBusinessEdit = (transactions: BusinessEditTransactions): Busines
       if (user && user.id) {
         const regionId = region.selectedRegion.id;
         const { adds, updates, deletes: deletesBusinesses } = transactions;
+        // TODO refactor this when updates available
         const deletes: string[] = [];
 
         deletesBusinesses.forEach((business: Business) => {
@@ -57,7 +63,8 @@ export const addBusinessEdit = (transactions: BusinessEditTransactions): Busines
           const data = await response.json();
           const businessEditWithId = {
             id: data.id,
-            dateSubmitted: data.dateSubmitted,
+            dateSubmitted: moment().format(),
+            dateUpdated: moment().format(),
             ...businessEditInfo,
             ...transactions,
           };
@@ -133,6 +140,46 @@ const fetchAllBusinessEditsSuccess = (businessEdits: BusinessEdit[]) => {
 
 const fetchAllBusinessEditsFailure = (error: Error) => ({
   type: FETCH_ALL_BUSINESS_EDITS_FAILURE,
+  payload: {
+    error,
+  },
+});
+
+export const fetchBusinessEditsByRegionId = (regionId: string): BusinessEditThunkResult => {
+  return async (dispatch: BusinessEditThunkDispatch, getState) => {
+    dispatch(fetchBusinessEditsByRegionIdStarted());
+    const { auth0 } = getState();
+    const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/region/${regionId}/edits`;
+    try {
+      const response = await fetch(api, {
+        method: 'GET',
+        headers: getHeaders(auth0.token),
+      });
+
+      const data = await response.json();
+      dispatch(fetchBusinessEditsByRegionIdSuccess(data.editRequests));
+    }
+    catch (e) {
+      dispatch(fetchBusinessEditsByRegionIdFailure(e));
+    }
+  };
+};
+
+const fetchBusinessEditsByRegionIdStarted = () => ({
+  type: FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED,
+});
+
+const fetchBusinessEditsByRegionIdSuccess = (businessEdits: BusinessEdit[]) => {
+  return {
+    type: FETCH_BUSINESS_EDITS_BY_REGION_ID_SUCCESS,
+    payload: {
+      businessEdits,
+    },
+  };
+};
+
+const fetchBusinessEditsByRegionIdFailure = (error: Error) => ({
+  type: FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE,
   payload: {
     error,
   },
