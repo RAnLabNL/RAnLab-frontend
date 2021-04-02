@@ -8,10 +8,13 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useSelector, useDispatch } from  'react-redux';
 
 import { useViewport } from '../../../providers/viewport';
 import createShadow from '../../../styles/helpers/createShadow';
 import { fade } from '../../../styles/helpers/color';
+import { RootState } from '../../../store';
+import { setSelectedRegion } from '../../../store/actions/region';
 
 import MainLayout from '../MainLayout';
 import UserToolbar from '../UserToolbar';
@@ -127,6 +130,8 @@ const useStyles = makeStyles(
 const AdminLayout = ({ children, title }: Props): ReactElement => {
   const classes = useStyles();
   const { width } = useViewport();
+  const regionState = useSelector((state: RootState) => state.region);
+  const dispatch = useDispatch();
 
   const fixedNavBreakpoint = 600;
   const [open, setOpen] = useState(width >= fixedNavBreakpoint);
@@ -138,6 +143,15 @@ const AdminLayout = ({ children, title }: Props): ReactElement => {
   const toggleDrawerOpen = () => {
     setOpen(!open);
   };
+
+  useEffect(
+    () => {
+      if (regionState.selectedRegion !== 'all') {
+        dispatch(setSelectedRegion('all'));
+      }
+    },
+    []
+  );
 
   return (
     <MainLayout title={title}>

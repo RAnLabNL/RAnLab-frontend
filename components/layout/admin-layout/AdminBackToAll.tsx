@@ -47,7 +47,7 @@ const AdminBackToAll = (): ReactElement => {
 
   return (
     <div className={classes.root}>
-      <Link href="/admin">
+      <Link href="/edits">
         <a className={classes.linkBack} onClick={handleBackClick}>
           <KeyboardBackspaceIcon className={classes.iconBack} />
           {t('admin-back-to-all-button')}
