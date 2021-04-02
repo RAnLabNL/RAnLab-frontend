@@ -6,6 +6,9 @@ import {
   SET_USER_PROFILE_SUCCESS,
   SET_USER_PROFILE_STARTED,
   SET_USER_PROFILE_FAILURE,
+  SET_USER_MANAGER_BY_ID_SUCCESS,
+  SET_USER_MANAGER_BY_ID_STARTED,
+  SET_USER_MANAGER_BY_ID_FAILURE,
   FETCH_ALL_USERS_SUCCESS,
   FETCH_ALL_USERS_STARTED,
   FETCH_ALL_USERS_FAILURE,
@@ -13,6 +16,7 @@ import {
   FETCH_USER_BY_ID_STARTED,
   FETCH_USER_BY_ID_FAILURE,
   UserProfile,
+  AllUsersProfile,
   UserRole,
   UserThunkResult,
   UserThunkDispatch,
@@ -121,6 +125,63 @@ const setUserProfileFailure = (error: Error) => ({
   },
 });
 
+export const setUserManagerById = (userId: string, manages: string[]): UserThunkResult => {
+  return async (dispatch: UserThunkDispatch, getState) => {
+    dispatch(setUserManagerByIdStarted());
+    const { auth0, user: userState } = getState();
+
+    if (auth0.token !== null) {
+      if (userState.allUsers) {
+        try {
+          const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/users/${userId}`;
+          const usersResponse = await fetch(
+            api,
+            {
+              method: 'POST',
+              headers: getHeaders(auth0.token),
+              body: JSON.stringify({
+                app_metadata: {
+                  ...userState.allUsers[userId].role,
+                  manages,
+                },
+              }),
+            }
+          );
+  
+          await usersResponse.json();
+          dispatch(setUserManagerByIdSuccess(userId, manages));
+        }
+        catch (e) {
+          dispatch(setUserManagerByIdFailure(e));
+        }
+      }
+    }
+    else {
+      const noTokenError = new Error('Auth0 access token not set.');
+      dispatch(setUserManagerByIdFailure(noTokenError));
+    }
+  };
+};
+
+const setUserManagerByIdStarted = () => ({
+  type: SET_USER_MANAGER_BY_ID_STARTED,
+});
+
+const setUserManagerByIdSuccess = (userId: string, manages: string[]) => ({
+  type: SET_USER_MANAGER_BY_ID_SUCCESS,
+  payload: {
+    userId,
+    manages,
+  },
+});
+
+const setUserManagerByIdFailure = (error: Error) => ({
+  type: SET_USER_MANAGER_BY_ID_FAILURE,
+  payload: {
+    error,
+  },
+});
+
 export const fetchAllUsers = (): UserThunkResult => {
   return async (dispatch: UserThunkDispatch, getState) => {
     dispatch(fetchAllUsersStarted());
@@ -128,7 +189,6 @@ export const fetchAllUsers = (): UserThunkResult => {
 
     if (auth0.token !== null) {
       try {
-        //Fetch user profile
         const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/users`;
         const usersResponse = await fetch(
           api,
@@ -139,21 +199,32 @@ export const fetchAllUsers = (): UserThunkResult => {
         );
         const data = await usersResponse.json();
 
-        console.log('users', data);
+        const users: AllUsersProfile = {};
+        data.users.forEach(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore 
+          user => {
+            const userId = user.user_id.split('auth0|')[1];
+            users[userId] = {
+              id: userId,
+              email: user.email,
+              firstName: user.user_metadata.firstName,
+              lastName: user.user_metadata.lastName,
+              manages: user.app_metadata.manages ? user.app_metadata.manages : [],
+              role: user.app_metadata.role,
+            };
+          }
+        );
 
-        // const userProfile = user_metadata || null;
-        // const userRole = app_metadata && app_metadata.role ? app_metadata.role : 'region';
-        // const regionIds = app_metadata && app_metadata.manages ? app_metadata.manages : [];
-
-        // dispatch(setUserSuccess(userId, userProfile, userRole, regionIds));
+        dispatch(fetchAllUsersSuccess(users));
       }
       catch (e) {
-        dispatch(fetchUserByIdFailure(e));
+        dispatch(fetchAllUsersFailure(e));
       }
     }
     else {
       const noTokenError = new Error('Auth0 access token not set.');
-      dispatch(setUserFailure(noTokenError));
+      dispatch(fetchAllUsersFailure(noTokenError));
     }
   };
 };
@@ -162,7 +233,7 @@ const fetchAllUsersStarted = () => ({
   type: FETCH_ALL_USERS_STARTED,
 });
 
-const fetchAllUsersSuccess = (users: UserProfile[]) => ({
+const fetchAllUsersSuccess = (users: AllUsersProfile) => ({
   type: FETCH_ALL_USERS_SUCCESS,
   payload: {
     users,
@@ -197,6 +268,7 @@ export const fetchUserById = (id: string): UserThunkResult => {
           firstName: data.userInfo.user_metadata.firstName,
           lastName: data.userInfo.user_metadata.lastName,
           email: data.userInfo.email,
+          manages: data.userInfo.app_metadata.role,
         };
         dispatch(fetchUserByIdSuccess(id, profile));
       }

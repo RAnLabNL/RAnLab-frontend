@@ -61,12 +61,9 @@ export const addBusinessEdit = (transactions: BusinessEditTransactions): Busines
             ...businessEditInfo,
             ...transactions,
           };
-          console.log(response);
-          console.log(businessEditWithId);
           dispatch(addBusinessEditSuccess(businessEditWithId));
         }
         catch (e) {
-          console.log(e);
           dispatch(addBusinessEditFailure(e));
         }
       }
