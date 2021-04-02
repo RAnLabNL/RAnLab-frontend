@@ -24,6 +24,7 @@ const initialState: UserState = {
   id: null,
   role: null,
   profile: null,
+  profileLoading: false,
   regionIds: [],
   allUsers: {},
 };
@@ -32,7 +33,6 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
   const prevAllUsers = state.allUsers ? state.allUsers : {};
   switch (action.type) {
     case SET_USER_STARTED:
-    case SET_USER_PROFILE_STARTED:
     case SET_USER_MANAGER_BY_ID_STARTED:
     case FETCH_ALL_USERS_STARTED:
     case FETCH_USER_BY_ID_STARTED:
@@ -40,14 +40,24 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
         ...state,
         loading: true,
       };
+    case SET_USER_PROFILE_STARTED:
+      return {
+        ...state,
+        profileLoading: true,
+      };
     case SET_USER_FAILURE:
-    case SET_USER_PROFILE_FAILURE:
     case SET_USER_MANAGER_BY_ID_FAILURE:
     case FETCH_ALL_USERS_FAILURE:
     case FETCH_USER_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,
+        error: action.payload.error,
+      };
+    case SET_USER_PROFILE_FAILURE:
+      return {
+        ...state,
+        profileLoading: false,
         error: action.payload.error,
       };
     case SET_USER_SUCCESS:
@@ -63,7 +73,7 @@ const userReducer = (state = initialState, action: UserActionTypes): UserState =
     case SET_USER_PROFILE_SUCCESS:
       return {
         ...state,
-        loading: false,
+        profileLoading: false,
         error: null,
         profile: action.payload.profile,
       };

@@ -91,7 +91,7 @@ const ProfileForm = (): ReactElement => {
   };
 
   useEffect(() => {
-    if (!user.loading && user.error && profileSaving) {
+    if (!user.profileLoading && user.error && profileSaving) {
       setAlertInfo({
         message: t('profile-form-submit-error'),
         severity: 'error',
@@ -99,7 +99,7 @@ const ProfileForm = (): ReactElement => {
       setAlertSnackbarOpen(true);
       setProfileSaving(false);
     }
-    if (!user.loading && !user.error && profileSaving) {
+    if (!user.profileLoading && !user.error && profileSaving) {
       setAlertInfo({
         message: t('profile-form-submit-success'),
         severity: 'success',
@@ -107,7 +107,7 @@ const ProfileForm = (): ReactElement => {
       setAlertSnackbarOpen(true);
       setProfileSaving(false);
     }
-  }, [user.loading, user.profile, user.error]);
+  }, [user.profileLoading, user.profile, user.error]);
 
   const getDefaultValue = (key: Extract<keyof UserProfile, string>): string => {
     let defaultVal: string | undefined = '';

@@ -162,6 +162,7 @@ export interface UserState {
   id?: string | null;
   role?: UserRole | null;
   profile?: UserProfile | null;
+  profileLoading: boolean;
   regionIds?: number[] | null;
   allUsers?: AllUsersProfile,
 }
