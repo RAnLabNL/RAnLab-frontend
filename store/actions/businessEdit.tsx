@@ -32,15 +32,7 @@ export const addBusinessEdit = (transactions: BusinessEditTransactions): Busines
     if (region.selectedRegion && region.selectedRegion !== 'all') {
       if (user && user.id) {
         const regionId = region.selectedRegion.id;
-        const { adds, updates, deletes: deletesBusinesses } = transactions;
-        // TODO refactor this when updates available
-        const deletes: string[] = [];
-
-        deletesBusinesses.forEach((business: Business) => {
-          if (business.id) {
-            deletes.push(business.id);
-          }
-        });
+        const { adds, updates, deletes } = transactions;
 
         const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/region/${regionId}/edits`;
         try {
