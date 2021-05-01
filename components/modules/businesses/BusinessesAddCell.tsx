@@ -1,6 +1,15 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import MenuItem from '@material-ui/core/MenuItem';
-import { ChangeEvent, ReactElement, useState } from 'react';
+import {
+  ChangeEvent,
+  ReactElement,
+  useState,
+  useEffect,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '../../../store';
+import { fetchIndustryFilters } from '../../../store/actions/filters';
 import FilterTextField from '../../base/FilterTextField';
 import FilterSelect from '../../base/FilterSelect';
 
@@ -21,11 +30,42 @@ const BusinessesAddCell = (props: Props): ReactElement => {
     field,
     label,
   } = props;
+  const dispatch = useDispatch();
+  const [value, setValue] = useState<string | number | number[] | undefined>(defaultValue);
+  const [industriesLoading, setIndustriesLoading] = useState<boolean>(true);
+  const filtersState = useSelector((state: RootState) => state.filters);
+
 
   // Used for id and name
   const id = `add-business-${field}`;
 
-  const [value, setValue] = useState<string | number | number[] | undefined>(defaultValue);
+  useEffect(
+    () => {
+      if (
+        !filtersState.loading
+        && (!filtersState.industries || !filtersState.industries.length)
+      ) {
+        dispatch(fetchIndustryFilters());
+      }
+      else {
+        setIndustriesLoading(false);
+      }
+    },
+    [],
+  );
+
+  useEffect(
+    () => {
+      if (
+        !filtersState.loading
+        && !filtersState.error
+        && filtersState.industries
+      ) {
+        setIndustriesLoading(false);
+      }
+    },
+    [filtersState.industries]
+  );
 
   /**
    * Handles changes of field values, sends value change to parent component.
@@ -48,31 +88,32 @@ const BusinessesAddCell = (props: Props): ReactElement => {
 
   switch (field) {
     case 'industry':
-      return (
-        <FilterSelect
-          FormControlProps={{
-            fullWidth: true,
-          }}
-          handleChange={handleValueChange}
-          id={id}
-          label={label}
-          name={id}
-          value={value}
-        >
-          <MenuItem value="">
-            --
-          </MenuItem>
-          <MenuItem value="Air transportation">
-            Air transportation
-          </MenuItem>
-          <MenuItem value="Construction">
-            Construction
-          </MenuItem>
-          <MenuItem value="Building material and garden equipment and supplies dealers">
-            Building material and garden equipment and supplies dealers
-          </MenuItem>
-        </FilterSelect>
-      );
+      return industriesLoading
+        ? <CircularProgress />
+        : (
+          <FilterSelect
+            FormControlProps={{
+              fullWidth: true,
+            }}
+            handleChange={handleValueChange}
+            id={id}
+            label={label}
+            name={id}
+            value={value}
+          >
+            <MenuItem value="">
+              --
+            </MenuItem>
+            {
+              filtersState.industries
+              && filtersState.industries.map((industry) => (
+                <MenuItem value={industry} key={industry}>
+                  {industry}
+                </MenuItem>
+              ))
+            }
+          </FilterSelect>
+        );
     default:
       return (
         <FilterTextField
