@@ -40,7 +40,7 @@ const useStyles = makeStyles(
         },
       },
       adminBack: {
-        marginTop: adminBackHeight,
+        paddingTop: adminBackHeight,
       },
       appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -198,7 +198,7 @@ const RegionLayout = ({ children, title }: Props): ReactElement => {
             paper: classNames(
               classes.drawerPaper,
               {
-                [classes.appBarAdminBack]: showBackToAll(),
+                [classes.drawerPaperAdminBack]: showBackToAll(),
               },
             ),
             paperAnchorDockedLeft: classes.drawerPaperAnchorDockedLeft,
