@@ -109,9 +109,9 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
   useEffect(
     () => {
       if (!userState.loading && userState.allUsers && !userState.allUsers[businessEdit.submitter]) {
-        // dispatch(fetchUserById(businessEdit.submitter));
+        dispatch(fetchUserById(businessEdit.submitter));
       }
-      // setSubmitterNameFromEdit();
+      setSubmitterNameFromEdit();
     },
     [userState]
   );
@@ -128,7 +128,7 @@ const EditRequestAdmin = ({ businessEdit }: Props): ReactElement => {
   useEffect(
     () => {
       setRegionNameFromEdit();
-      // setSubmitterNameFromEdit();
+      setSubmitterNameFromEdit();
     },
     [businessEdit]
   );
