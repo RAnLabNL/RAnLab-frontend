@@ -5,6 +5,7 @@ import {
   Auth0State,
   BusinessEditState,
   BusinessState,
+  FiltersState,
   InfoDialogState,
   RegionState,
   TourState,
@@ -13,6 +14,7 @@ import {
 import auth0 from './auth0';
 import businessEdit from './businessEdit';
 import business from './business';
+import filters from './filters';
 import infoDialog from './infoDialog';
 import region from './region';
 import tour from './tour';
@@ -22,6 +24,7 @@ const combinedReducer = combineReducers({
   auth0,
   businessEdit,
   business,
+  filters,
   infoDialog,
   region,
   tour,
@@ -32,6 +35,7 @@ export type RootState = {
   auth0: Auth0State,
   businessEdit: BusinessEditState,
   business: BusinessState,
+  filters: FiltersState,
   infoDialog: InfoDialogState,
   region: RegionState,
   tour: TourState,
