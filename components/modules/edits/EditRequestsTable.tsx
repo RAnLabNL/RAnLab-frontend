@@ -90,12 +90,9 @@ const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
           userState
           && userState.allUsers
           && edit.submitter
-          // TODO remove this after data cleanup
-          && edit.submitter !== 'first'
-          && edit.submitter !== 'second'
           && !userState.allUsers[edit.submitter]
         ) {
-          // dispatch(fetchUserById(edit.submitter));
+          dispatch(fetchUserById(edit.submitter));
         }
       });
     },
@@ -168,14 +165,11 @@ const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
         case 'submitter':
           if (
             value
-            // TODO remove after data cleanup
-            && value !== 'first'
-            && value !== 'second'
             && !userState.loading
             && userState.allUsers
             && userState.allUsers[value]
           ) {
-            // return `${userState.allUsers[value].firstName} ${userState.allUsers[value].lastName}`;
+            return `${userState.allUsers[value].firstName} ${userState.allUsers[value].lastName}`;
           }
           break;
         case 'dateSubmitted':
