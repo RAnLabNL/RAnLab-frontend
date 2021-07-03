@@ -24,6 +24,11 @@ export const SET_BUSINESS_EDIT_STATUS_STARTED = 'SET_BUSINESS_EDIT_STATUS_STARTE
 export const SET_BUSINESS_EDIT_STATUS_SUCCESS = 'SET_BUSINESS_EDIT_STATUS_SUCCESS';
 export const SET_BUSINESS_EDIT_STATUS_FAILURE = 'SET_BUSINESS_EDIT_STATUS_FAILURE';
 
+export const AMEND_BUSINESS_EDIT_STARTED = 'AMEND_BUSINESS_EDIT_STARTED';
+export const AMEND_BUSINESS_EDIT_SUCCESS = 'AMEND_BUSINESS_EDIT_SUCCESS';
+export const AMEND_BUSINESS_EDIT_FAILURE = 'AMEND_BUSINESS_EDIT_FAILURE';
+
+
 interface AddBusinessEditStartedAction {
   type: typeof ADD_BUSINESS_EDIT_STARTED;
 }
@@ -120,6 +125,26 @@ interface SetBusinessEditStatusFailureAction {
   };
 }
 
+interface AmendBusinessEditStartedAction {
+  type: typeof AMEND_BUSINESS_EDIT_STARTED;
+}
+
+interface AmendBusinessEditSuccessAction {
+  type: typeof AMEND_BUSINESS_EDIT_SUCCESS;
+  payload: {
+    businessEdit: BusinessEdit,
+    prevStatus: Status,
+    newStatus: Status,
+  };
+}
+
+interface AmendBusinessEditFailureAction {
+  type: typeof AMEND_BUSINESS_EDIT_FAILURE;
+  payload: {
+    error: Error,
+  };
+}
+
 export type BusinessEditActionTypes =
   AddBusinessEditStartedAction
   | AddBusinessEditSuccessAction
@@ -135,7 +160,10 @@ export type BusinessEditActionTypes =
   | FetchSingleBusinessEditFailureAction
   | SetBusinessEditStatusStartedAction
   | SetBusinessEditStatusSuccessAction
-  | SetBusinessEditStatusFailureAction;
+  | SetBusinessEditStatusFailureAction
+  | AmendBusinessEditStartedAction
+  | AmendBusinessEditSuccessAction
+  | AmendBusinessEditFailureAction;
 
 export type BusinessEditThunkResult = ThunkAction<void, RootState, undefined, BusinessEditActionTypes>;
 

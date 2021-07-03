@@ -14,6 +14,9 @@ import {
   SET_BUSINESS_EDIT_STATUS_SUCCESS,
   SET_BUSINESS_EDIT_STATUS_STARTED,
   SET_BUSINESS_EDIT_STATUS_FAILURE,
+  AMEND_BUSINESS_EDIT_SUCCESS,
+  AMEND_BUSINESS_EDIT_STARTED,
+  AMEND_BUSINESS_EDIT_FAILURE,
   BusinessEditActionTypes,
   BusinessEditState,
   Status,
@@ -50,6 +53,7 @@ const businessEditReducer = (
     case FETCH_BUSINESS_EDITS_BY_REGION_ID_STARTED:
     case FETCH_SINGLE_BUSINESS_EDIT_STARTED:
     case SET_BUSINESS_EDIT_STATUS_STARTED:
+    case AMEND_BUSINESS_EDIT_STARTED:
       return {
         ...state,
         loading: true,
@@ -59,6 +63,7 @@ const businessEditReducer = (
     case FETCH_BUSINESS_EDITS_BY_REGION_ID_FAILURE:
     case FETCH_SINGLE_BUSINESS_EDIT_FAILURE:
     case SET_BUSINESS_EDIT_STATUS_FAILURE:
+    case AMEND_BUSINESS_EDIT_FAILURE:
       return {
         ...state,
         loading: false,
@@ -97,6 +102,7 @@ const businessEditReducer = (
         singleBusinessEdit: action.payload.businessEdit,
       };
     case SET_BUSINESS_EDIT_STATUS_SUCCESS:
+    case AMEND_BUSINESS_EDIT_SUCCESS:
       return {
         ...state,
         loading: false,

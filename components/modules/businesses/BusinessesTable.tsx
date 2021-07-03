@@ -102,6 +102,7 @@ const BusinessesTable = (props: Props): ReactElement => {
   const onGridReady = (
     { api, columnApi } : { api: GridOptions['api'], columnApi: GridOptions['columnApi'] }
   ) => {
+    console.log('grid ready', api, columnApi);
     setGridApi(api);
     setColumnApi(columnApi);
     setAmendmentTransactions();
@@ -109,6 +110,7 @@ const BusinessesTable = (props: Props): ReactElement => {
 
   useEffect(
     () => {
+      console.log('grid api change', gridApi);
       if (gridApi) {
         setAmendmentTransactions();
       }
@@ -130,14 +132,9 @@ const BusinessesTable = (props: Props): ReactElement => {
       }
 
       if (transactions.deletes.length) {
-        // TODO refactor this once deletes updated to array of Businesses
-        // eslint-disable-next-line
-        // @ts-ignore
-        transactions.deletes.forEach((transaction: string) => {
+        transactions.deletes.forEach(transaction => {
           rowData.forEach((row, key) => {
-            console.log('row id', row);
-            console.log('t id', transaction);
-            if (row.id === transaction) {
+            if (row.id === transaction.id) {
               newRowData[key].editStatus = EditTransactionStatus.DELETED;
             }
           });
@@ -148,13 +145,13 @@ const BusinessesTable = (props: Props): ReactElement => {
         transactions.updates.forEach(transaction => {
           rowData.forEach((row, key) => {
             if (row.id === transaction.id) {
+              newRowData[key] = transaction;
               newRowData[key].editStatus = EditTransactionStatus.UPDATED;
             }
           });
         });
       }
 
-      console.log('new', newRowData);
       gridApi.setRowData(newRowData);
     }
   };
@@ -448,8 +445,7 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param row Given row
    * @param e Click event
    */
-  const handleSingleRowRemove = (row: Business, e: MouseEvent) => {
-    e.preventDefault();
+  const handleSingleRowRemove = (row: Business, gridApi: GridOptions['api']) => {
     if (gridApi) {
       const gridResponse = gridApi.applyTransaction({
         remove: [row],
@@ -462,6 +458,39 @@ const BusinessesTable = (props: Props): ReactElement => {
 
       const newTransactions = removeTransaction(gridResponse.remove[0].data);
       setTransactions(newTransactions);
+    }
+  };
+
+  /**
+   * Restores a single row
+   * @param row Business data
+   * @param gridApi Grid API
+   */
+  const handleSingleRowRestore = (row: Business, gridApi: GridOptions['api']) => {
+    console.log(row);
+    console.log(gridApi);
+    if (gridApi && row.id) {
+      const newRowData = rowData;
+      rowData.forEach((r, key) => {
+        if (r.id === row.id) {
+          newRowData[key].editStatus = undefined;
+        }
+      });
+      console.log('new data', newRowData);
+      gridApi.setRowData(newRowData);
+
+      const newDeletes = transactions.deletes.filter((deletedRow) => { return deletedRow.id !== row.id; });
+      setTransactions({
+        adds: transactions.adds,
+        updates: transactions.updates,
+        deletes: newDeletes,
+      });
+
+      setAlertInfo({
+        message: 'Business successfully restored.',
+        severity: 'success',
+      });
+      setAlertSnackbarOpen(true);
     }
   };
 
@@ -531,7 +560,7 @@ const BusinessesTable = (props: Props): ReactElement => {
   /**
    * Adds the current values to the table
    */
-  const handleRowAdd = () => {
+  const handleRowAdd = (gridApi: GridOptions['api']) => {
     if (gridApi) {
       const {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -614,12 +643,17 @@ const BusinessesTable = (props: Props): ReactElement => {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actionsCellRenderer = (params: any) => {
-    const type = params.data.id === 'add' ? 'add' : 'default';
+    let type: 'add' | 'restore' | 'default' = params.data.id === 'add' ? 'add' : 'default';
+    if (params.data.editStatus === 'deleted') {
+      type = 'restore';
+    }
     return (
       <BusinessesActionCell
         disabled={!addValuesRef.current.valid}
-        handleAddClick={handleRowAdd}
-        handleRemoveClick={(e) => handleSingleRowRemove(params.data, e)}
+        handleAddClick={() => handleRowAdd(params.api)}
+        handleRemoveClick={() => handleSingleRowRemove(params.data, params.api)}
+        handleRestoreClick={() => handleSingleRowRestore(params.data, params.api)}
+        rowId={params.data.id}
         type={type}
       />
     );
