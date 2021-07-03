@@ -38,7 +38,7 @@ import { addBusinessEdit } from '../store/actions/businessEdit';
 import { fetchBusinessesByRegionId } from '../store/actions/business';
 import { fetchSingleBusinessEdit } from '../store/actions/businessEdit';
 import { BusinessEditTransactions, BusinessEdit } from '../store/types/businessEdit';
-import { fetchIndustryFilters } from '../store/actions/filters';
+import { fetchIndustryFilters, fetchYearFilters } from '../store/actions/filters';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -133,6 +133,13 @@ const Businesses = (): ReactElement => {
         && (!filtersState.industries || !filtersState.industries.length)
       ) {
         dispatch(fetchIndustryFilters());
+      }
+
+      if (
+        !filtersState.loading
+        && (!filtersState.years || !filtersState.years.length)
+      ) {
+        dispatch(fetchYearFilters());
       }
     },
     [],

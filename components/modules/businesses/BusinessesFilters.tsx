@@ -9,20 +9,16 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  IndustryFilter,
-  YearFilter,
-} from '../../../store/types/business';
 import FilterSelect from '../../base/FilterSelect';
 import FilterTextField from '../../base/FilterTextField';
 import Typography from '../../base/Typography';
 
 type Props = {
-  industries: IndustryFilter[],
+  industries: string[],
   setBusinessIndustryFilter: (industry: string) => void,
   setBusinessNameFilter: (name: string) => void,
   setBusinessYearFilter: (year: number) => void,
-  years: YearFilter[],
+  years: number[],
 };
 
 const useStyles = makeStyles(
@@ -133,10 +129,10 @@ const Businesses = (props: Props): ReactElement => {
             {
               years && years.map(yearFilter => (
                 <MenuItem
-                  key={yearFilter.year}
-                  value={yearFilter.year}
+                  key={yearFilter}
+                  value={yearFilter}
                 >
-                  {yearFilter.year}
+                  {yearFilter}
                 </MenuItem>
               ))
             }
@@ -166,10 +162,10 @@ const Businesses = (props: Props): ReactElement => {
             {
               industries && industries.map(industryFilter => (
                 <MenuItem
-                  key={industryFilter.industry}
-                  value={industryFilter.industry}
+                  key={industryFilter}
+                  value={industryFilter}
                 >
-                  {industryFilter.industry}
+                  {industryFilter}
                 </MenuItem>
               ))
             }
