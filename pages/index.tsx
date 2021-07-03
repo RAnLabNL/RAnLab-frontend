@@ -9,8 +9,6 @@ const Home = (): ReactElement => {
   const router = useRouter();
   const user = useSelector((state: RootState) => state.user);
 
-  console.log('index load');
-
   useEffect(() => {
     if (user.role !== null && user.role === 'region') {
       router.push(`/${user.role}`);

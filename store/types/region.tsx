@@ -15,6 +15,10 @@ export const SET_SELECTED_REGION_STARTED = 'SET_SELECTED_REGION_STARTED';
 export const SET_SELECTED_REGION_SUCCESS = 'SET_SELECTED_REGION_SUCCESS';
 export const SET_SELECTED_REGION_FAILURE = 'SET_SELECTED_REGION_FAILURE';
 
+export const GET_SELECTED_REGION_STARTED = 'GET_SELECTED_REGION_STARTED';
+export const GET_SELECTED_REGION_SUCCESS = 'GET_SELECTED_REGION_SUCCESS';
+export const GET_SELECTED_REGION_FAILURE = 'GET_SELECTED_REGION_FAILURE';
+
 interface AddRegionStartedAction {
   type: typeof ADD_REGION_STARTED;
 }
@@ -69,6 +73,24 @@ interface SetSelectedRegionFailureAction {
   };
 }
 
+interface GetSelectedRegionStartedAction {
+  type: typeof GET_SELECTED_REGION_STARTED;
+}
+
+interface GetSelectedRegionSuccessAction {
+  type: typeof GET_SELECTED_REGION_SUCCESS;
+  payload: {
+    selectedRegion: Region,
+  };
+}
+
+interface GetSelectedRegionFailureAction {
+  type: typeof GET_SELECTED_REGION_FAILURE;
+  payload: {
+    error: Error,
+  };
+}
+
 export type RegionActionTypes =
   AddRegionStartedAction
   | AddRegionSuccessAction
@@ -78,7 +100,10 @@ export type RegionActionTypes =
   | FetchRegionsFailureAction
   | SetSelectedRegionStartedAction
   | SetSelectedRegionSuccessAction
-  | SetSelectedRegionFailureAction;
+  | SetSelectedRegionFailureAction
+  | GetSelectedRegionStartedAction
+  | GetSelectedRegionSuccessAction
+  | GetSelectedRegionFailureAction;
 
 export type RegionThunkResult = ThunkAction<void, RootState, undefined, RegionActionTypes>;
 
@@ -96,3 +121,5 @@ export interface Region {
   name: string;
   manager: string;
 }
+
+export const LS_SELECTED_REGION = 'SELECTED-REGION';
