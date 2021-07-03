@@ -124,6 +124,7 @@ const componentName = (): ReactElement => {
   useEffect(
     () => {
       if (!regionState.regions) {
+        console.log('RegionMenu', 'fetch all regions');
         dispatch(fetchRegions());
       }
 
@@ -137,10 +138,12 @@ const componentName = (): ReactElement => {
           //   router.push('/admin');
           // }
           setRegion('all');
+          console.log('RegionMenu', 'set selected region to all');
           dispatch(setSelectedRegion('all'));
         }
         else {
           setRegion(regionState.regions[0].id);
+          console.log('RegionMenu', 'set selected region');
           dispatch(setSelectedRegion(regionState.regions[0]));
         }
       }
@@ -166,6 +169,7 @@ const componentName = (): ReactElement => {
       });
       selectedRegion = regionFromList[0];
     }
+    console.log('RegionMenu', 'set selected region');
     dispatch(setSelectedRegion(selectedRegion));
     navigateToPage(selectedRegion);
   };

@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from  'react-redux';
+import { useSelector } from  'react-redux';
 
 import { RootState } from '../../../store';
-import { fetchAllBusinessEdits } from '../../../store/actions/businessEdit';
 import { Status } from '../../../store/types/businessEdit';
 import Typography from '../../base/Typography';
 import EditRequestsTable from './EditRequestsTable';
@@ -27,29 +26,10 @@ const useStyles = makeStyles(
 );
 
 const UpdatesAdmin = (): ReactElement => {
-  const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
 
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
-  const userState = useSelector((state: RootState) => state.user);
-
-  useEffect(
-    () => {
-      if (
-        businessEditState
-        && !businessEditState.loading
-        && !businessEditState.fetched
-        && userState
-        && userState.role
-      ) {
-        if (userState.role === 'admin') {
-          dispatch(fetchAllBusinessEdits());
-        }
-      }
-    },
-    [],
-  );
 
   const renderEditsTable = (status: Status) => {
     const render = [
