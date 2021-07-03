@@ -38,6 +38,7 @@ import { addBusinessEdit } from '../store/actions/businessEdit';
 import { fetchBusinessesByRegionId } from '../store/actions/business';
 import { fetchSingleBusinessEdit } from '../store/actions/businessEdit';
 import { BusinessEditTransactions, BusinessEdit } from '../store/types/businessEdit';
+import { fetchIndustryFilters } from '../store/actions/filters';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -115,6 +116,7 @@ const Businesses = (): ReactElement => {
   const businessState = useSelector((state: RootState) => state.business);
   const businessEditState = useSelector((state: RootState) => state.businessEdit);
   const user = useSelector((state: RootState) => state.user);
+  const filtersState = useSelector((state: RootState) => state.filters);
 
   const [amendId, setAmendId] = useState<string | undefined>();
   const [businessEdit, setBusinessEdit] = useState<BusinessEdit | undefined>();
@@ -124,6 +126,13 @@ const Businesses = (): ReactElement => {
       if (router.query.amendId && !Array.isArray(router.query.amendId)) {
         setAmendId(router.query.amendId);
         dispatch(fetchSingleBusinessEdit(router.query.amendId));
+      }
+
+      if (
+        !filtersState.loading
+        && (!filtersState.industries || !filtersState.industries.length)
+      ) {
+        dispatch(fetchIndustryFilters());
       }
     },
     [],

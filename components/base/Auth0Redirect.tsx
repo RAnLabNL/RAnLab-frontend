@@ -33,11 +33,6 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
     }
   };
 
-
-  if (auth0.token === null && !auth0.loading) {
-    getAccessToken();
-  }
-
   useEffect(() => {
     if (auth0.token !== null && user.profile === null && !user.loading && auth0User) {
       dispatch(setUser(auth0User.sub));
@@ -45,6 +40,10 @@ const Auth0Redirect = ({ children }: Props): ReactElement => {
   }, [auth0.token, auth0User]);
 
   useEffect(() => {
+    if (auth0.token === null && !auth0.loading) {
+      getAccessToken();
+    }
+
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }

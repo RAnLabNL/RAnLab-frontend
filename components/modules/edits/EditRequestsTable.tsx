@@ -13,15 +13,12 @@ import {
   MouseEvent,
   ReactElement,
   useState,
-  useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { RootState } from '../../../store';
-import { fetchRegions } from '../../../store/actions/region';
-import { fetchUserById } from '../../../store/actions/user';
 import { getRegionNameById } from '../../../store/helpers/region';
 import { Business } from '../../../store/types/business';
 import { BusinessEdit, Status } from '../../../store/types/businessEdit';
@@ -66,38 +63,12 @@ const useStyles = makeStyles(
 
 const UpdateRequestTable = ({ admin, businessEdits }: Props): ReactElement => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const { t } = useTranslation('components');
   const classes = useStyles();
   const [page, setPage] = useState<number>(0);
   const rowsPerPage = admin ? 5 : 10;
   const regionState = useSelector((state: RootState) => state.region);
   const userState = useSelector((state: RootState) => state.user);
-
-  useEffect(
-    () => {
-      if (!regionState.loading && regionState.regions && !regionState.regions.length) {
-        dispatch(fetchRegions());
-      }
-    },
-    [regionState],
-  );
-
-  useEffect(
-    () => {
-      businessEdits.forEach(edit => {
-        if (
-          userState
-          && userState.allUsers
-          && edit.submitter
-          && !userState.allUsers[edit.submitter]
-        ) {
-          dispatch(fetchUserById(edit.submitter));
-        }
-      });
-    },
-    [],
-  );
 
   const adminHeadings = [
     'business-update-request-heading-region',

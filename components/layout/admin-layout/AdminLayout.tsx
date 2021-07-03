@@ -147,6 +147,7 @@ const AdminLayout = ({ children, title }: Props): ReactElement => {
   useEffect(
     () => {
       if (regionState.selectedRegion !== 'all') {
+        console.log('AdminLayout', 'set selected region to all');
         dispatch(setSelectedRegion('all'));
       }
     },
