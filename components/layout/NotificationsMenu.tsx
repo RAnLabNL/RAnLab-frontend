@@ -136,7 +136,6 @@ const NotificationsMenu = (): ReactElement => {
         && userState.role
       ) {
         if (userState.role === 'admin') {
-          console.log('NotificationsMenu', 'fetch all business edits');
           dispatch(fetchAllBusinessEdits());
         }
       }
@@ -156,7 +155,6 @@ const NotificationsMenu = (): ReactElement => {
         && regionState.selectedRegion
       ) {
         if (regionState && regionState.selectedRegion && regionState.selectedRegion !== 'all') {
-          console.log('NotificationsMenu', 'fetch business edits by region id');
           dispatch(fetchBusinessEditsByRegionId(regionState.selectedRegion.id));
         }
       }

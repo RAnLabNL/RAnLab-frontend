@@ -65,7 +65,6 @@ const RegionWalkthroughButton = (): ReactElement => {
   useEffect(
     () => {
       if (!mainTour) {
-        console.log('RegionTourButton', 'fetch tour by id');
         dispatch(fetchTourById(PRISMIC_TOUR_ID));
       }
       else {
