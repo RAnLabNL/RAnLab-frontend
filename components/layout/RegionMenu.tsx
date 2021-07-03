@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from  'react-redux';
 
 import { RootState } from '../../store';
-import { fetchRegions, setSelectedRegion } from '../../store/actions/region';
+import { fetchRegions, getSelectedRegion, setSelectedRegion } from '../../store/actions/region';
 import { Region } from '../../store/types/region';
 import createShadow from '../../styles/helpers/createShadow';
 
@@ -124,28 +124,10 @@ const componentName = (): ReactElement => {
   useEffect(
     () => {
       if (!regionState.regions) {
-        console.log('RegionMenu', 'fetch all regions');
         dispatch(fetchRegions());
       }
-
-      if (
-        !regionState.selectedRegion
-        && regionState.regions
-        && regionState.regions.length
-      ) {
-        if (user.role === 'admin') {
-          // if (router.pathname !== 'admin' && router.pathname !== 'management') {
-          //   router.push('/admin');
-          // }
-          setRegion('all');
-          console.log('RegionMenu', 'set selected region to all');
-          dispatch(setSelectedRegion('all'));
-        }
-        else {
-          setRegion(regionState.regions[0].id);
-          console.log('RegionMenu', 'set selected region');
-          dispatch(setSelectedRegion(regionState.regions[0]));
-        }
+      else {
+        dispatch(getSelectedRegion());
       }
     },
     [regionState.regions]
@@ -169,7 +151,6 @@ const componentName = (): ReactElement => {
       });
       selectedRegion = regionFromList[0];
     }
-    console.log('RegionMenu', 'set selected region');
     dispatch(setSelectedRegion(selectedRegion));
     navigateToPage(selectedRegion);
   };

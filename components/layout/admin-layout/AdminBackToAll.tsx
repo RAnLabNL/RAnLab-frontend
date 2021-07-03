@@ -42,7 +42,6 @@ const AdminBackToAll = (): ReactElement => {
   const dispatch = useDispatch();
 
   const handleBackClick = () => {
-    console.log('AdminBackToAll', 'set selected region to all');
     dispatch(setSelectedRegion('all'));
   };
 

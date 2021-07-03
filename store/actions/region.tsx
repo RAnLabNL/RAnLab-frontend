@@ -9,9 +9,13 @@ import {
   SET_SELECTED_REGION_SUCCESS,
   SET_SELECTED_REGION_STARTED,
   SET_SELECTED_REGION_FAILURE,
+  GET_SELECTED_REGION_SUCCESS,
+  GET_SELECTED_REGION_STARTED,
+  GET_SELECTED_REGION_FAILURE,
   Region,
   RegionThunkResult,
   RegionThunkDispatch,
+  LS_SELECTED_REGION,
 } from '../types/region';
 
 export const addRegion = (
@@ -110,6 +114,7 @@ export const setSelectedRegion = (selectedRegion: Region | 'all'): RegionThunkRe
     const { region: regionState } = getState();
 
     if (selectedRegion === 'all') {
+      window.localStorage.setItem(LS_SELECTED_REGION, selectedRegion);
       dispatch(setSelectedRegionSuccess('all'));
     }
     else {
@@ -119,6 +124,7 @@ export const setSelectedRegion = (selectedRegion: Region | 'all'): RegionThunkRe
         });
   
         if (validRegion.length) {
+          window.localStorage.setItem(LS_SELECTED_REGION, selectedRegion.id);
           dispatch(setSelectedRegionSuccess(selectedRegion));
         }
         else {
@@ -147,6 +153,75 @@ const setSelectedRegionSuccess = (selectedRegion: Region | 'all') => {
 
 const setSelectedRegionFailure = (error: Error) => ({
   type: SET_SELECTED_REGION_FAILURE,
+  payload: {
+    error,
+  },
+});
+
+export const getSelectedRegion = (): RegionThunkResult => {
+  return async (dispatch: RegionThunkDispatch, getState) => {
+    dispatch(getSelectedRegionStarted());
+    const { region: regionState, user: userState } = getState();
+    const selectedRegion = window.localStorage.getItem(LS_SELECTED_REGION);
+
+    // If selected region found in LS
+    if (selectedRegion) {
+      if (selectedRegion === 'all') {
+        dispatch(getSelectedRegionSuccess('all'));
+      }
+      else {
+        
+        if (regionState.regions) {
+          const validRegion = regionState.regions.filter((region: Region) => {
+            return region.id === selectedRegion;
+          });
+    
+          if (validRegion.length) {
+            dispatch(getSelectedRegionSuccess(validRegion[0]));
+          }
+          else {
+            dispatch(getSelectedRegionFailure(new Error('Selected region does not exist.')));
+          }
+        }
+        else {
+          dispatch(getSelectedRegionFailure(new Error('User-managed regions unknown.')));
+        }
+      }
+    }
+    // Not found in LS
+    else {
+      if (userState.role === 'admin') {
+        window.localStorage.setItem(LS_SELECTED_REGION, 'all');
+        dispatch(getSelectedRegionSuccess('all'));
+      }
+      else {
+        if (regionState.regions) {
+          window.localStorage.setItem(LS_SELECTED_REGION, regionState.regions[0].id);
+          dispatch(getSelectedRegionSuccess(regionState.regions[0]));
+        }
+        else {
+          dispatch(getSelectedRegionFailure(new Error('User-managed regions unknown.')));
+        }
+      }
+    }
+  };
+};
+
+const getSelectedRegionStarted = () => ({
+  type: GET_SELECTED_REGION_STARTED,
+});
+
+const getSelectedRegionSuccess = (selectedRegion: Region | 'all') => {
+  return {
+    type: GET_SELECTED_REGION_SUCCESS,
+    payload: {
+      selectedRegion,
+    },
+  };
+};
+
+const getSelectedRegionFailure = (error: Error) => ({
+  type: GET_SELECTED_REGION_FAILURE,
   payload: {
     error,
   },

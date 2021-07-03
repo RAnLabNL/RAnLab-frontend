@@ -9,6 +9,9 @@ import {
   SET_SELECTED_REGION_SUCCESS,
   SET_SELECTED_REGION_STARTED,
   SET_SELECTED_REGION_FAILURE,
+  GET_SELECTED_REGION_SUCCESS,
+  GET_SELECTED_REGION_STARTED,
+  GET_SELECTED_REGION_FAILURE,
   RegionActionTypes,
   RegionState,
 } from '../types/region';
@@ -27,6 +30,7 @@ const regionReducer = (
     case ADD_REGION_STARTED:
     case FETCH_REGIONS_STARTED:
     case SET_SELECTED_REGION_STARTED:
+    case GET_SELECTED_REGION_STARTED:
       return {
         ...state,
         loading: true,
@@ -34,6 +38,7 @@ const regionReducer = (
     case ADD_REGION_FAILURE:
     case FETCH_REGIONS_FAILURE:
     case SET_SELECTED_REGION_FAILURE:
+    case GET_SELECTED_REGION_FAILURE:
       return {
         ...state,
         loading: false,
@@ -60,6 +65,7 @@ const regionReducer = (
         ],
       };
     case SET_SELECTED_REGION_SUCCESS:
+    case GET_SELECTED_REGION_SUCCESS:
       return {
         ...state,
         loading: false,
