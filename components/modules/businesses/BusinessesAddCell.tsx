@@ -6,10 +6,9 @@ import {
   useState,
   useEffect,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { RootState } from '../../../store';
-import { fetchIndustryFilters } from '../../../store/actions/filters';
 import FilterTextField from '../../base/FilterTextField';
 import FilterSelect from '../../base/FilterSelect';
 
@@ -30,29 +29,12 @@ const BusinessesAddCell = (props: Props): ReactElement => {
     field,
     label,
   } = props;
-  const dispatch = useDispatch();
   const [value, setValue] = useState<string | number | number[] | undefined>(defaultValue);
   const [industriesLoading, setIndustriesLoading] = useState<boolean>(true);
   const filtersState = useSelector((state: RootState) => state.filters);
 
-
   // Used for id and name
   const id = `add-business-${field}`;
-
-  useEffect(
-    () => {
-      if (
-        !filtersState.loading
-        && (!filtersState.industries || !filtersState.industries.length)
-      ) {
-        dispatch(fetchIndustryFilters());
-      }
-      else {
-        setIndustriesLoading(false);
-      }
-    },
-    [],
-  );
 
   useEffect(
     () => {
