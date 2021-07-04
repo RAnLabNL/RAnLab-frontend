@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { getHeaders } from '../helpers/headers';
-import { Business } from '../types/business';
+import { Region } from '../types/region';
 import {
   ADD_BUSINESS_EDIT_SUCCESS,
   ADD_BUSINESS_EDIT_STARTED,
@@ -18,6 +18,9 @@ import {
   SET_BUSINESS_EDIT_STATUS_SUCCESS,
   SET_BUSINESS_EDIT_STATUS_STARTED,
   SET_BUSINESS_EDIT_STATUS_FAILURE,
+  AMEND_BUSINESS_EDIT_SUCCESS,
+  AMEND_BUSINESS_EDIT_STARTED,
+  AMEND_BUSINESS_EDIT_FAILURE,
   BusinessEdit,
   BusinessEditTransactions,
   BusinessEditThunkResult,
@@ -222,6 +225,7 @@ export const setBusinessEditStatus = (id: string, prevStatus: Status, newStatus:
     dispatch(setBusinessEditStatusStarted());
     const { auth0 } = getState();
     const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/edits/${id}`;
+    // TODO - investigate approval workflow issues
     try {
       const response = await fetch(api, {
         method: 'POST',
@@ -265,3 +269,83 @@ const setBusinessEditStatusFailure = (error: Error) => ({
     error,
   },
 });
+
+export const amendBusinessEdit = (id: string, transactions: BusinessEditTransactions): BusinessEditThunkResult => {
+  return async (dispatch: BusinessEditThunkDispatch, getState) => {
+    dispatch(amendBusinessEditStarted());
+    const {
+      auth0,
+      businessEdit: businessEditState,
+    } = getState();
+    const api = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/edits/${id}`;
+    try {
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: getHeaders(auth0.token),
+        body: JSON.stringify({
+          status: Status.AMENDED,
+        }),
+      });
+      const originalResponse = await response.json();
+
+      if (businessEditState.singleBusinessEdit) {
+        const regionId = businessEditState.singleBusinessEdit.regionId;
+        const pendingApi = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/region/${regionId}/edits`;
+        const pendingResponse = await fetch(pendingApi, {
+          method: 'POST',
+          headers: getHeaders(auth0.token),
+          body: JSON.stringify({
+            ...businessEditState.singleBusinessEdit,
+            ...transactions,
+          }),
+        });
+        const pendingData = await pendingResponse.json();
+
+        const approvedApi = `${process.env.NEXT_PUBLIC_AUTH0_API_AUDIENCE}/edits/${pendingData.id}`;
+        const approvedResponse = await fetch(approvedApi, {
+          method: 'POST',
+          headers: getHeaders(auth0.token),
+          body: JSON.stringify({
+            status: Status.APPROVED,
+          }),
+        });
+
+        await approvedResponse.json();
+        dispatch(amendBusinessEditSuccess(originalResponse.editRequest, Status.PENDING, Status.AMENDED));
+      }
+      else {
+        dispatch(amendBusinessEditFailure(new Error('Single business edit not found.')));
+      }
+    }
+    catch (e) {
+      dispatch(amendBusinessEditFailure(e));
+    }
+  };
+};
+
+const amendBusinessEditStarted = () => ({
+  type: AMEND_BUSINESS_EDIT_STARTED,
+});
+
+const amendBusinessEditSuccess = (
+  businessEdit: BusinessEdit,
+  prevStatus: Status,
+  newStatus: Status,
+) => {
+  return {
+    type: AMEND_BUSINESS_EDIT_SUCCESS,
+    payload: {
+      businessEdit,
+      prevStatus,
+      newStatus,
+    },
+  };
+};
+
+const amendBusinessEditFailure = (error: Error) => ({
+  type: AMEND_BUSINESS_EDIT_FAILURE,
+  payload: {
+    error,
+  },
+});
+
