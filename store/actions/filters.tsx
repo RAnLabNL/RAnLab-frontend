@@ -3,6 +3,8 @@ import {
   FETCH_INDUSTRY_FILTERS_SUCCESS,
   FETCH_INDUSTRY_FILTERS_STARTED,
   FETCH_INDUSTRY_FILTERS_FAILURE,
+  FETCH_YEAR_FILTERS_SUCCESS,
+  FETCH_YEAR_FILTERS_STARTED,
   FiltersThunkResult,
   FiltersThunkDispatch,
 } from '../types/filters';
@@ -46,3 +48,25 @@ const fetchIndustryFiltersFailure = (error: Error) => ({
     error,
   },
 });
+
+export const fetchYearFilters = (): FiltersThunkResult => {
+  return (dispatch: FiltersThunkDispatch) => {
+    dispatch(fetchYearFiltersStarted());
+    // TODO update with years from API
+    const years = [2019, 2020, 2021];
+    dispatch(fetchYearFiltersSuccess(years));
+  };
+};
+
+const fetchYearFiltersStarted = () => ({
+  type: FETCH_YEAR_FILTERS_STARTED,
+});
+
+const fetchYearFiltersSuccess = (years: number[]) => {
+  return {
+    type: FETCH_YEAR_FILTERS_SUCCESS,
+    payload: {
+      years,
+    },
+  };
+};

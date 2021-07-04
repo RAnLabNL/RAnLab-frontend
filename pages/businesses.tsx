@@ -36,9 +36,9 @@ import BusinessesTourButton from '../components/modules/businesses/BusinessesTou
 import { RootState } from '../store';
 import { addBusinessEdit } from '../store/actions/businessEdit';
 import { fetchBusinessesByRegionId } from '../store/actions/business';
-import { fetchSingleBusinessEdit } from '../store/actions/businessEdit';
+import { fetchSingleBusinessEdit, amendBusinessEdit } from '../store/actions/businessEdit';
 import { BusinessEditTransactions, BusinessEdit } from '../store/types/businessEdit';
-import { fetchIndustryFilters } from '../store/actions/filters';
+import { fetchIndustryFilters, fetchYearFilters } from '../store/actions/filters';
 
 const useStyles = makeStyles(
   (theme) => {
@@ -133,6 +133,13 @@ const Businesses = (): ReactElement => {
         && (!filtersState.industries || !filtersState.industries.length)
       ) {
         dispatch(fetchIndustryFilters());
+      }
+
+      if (
+        !filtersState.loading
+        && (!filtersState.years || !filtersState.years.length)
+      ) {
+        dispatch(fetchYearFilters());
       }
     },
     [],
@@ -249,6 +256,15 @@ const Businesses = (): ReactElement => {
     setLeaveEditsAlertOpen(false);
   };
 
+  useEffect(
+    () => {
+      if (amendId) {
+        setBusinessEditingEnabled(true);
+      }
+    },
+    [amendId]
+  );
+
   // Transaction Record
 
   const [transactions, setTransactions] = useState<BusinessEditTransactions>({
@@ -278,7 +294,12 @@ const Businesses = (): ReactElement => {
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   const handleConfirmBusinessUpdates = () => {
-    dispatch(addBusinessEdit({ ...transactions }));
+    if (amendId) {
+      dispatch(amendBusinessEdit(amendId, transactions));
+    }
+    else {
+      dispatch(addBusinessEdit({ ...transactions }));
+    }
   };
 
   const handleSaveSuccessBack = () => {
@@ -296,13 +317,18 @@ const Businesses = (): ReactElement => {
   useEffect(
     () => {
       if (showConfirmation && !businessEditState.loading) {
-        if (businessEditState.error) {
-          setErrorSnackbarOpen(true);
+        if (amendId) {
+          router.push(`/edits/request?id=${amendId}`);
         }
         else {
-          setShowConfirmation(false);
-          setShowSuccess(true);
-          setErrorSnackbarOpen(false);
+          if (businessEditState.error) {
+            setErrorSnackbarOpen(true);
+          }
+          else {
+            setShowConfirmation(false);
+            setShowSuccess(true);
+            setErrorSnackbarOpen(false);
+          }
         }
       }
     },

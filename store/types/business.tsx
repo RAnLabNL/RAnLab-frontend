@@ -86,19 +86,9 @@ export interface Business extends BusinessField {
   editStatus?: EditTransactionStatus;
 }
 
-export interface IndustryFilter {
-  count: number;
-  industry: string;
-}
-
-export interface YearFilter {
-  count: number;
-  year: number;
-}
-
 export interface Filters {
-  industries: IndustryFilter[],
-  years: YearFilter[],
+  industries: string[],
+  years: number[],
 }
 
 export interface RegionBusiness {
