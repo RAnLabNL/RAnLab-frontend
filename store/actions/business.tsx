@@ -66,6 +66,7 @@ export const fetchBusinessesByRegionId = (id: string): BusinessThunkResult => {
       });
 
       const data = await response.json();
+
       dispatch(fetchBusinessesByRegionIdSuccess(
         data.businesses,
         data.filters,
