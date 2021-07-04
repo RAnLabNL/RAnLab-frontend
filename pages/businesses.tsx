@@ -295,6 +295,7 @@ const Businesses = (): ReactElement => {
 
   const handleConfirmBusinessUpdates = () => {
     if (amendId) {
+      clearTransactionEditStatus();
       dispatch(amendBusinessEdit(amendId, transactions));
     }
     else {
@@ -302,17 +303,22 @@ const Businesses = (): ReactElement => {
     }
   };
 
+  const clearTransactionEditStatus = () => {
+    transactions.adds.forEach(row => {
+      row.edit_status = undefined;
+    });
+    transactions.updates.forEach(row => {
+      row.edit_status = undefined;
+    });
+    transactions.deletes.forEach(row => {
+      row.edit_status = undefined;
+    });
+  };
+
   const handleSaveSuccessBack = () => {
     setBusinessEditingEnabled(false);
     setShowSuccess(false);
   };
-
-  useEffect(
-    () => {
-      console.log(transactions);
-    },
-    [transactions]
-  );
 
   useEffect(
     () => {
