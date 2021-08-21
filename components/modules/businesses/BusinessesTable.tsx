@@ -102,17 +102,21 @@ const BusinessesTable = (props: Props): ReactElement => {
   const onGridReady = (
     { api, columnApi } : { api: GridOptions['api'], columnApi: GridOptions['columnApi'] }
   ) => {
-    console.log('grid ready', api, columnApi);
     setGridApi(api);
     setColumnApi(columnApi);
-    setAmendmentTransactions();
   };
 
   useEffect(
     () => {
-      console.log('grid api change', gridApi);
       if (gridApi) {
-        setAmendmentTransactions();
+        gridApi.setRowData(originalData);
+        if (
+          transactions.adds.length
+          || transactions.updates.length
+          || transactions.deletes.length
+        ) {
+          setAmendmentTransactions();
+        }
       }
     },
     [gridApi]
@@ -126,7 +130,7 @@ const BusinessesTable = (props: Props): ReactElement => {
         transactions.adds.forEach(transaction => {
           newRowData.unshift({
             ...transaction,
-            editStatus: EditTransactionStatus.ADDED,
+            edit_status: EditTransactionStatus.ADDED,
           });
         });
       }
@@ -135,7 +139,7 @@ const BusinessesTable = (props: Props): ReactElement => {
         transactions.deletes.forEach(transaction => {
           rowData.forEach((row, key) => {
             if (row.id === transaction.id) {
-              newRowData[key].editStatus = EditTransactionStatus.DELETED;
+              newRowData[key].edit_status = EditTransactionStatus.DELETED;
             }
           });
         });
@@ -146,7 +150,7 @@ const BusinessesTable = (props: Props): ReactElement => {
           rowData.forEach((row, key) => {
             if (row.id === transaction.id) {
               newRowData[key] = transaction;
-              newRowData[key].editStatus = EditTransactionStatus.UPDATED;
+              newRowData[key].edit_status = EditTransactionStatus.UPDATED;
             }
           });
         });
@@ -200,14 +204,14 @@ const BusinessesTable = (props: Props): ReactElement => {
       cellClass = classes.cellActions;
     }
     // Amendment classes
-    if (params.data.editStatus) {
-      if (params.data.editStatus === EditTransactionStatus.ADDED) {
+    if (params.data.edit_status) {
+      if (params.data.edit_status === EditTransactionStatus.ADDED) {
         cellClass = classes.cellAmendmentAdded;
       }
-      if (params.data.editStatus === EditTransactionStatus.DELETED) {
+      if (params.data.edit_status === EditTransactionStatus.DELETED) {
         cellClass = classes.cellAmendmentDeleted;
       }
-      if (params.data.editStatus === EditTransactionStatus.UPDATED) {
+      if (params.data.edit_status === EditTransactionStatus.UPDATED) {
         cellClass = classes.cellAmendmentUpdated;
       }
     }
@@ -467,16 +471,13 @@ const BusinessesTable = (props: Props): ReactElement => {
    * @param gridApi Grid API
    */
   const handleSingleRowRestore = (row: Business, gridApi: GridOptions['api']) => {
-    console.log(row);
-    console.log(gridApi);
     if (gridApi && row.id) {
       const newRowData = rowData;
       rowData.forEach((r, key) => {
         if (r.id === row.id) {
-          newRowData[key].editStatus = undefined;
+          newRowData[key].edit_status = undefined;
         }
       });
-      console.log('new data', newRowData);
       gridApi.setRowData(newRowData);
 
       const newDeletes = transactions.deletes.filter((deletedRow) => { return deletedRow.id !== row.id; });
@@ -644,7 +645,7 @@ const BusinessesTable = (props: Props): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actionsCellRenderer = (params: any) => {
     let type: 'add' | 'restore' | 'default' = params.data.id === 'add' ? 'add' : 'default';
-    if (params.data.editStatus === 'deleted') {
+    if (params.data.edit_status === 'deleted') {
       type = 'restore';
     }
     return (
